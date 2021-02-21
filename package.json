@@ -1,0 +1,55 @@
+{
+  "name": "qoq-sequelize",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "types/index.d.ts",
+  "repository": "git@github.com:qoq-ts/qoq-sequelize.git",
+  "author": "原罪 <531362022@qq.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest --runInBand",
+    "prepublishOnly": "sh ./prepublish.sh",
+    "postinstall": "rm -rf ./sequelize-types && cp -r ./node_modules/sequelize/types/ ./sequelize-types"
+  },
+  "engines": {
+    "node": ">=10.17.0"
+  },
+  "files": [
+    "es",
+    "lib",
+    "types",
+    "package.json",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "peerDependencies": {
+    "qoq": ">=0.0.19"
+  },
+  "dependencies": {
+    "@types/validator": "13.1.3",
+    "chalk": "4.1.0",
+    "glob": "7.1.6",
+    "lodash.snakecase": "4.1.1",
+    "mkdirp": "1.0.4",
+    "sequelize": "6.5.0",
+    "topic": "^2.0.0",
+    "tslib": "2.1.0",
+    "umzug": "3.0.0-beta.15"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "@types/lodash.snakecase": "^4.1.6",
+    "@types/mkdirp": "^1.0.1",
+    "@types/node": "^14.14.31",
+    "@types/rimraf": "^3.0.0",
+    "jest": "^26.6.3",
+    "public-refactor": "^0.5.1",
+    "qoq": "^0.0.19",
+    "rimraf": "^3.0.2",
+    "sqlite3": "^5.0.2",
+    "ts-jest": "^26.5.1",
+    "typescript": "^4.1.5"
+  }
+}
