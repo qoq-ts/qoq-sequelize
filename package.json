@@ -10,8 +10,8 @@
   "scripts": {
     "test": "jest --runInBand",
     "prepublishOnly": "sh ./prepublish.sh",
-    "postinstall": "rm -rf ./sequelize-types && cp -r ./node_modules/sequelize/types/ ./sequelize-types",
-    "type": "sh scripts/createTypeFile.sh"
+    "type": "sh scripts/createTypeFile.sh",
+    "diff": "sh scripts/diffTypes.sh"
   },
   "engines": {
     "node": ">=10.17.0"
