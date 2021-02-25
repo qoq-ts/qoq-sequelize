@@ -7,9 +7,8 @@ import { TemporaryModel } from '../model/TemporaryModel';
 import { Sequelize } from '../model/Sequelize';
 import { QueryInterface } from '../types/override/QueryInterface';
 
-const parseMigrations = (sequelize: Sequelize, dir: string): RunnableMigration<QueryInterface>[] => {
+const parseMigrations = (dir: string): RunnableMigration<QueryInterface>[] => {
   const migrationList: RunnableMigration<QueryInterface>[] = [];
-  const queryInferface = sequelize.getQueryInterface();
 
   glob.sync(path.resolve(dir, '**/!(*.d).{ts,js}')).forEach((fileName) => {
     const modules = require(fileName);
@@ -19,7 +18,7 @@ const parseMigrations = (sequelize: Sequelize, dir: string): RunnableMigration<Q
       migrationList.push({
         // Omit the extension to make name globally
         name: path.basename(fileName, path.extname(fileName)),
-        ...defaultModule.transform(queryInferface),
+        ...defaultModule.execute(),
       });
     }
   });
@@ -34,9 +33,10 @@ const createStorage = (sequelize: Sequelize) => {
   });
 };
 
-export const createUmzugForMigration = (sequelize: Sequelize): Umzug<QueryInterface> => {
+const createUmzug = (sequelize: Sequelize, path: string): Umzug<QueryInterface> => {
   const umzug = new Umzug<QueryInterface>({
-    migrations: parseMigrations(sequelize, sequelize.migrationsPath),
+    migrations: parseMigrations(path),
+    context: sequelize.getQueryInterface(),
     storage: createStorage(sequelize),
     logger: undefined,
   });
@@ -44,18 +44,14 @@ export const createUmzugForMigration = (sequelize: Sequelize): Umzug<QueryInterf
   registerEvents(umzug);
 
   return umzug;
+}
+
+export const createUmzugForMigration = (sequelize: Sequelize): Umzug<QueryInterface> => {
+  return createUmzug(sequelize, sequelize.migrationsPath);
 };
 
 export const createUmzugForSeeder = (sequelize: Sequelize): Umzug<QueryInterface> => {
-  const umzug = new Umzug<QueryInterface>({
-    migrations: parseMigrations(sequelize, sequelize.seedersPath),
-    storage: createStorage(sequelize),
-    logger: undefined,
-  });
-
-  registerEvents(umzug);
-
-  return umzug;
+  return createUmzug(sequelize, sequelize.seedersPath);
 };
 
 const registerEvents = (umzug: Umzug<QueryInterface>) => {

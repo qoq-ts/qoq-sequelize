@@ -1,10 +1,10 @@
 import { seed } from 'qoq-sequelize';
 
 export default seed({
-  async up() {
+  async up(queryInterface) {
 
   },
-  async down() {
+  async down(queryInterface) {
 
   }
 });

@@ -1,17 +1,18 @@
+import { RunnableMigration } from 'umzug';
 import { QueryInterface } from '../types/override/QueryInterface';
 
 export interface MigrationOptions {
-  up: (this: QueryInterface) => Promise<any>;
-  down: (this: QueryInterface) => Promise<any>;
+  up: (this: undefined, queryInterface: QueryInterface) => Promise<any>;
+  down: (this: undefined, queryInterface: QueryInterface) => Promise<any>;
 }
 
 export class MigrationHelper {
   constructor(protected readonly options: MigrationOptions) {}
 
-  transform(queryInterface: QueryInterface): MigrationOptions {
+  execute(): Pick<RunnableMigration<QueryInterface>, 'up' | 'down'> {
     return {
-      up: () => this.options.up.call(queryInterface),
-      down: () => this.options.down.call(queryInterface),
+      up: ({ context }) => this.options.up.call(undefined, context),
+      down: ({ context }) => this.options.down.call(undefined, context),
     };
   }
 }

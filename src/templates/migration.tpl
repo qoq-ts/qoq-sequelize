@@ -1,10 +1,10 @@
 import { migration } from 'qoq-sequelize';
 
 export default migration({
-  async up() {
+  async up(queryInterface) {
 
   },
-  async down() {
+  async down(queryInterface) {
 
   }
 });
