@@ -1,6 +1,6 @@
 import { DataType } from 'sequelize/types';
 import { AssociationOptions } from './AssociationOptions';
-import { Model } from './model';
+import { Model } from './Model';
 
 /**
  * Options provided when associating models with hasOne relationship

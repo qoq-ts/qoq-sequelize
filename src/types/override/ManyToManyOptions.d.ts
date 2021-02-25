@@ -1,6 +1,6 @@
 import { AssociationOptions } from './AssociationOptions';
 import { AssociationScope } from './AssociationScope';
-import { Model } from './model';
+import { Model } from './Model';
 
 /**
  * Options provided for many-to-many relationships

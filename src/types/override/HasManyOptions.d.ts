@@ -1,6 +1,6 @@
 import { DataType } from 'sequelize';
 import { ManyToManyOptions } from './ManyToManyOptions';
-import { Model } from './model';
+import { Model } from './Model';
 
 /**
  * Options provided when associating models with hasMany relationship

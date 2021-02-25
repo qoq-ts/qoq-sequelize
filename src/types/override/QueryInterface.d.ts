@@ -1,7 +1,7 @@
 import { QueryInterfaceOptions, QueryInterfaceDropAllTablesOptions, QueryOptions, QueryInterfaceCreateTableOptions, QueryInterfaceDropTableOptions, Logging, QueryInterfaceIndexOptions, WhereOptions, QueryOptionsWithWhere, FunctionParam, QueryOptionsWithForce, Transaction, CreateDatabaseOptions, AddConstraintOptions, ColumnsDescription, TableName } from 'sequelize';
 import { Sequelize } from '../../model/Sequelize';
 import { AdvancedColumn } from '../../columns/AdvancedColumn';
-import { Model } from './model';
+import { Model } from './Model';
 import { SetRequired } from 'sequelize/types/type-helpers/set-required';
 
 /**

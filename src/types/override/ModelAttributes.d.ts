@@ -1,5 +1,5 @@
 import { DataType } from 'sequelize';
-import { Model } from './model';
+import { Model } from './Model';
 import { ModelAttributeColumnOptions } from './ModelAttributeColumnOptions';
 
 /**

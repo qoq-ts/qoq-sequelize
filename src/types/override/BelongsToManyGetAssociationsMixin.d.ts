@@ -1,6 +1,6 @@
 import { FindAttributeOptions } from './FindAttributeOptions';
 import { FindOptions } from './FindOptions';
-import { Model } from './model';
+import { Model } from './Model';
 
 /**
  * The getAssociations mixin applied to models with belongsToMany.

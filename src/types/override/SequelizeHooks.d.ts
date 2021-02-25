@@ -1,7 +1,7 @@
 import { Config, Options } from 'sequelize';
 import { HookReturn } from 'sequelize/types/lib/hooks';
 import { Sequelize } from '../../model/Sequelize';
-import { Model } from './model';
+import { Model } from './Model';
 import { ModelAttributes } from './ModelAttributes';
 import { ModelHooks } from './ModelHooks';
 import { ModelOptions } from './ModelOptions';

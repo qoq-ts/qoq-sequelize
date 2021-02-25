@@ -1,5 +1,5 @@
 import { AssociationScope } from './AssociationScope';
-import { Model } from './model';
+import { Model } from './Model';
 
 /**
  * Used for a association table in n:m associations.

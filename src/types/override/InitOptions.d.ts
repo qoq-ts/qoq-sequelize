@@ -1,5 +1,5 @@
 import { Sequelize } from '../../model/Sequelize';
-import { Model } from './model';
+import { Model } from './Model';
 import { ModelOptions } from './ModelOptions';
 
 /**

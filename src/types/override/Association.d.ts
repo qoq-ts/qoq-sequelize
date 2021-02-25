@@ -1,5 +1,5 @@
 // import { Association } from 'sequelize';
-import { Model } from './model';
+import { Model } from './Model';
 import { ModelCtor } from './ModelCtor';
 
 export abstract class Association<S extends Model = Model, T extends Model = Model> {

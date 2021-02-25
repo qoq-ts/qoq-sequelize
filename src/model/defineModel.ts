@@ -1,7 +1,7 @@
 import { BaseColumn } from '../columns/BaseColumn';
 import { IncludeAssociation, AssociationToModels } from '../types/custom/AssociationType';
 import { RealColumnTypes } from '../types/custom/ColumnType';
-import { Model } from '../types/override/model';
+import { Model } from '../types/override/Model';
 import { ModelCtor } from '../types/override/ModelCtor';
 import { ModelOptions } from '../types/override/ModelOptions';
 import { TemporaryModel } from './TemporaryModel';

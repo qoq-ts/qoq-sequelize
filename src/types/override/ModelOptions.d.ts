@@ -1,6 +1,6 @@
 import { ModelIndexesOptions, ModelNameOptions, ModelValidateOptions } from 'sequelize';
 import { FindOptions } from './FindOptions';
-import { Model } from './model';
+import { Model } from './Model';
 import { ModelHooks } from './ModelHooks';
 
 /** ###################

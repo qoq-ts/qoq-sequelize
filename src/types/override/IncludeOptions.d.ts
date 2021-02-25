@@ -2,7 +2,7 @@ import { Filterable, Paranoid, WhereOptions } from 'sequelize';
 import { Association } from './Association';
 import { Includeable } from './Includeable';
 import { IncludeThroughOptions } from './IncludeThroughOptions';
-import { Model } from './model';
+import { Model } from './Model';
 import { Order } from './Order';
 import { Projectable } from './Projectable';
 

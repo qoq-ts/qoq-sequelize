@@ -5,7 +5,7 @@ import { BulkCreateOptions } from './BulkCreateOptions';
 import { CountOptions } from './CountOptions';
 import { CreateOptions } from './CreateOptions';
 import { FindOptions } from './FindOptions';
-import { Model } from './model';
+import { Model } from './Model';
 
 /**
  * Options for Model.init. We mostly duplicate the Hooks here, since there is no way to combine the two

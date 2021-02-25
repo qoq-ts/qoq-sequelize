@@ -1,5 +1,5 @@
 import { BindOrReplacements, FieldMap, Logging, Poolable, RetryOptions, Transactionable } from 'sequelize/types';
-import { Model } from './model';
+import { Model } from './Model';
 
 /**
  * Interface for query options

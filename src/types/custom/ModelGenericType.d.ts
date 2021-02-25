@@ -1,4 +1,4 @@
-import { Model } from '../override/model';
+import { Model } from '../override/Model';
 import { IncludeAssociation } from './AssociationType';
 
 export type TModelAttrs<M extends Model> = M extends Model<infer R> ? R : {};

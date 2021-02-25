@@ -1,5 +1,5 @@
 import { Col, Fn, Literal } from 'sequelize/types/lib/utils';
-import { Model } from './model';
+import { Model } from './Model';
 import { ModelStatic } from './ModelStatic';
 
 type OrderItemAssociation = { model: ModelStatic<Model>; as: string };

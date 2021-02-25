@@ -1,6 +1,6 @@
 import { Association } from './Association';
 import { IncludeOptions } from './IncludeOptions';
-import { Model } from './model';
+import { Model } from './Model';
 
 /**
  * Options for eager-loading associated models, also allowing for all associations to be loaded at once

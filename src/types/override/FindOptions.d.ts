@@ -1,6 +1,6 @@
 import { Filterable, GroupOption, IndexHintable, LOCK, Paranoid, WhereOptions } from 'sequelize';
 import { Includeable } from './Includeable';
-import { Model } from './model';
+import { Model } from './Model';
 import { ModelStatic } from './ModelStatic';
 import { Order } from './Order';
 import { Projectable } from './Projectable';

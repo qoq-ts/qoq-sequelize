@@ -30,7 +30,7 @@ import { HasOneCreateAssociationMixin } from '../override/HasOneCreateAssociatio
 import { HasOneGetAssociationMixin } from '../override/HasOneGetAssociationMixin';
 import { HasOneSetAssociationMixin } from '../override/HasOneSetAssociationMixin';
 import { IncludeOptions } from '../override/IncludeOptions';
-import { Model } from '../override/model';
+import { Model } from '../override/Model';
 import { ModelCtor } from '../override/ModelCtor';
 import { ModelStatic } from '../override/ModelStatic';
 import { ScopeOptions } from '../override/ScopeOptions';

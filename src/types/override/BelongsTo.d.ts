@@ -1,7 +1,7 @@
 import { SingleAssociationAccessors } from 'sequelize';
 import { Association } from './Association';
 import { BelongsToOptions } from './BelongsToOptions';
-import { Model } from './model';
+import { Model } from './Model';
 import { ModelCtor } from './ModelCtor';
 
 export class BelongsTo<S extends Model = Model, T extends Model = Model> extends Association<S, T> {

@@ -1,5 +1,5 @@
 import { ColumnOptions, DataType, ModelAttributeColumnReferencesOptions, ModelValidateOptions } from 'sequelize';
-import { Model } from './model';
+import { Model } from './Model';
 
 /**
  * Column options for the model schema attributes

@@ -2,7 +2,7 @@
 
 import { DataType } from 'sequelize';
 import { AssociationOptions } from './AssociationOptions';
-import { Model } from './model';
+import { Model } from './Model';
 
 /**
  * Options provided when associating models with belongsTo relationship

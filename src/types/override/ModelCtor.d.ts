@@ -1,4 +1,4 @@
-import { Model } from './model';
+import { Model } from './Model';
 
 // Do not switch the order of `typeof Model` and `{ new(): M }`. For
 // instances created by `sequelize.define` to typecheck well, `typeof Model`

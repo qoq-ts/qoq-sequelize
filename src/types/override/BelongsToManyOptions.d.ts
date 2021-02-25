@@ -1,6 +1,6 @@
 import { ForeignKeyOptions } from './ForeignKeyOptions';
 import { ManyToManyOptions } from './ManyToManyOptions';
-import { Model } from './model';
+import { Model } from './Model';
 import { ThroughOptions } from './ThroughOptions';
 
 /**

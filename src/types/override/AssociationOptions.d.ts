@@ -1,7 +1,7 @@
 import { Hookable } from 'sequelize';
 import { AssociationScope } from './AssociationScope';
 import { ForeignKeyOptions } from './ForeignKeyOptions';
-import { Model } from './model';
+import { Model } from './Model';
 /**
  * Options provided when associating models
  */

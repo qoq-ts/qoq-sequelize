@@ -1,5 +1,5 @@
 import { BelongsToManyGetAssociationsMixinOptions } from './BelongsToManyGetAssociationsMixin';
-import { Model } from './model';
+import { Model } from './Model';
 
 /**
  * The hasAssociation mixin applied to models with belongsToMany.
