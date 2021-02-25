@@ -1,4 +1,4 @@
-import { column, defineModel } from '../../src';
+import { column, defineModel } from '../../../src';
 
 export const UserProject = defineModel({
   attributes: {

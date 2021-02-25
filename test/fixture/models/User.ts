@@ -1,5 +1,5 @@
-import { Op } from 'sequelize/types';
-import { column, defineModel } from '../../src';
+import { Op } from 'sequelize';
+import { column, defineModel } from '../../../src';
 import { Project } from './Project';
 import { UserProject } from './UserProject';
 

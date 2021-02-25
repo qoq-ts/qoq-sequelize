@@ -1,4 +1,4 @@
-import { column, defineModel, literal } from '../../src';
+import { column, defineModel, literal } from '../../../src';
 import { User } from './User';
 import { UserProject } from './UserProject';
 

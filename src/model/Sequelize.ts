@@ -77,8 +77,7 @@ export class Sequelize extends OriginSequelize {
           }
 
           parsed = true;
-          model.updateModelName(key);
-          modules[key] = model.define(this);
+          modules[key] = model.updateModelName(key).define(this);
         }
       }
     });
