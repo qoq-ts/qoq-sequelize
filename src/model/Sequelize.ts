@@ -61,7 +61,7 @@ export class Sequelize extends OriginSequelize {
   }
 
   mountCommands(app: ConsoleApplication) {
-    app.mountRouter(join(__dirname + '..', 'commands'));
+    app.mountRouter(join(__dirname, '..', 'commands'));
     topic.publish('sequelizeShared', this);
   }
 
