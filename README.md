@@ -23,7 +23,7 @@ yarn add sqlite3
 yarn add tedious # Microsoft SQL Server
 ```
 
-Remember ** DO NOT install ** package `sequelize` and `sequelize-cli` by yourself!
+Remember **DO NOT** install package `sequelize` and `sequelize-cli` by yourself!
 
 # Full documents
 Just link to the [sequelize website](https://sequelize.org/master/index.html).
@@ -55,7 +55,7 @@ export const User = sequelize.define('User', {
 });
 
 // Current
-export const User = createModel({
+export const User = defineModel({
   attributes: {
     id: column.int.primaryKey(),
     name: column.varchar.notNull(),
@@ -84,7 +84,7 @@ const User = sequelize.define('User', {}, {
 });
 
 // Current
-const User = createModel({
+const User = defineModel({
   scopes: {
     x: () => User.addScope({
       attribures: ['id', 'name'], // With type annotation
