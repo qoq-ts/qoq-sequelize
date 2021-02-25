@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize';
 import { Literal, Fn } from 'sequelize/types/lib/utils';
+import { Sequelize } from '../model/Sequelize';
 import { AdvancedColumn } from './AdvancedColumn';
 import { BaseColumnOptions } from './BaseColumn';
-import { Sequelize } from '..';
 
 export interface ColDateOptions<T extends Date | null> extends BaseColumnOptions<T> {}
 

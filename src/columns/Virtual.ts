@@ -1,6 +1,21 @@
 import { DataTypes } from 'sequelize';
 import { BaseColumn, BaseColumnOptions } from './BaseColumn';
-import { AliasType, AvailableTypes } from './Alias';
+
+export type AvailableTypes = 'number' | 'string' | 'date' | 'buffer' | 'boolean';
+
+export type AliasType<As> = (
+  As extends 'number'
+    ? number
+    : As extends 'string'
+      ? string
+      : As extends 'date'
+        ? Date
+        : As extends 'buffer'
+          ? Buffer
+          : As extends 'boolean'
+            ? boolean
+            : unknown
+);
 
 export class ColumnVirtual<T = null> extends BaseColumn<BaseColumnOptions<T>> {
   public type<As extends AvailableTypes>(

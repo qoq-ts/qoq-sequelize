@@ -1,17 +1,16 @@
-import { Model as Origin, ModelAttributes, ModelCtor, ModelGetterOptions, ModelOptions, ModelSetterOptions, Sequelize } from 'sequelize';
+import { AddScopeOptions, Model, ModelAttributes, ModelCtor, ModelOptions } from 'sequelize';
 import snake from 'lodash.snakecase';
+import chalk from 'chalk';
 import { topic } from '../util/topic';
 import { BaseColumn } from '../columns/BaseColumn';
-import chalk from 'chalk';
 import { IncludeFn } from '../types/custom/AssociationType';
+import { Sequelize } from './Sequelize';
 
 interface Options {
   attributes: Record<string, BaseColumn>;
   options: ModelOptions;
   associations?: Record<string, Function>;
   scopes?: Record<string, Function>;
-  getters?: ModelGetterOptions;
-  setters?: ModelSetterOptions;
 }
 
 export class TemporaryModel {
@@ -21,17 +20,15 @@ export class TemporaryModel {
   protected readonly scopes: Record<string, Function>;
   protected modelName?: string;
 
-  protected model?: ModelCtor<Origin>;
+  protected model?: ModelCtor<Model>;
   protected currentKey?: string;
 
   constructor(options: Options) {
     this.attributes = options.attributes;
-    this.options = options.options;
+    this.options = options.options || {};
     this.associations = options.associations || {};
     this.scopes = options.scopes || {};
 
-    this.options.getterMethods = options.getters;
-    this.options.setterMethods = options.setters;
     this.modelName = this.options.modelName;
   }
 
@@ -66,29 +63,36 @@ export class TemporaryModel {
         this.associations[key]!.call(undefined);
         this.currentKey = undefined;
 
-        const methodName = 'include' + key.substr(0, 1).toUpperCase() + key.substr(1);
+        const methodName = 'associate' + key.substr(0, 1).toUpperCase() + key.substr(1);
 
-        const fn: IncludeFn = function (options = {}) {
+        const fn: IncludeFn<any> = function (options = {}) {
+          const association = this.associations[key]!;
+          const { withScope, ...rest } = options;
+
+          if (withScope) {
+            return {
+              ...rest,
+              model: association.target.scope(withScope),
+              as: key,
+            };
+          }
+
           return {
-            ...options,
-            model: this,
+            ...rest,
+            model: association.target,
             as: key,
           };
         };
 
         // @ts-ignore
         model[methodName] = fn;
+        // @ts-ignore
+        this[methodName] = function() { return model[methodName].apply(model, arguments) };
       });
 
       Object.keys(this.scopes).forEach((key) => {
         this.currentKey = key;
-        const result = this.scopes[key]!.call(undefined);
-
-        // The scope includes association?
-        // FIXME: may be not need.
-        if (typeof result === 'function') {
-          result.call(undefined);
-        }
+        this.scopes[key]!.call(undefined);
         this.currentKey = undefined;
       });
 
@@ -117,25 +121,28 @@ const setMethod = (key: string, fn: Function) => {
   TemporaryModel[key] = fn;
 };
 
-const originalKeys = Reflect.ownKeys(Origin) as (keyof typeof Origin)[];
-const associationKeys: (keyof typeof Origin)[] = ['hasOne', 'hasMany', 'belongsTo', 'belongsToMany'];
+const originalKeys = Reflect.ownKeys(Model) as (keyof typeof Model)[];
+const associationKeys: (keyof typeof Model)[] = ['hasOne', 'hasMany', 'belongsTo', 'belongsToMany'];
 
 originalKeys.forEach((key) => {
   if (key in TemporaryModel) {
     return;
   }
 
-  const descriptor = Reflect.getOwnPropertyDescriptor(Origin, key);
+  const descriptor = Reflect.getOwnPropertyDescriptor(Model, key);
 
   // Getter or Setter
-  if (!descriptor || descriptor.get || descriptor.set || typeof Origin[key] !== 'function') {
+  if (!descriptor || descriptor.get || descriptor.set || typeof Model[key] !== 'function') {
     return;
   }
 
   if (key === 'addScope') {
-    setMethod(key, function (this: TemporaryModel, options: object) {
+    setMethod(key, function (this: TemporaryModel, scope: object | Function, options?: AddScopeOptions) {
       if (this.model && this.currentKey) {
-        return this.model[key](this.currentKey, options);
+        const customScope = typeof scope === 'function'
+          ? scope.bind(null, (helper: object) => helper)
+          : scope;
+        return this.model[key](this.currentKey, customScope, options);
       }
 
       console.error(chalk.red(`You get wrong usage of ${key}, just use it like this:\n`));
@@ -152,7 +159,7 @@ originalKeys.forEach((key) => {
   }
 
   if (associationKeys.includes(key)) {
-    setMethod(key, function(this: TemporaryModel, target: Origin, options: object) {
+    setMethod(key, function(this: TemporaryModel, target: Model, options: object) {
       if (this.model && this.currentKey) {
         return this.model[key](target, {
           ...options,

@@ -3,7 +3,7 @@
     // https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
     "target": "ES2018",
     "module": "CommonJS",
-    "allowJs": false,
+    "allowJs": true,
     "declaration": true,
     "declarationDir": "./build/types",
     "outDir": "./build",
@@ -30,7 +30,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
 
-    "skipLibCheck": true,
+    "skipLibCheck": false,
     "forceConsistentCasingInFileNames": true
   }
 }

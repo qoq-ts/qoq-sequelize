@@ -1,6 +1,5 @@
 import { Int } from './Int';
 import { ColumnVirtual } from './Virtual';
-import { ColumnAlias } from './Alias';
 import { SmallInt } from './SmallInt';
 import { MediumInt } from './mediumInt';
 import { TinyText } from './TinyText';
@@ -22,11 +21,7 @@ import { Boolean } from './Boolean';
 import { Uuid } from './Uuid';
 import { Enum } from './Enum';
 
-class Static {
-  get alias() {
-    return new ColumnAlias();
-  }
-
+export class Static {
   get virtual() {
     return new ColumnVirtual();
   }
