@@ -32,10 +32,12 @@ export class TemporaryModel {
     this.modelName = this.options.modelName;
   }
 
-  updateModelName(name: string) {
+  updateModelName(name: string): this {
     if (!this.modelName) {
       this.options.modelName = this.modelName = name;
     }
+
+    return this;
   }
 
   define(sequelize: Sequelize) {
@@ -67,12 +69,12 @@ export class TemporaryModel {
 
         const fn: IncludeFn<any> = function (options = {}) {
           const association = this.associations[key]!;
-          const { withScope, ...rest } = options;
+          const { scope, ...rest } = options;
 
-          if (withScope) {
+          if (scope) {
             return {
               ...rest,
-              model: association.target.scope(withScope),
+              model: association.target.scope(scope),
               as: key,
             };
           }
@@ -95,8 +97,6 @@ export class TemporaryModel {
         this.scopes[key]!.call(undefined);
         this.currentKey = undefined;
       });
-
-      this.model = undefined;
     });
 
     return model;
@@ -117,8 +117,8 @@ export class TemporaryModel {
 }
 
 const setMethod = (key: string, fn: Function) => {
-  // @ts-ignore
-  TemporaryModel[key] = fn;
+  // @ts-expect-error
+  TemporaryModel.prototype[key] = fn;
 };
 
 const originalKeys = Reflect.ownKeys(Model) as (keyof typeof Model)[];
@@ -147,7 +147,7 @@ originalKeys.forEach((key) => {
 
       console.error(chalk.red(`You get wrong usage of ${key}, just use it like this:\n`));
       console.error(chalk.red(
-`const ModelA = createModel({
+`const ModelA = defineModel({
   scopes: {
     myName = () => ModelA.${key}({}),
   }
@@ -169,7 +169,7 @@ originalKeys.forEach((key) => {
 
       console.error(chalk.red(`You get wrong usage of ${key}, just use it like this:\n`));
       console.error(chalk.red(
-`const ModelA = createModel({
+`const ModelA = defineModel({
   associations: {
     myName: () => ModelA.${key}(ModelB),
   }

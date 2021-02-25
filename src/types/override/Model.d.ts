@@ -2,7 +2,7 @@ import { AddScopeOptions, DataType, DestroyOptions, DropOptions, Identifier, Inc
 import { HookReturn } from 'sequelize/types/lib/hooks';
 import { ValidationOptions } from 'sequelize/types/lib/instance-validator';
 import { Sequelize } from '../../model/Sequelize';
-import { AssociationToObject, AssociationToModel, AssociationToModels, AssociationMethods, IncludeAssociation } from '../custom/AssociationType';
+import { AssociationToObject, AssociationToModel, AssociationToModels, AssociationMethods, Associate } from '../custom/AssociationType';
 import { TModelScopes, TModelAssocs } from '../custom/ModelGenericType';
 import { AggregateOptions } from './AggregateOptions';
 import { Association } from './Association';
@@ -209,7 +209,7 @@ export abstract class Model<
   public static scope<M extends Model, Scopes = TModelScopes<M>, ScopeNames extends keyof Scopes = keyof Scopes>(
     this: ModelStatic<M>,
     options?: ScopeNames | 'defaultScope' | ScopeOptions<ScopeNames> | readonly (ScopeNames | 'defaultScope' | ScopeOptions<ScopeNames>)[] | WhereAttributeHash<M>
-  ): ModelCtor<M, IncludeAssociation<TModelAssocs<M>>>;
+  ): ModelCtor<M, Associate<TModelAssocs<M>>>;
 
   /**
    * Add a new scope to the model

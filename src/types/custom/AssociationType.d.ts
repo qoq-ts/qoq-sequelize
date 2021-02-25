@@ -56,16 +56,16 @@ export type AssociationToModels<T extends object> = {
   [K in keyof T]: AssociationToModel<T[K]>;
 };
 
-export type IncludeAssociation<T extends object> = {
+export type Associate<T extends object> = {
   [K in keyof T as `associate${Capitalize<string & K>}`]: IncludeFn<T[K]>;
 };
 
 export type IncludeFn<T, M extends Model = T extends () => Association<any, infer R> ? R : never, ScopeNames = keyof TModelScopes<M>> = (
-  this: ModelCtor<M>,
+  this: typeof Model,
   options?:
     Omit<IncludeOptions<M['_attributes']>, 'association' | 'model' | 'as'> & {
     // WhereAttributeHash<M> should omit here.
-    withScope?: ScopeNames | 'defaultScope' | ScopeOptions<ScopeNames> | readonly (ScopeNames | 'defaultScope' | ScopeOptions<ScopeNames>)[];
+    scope?: ScopeNames | 'defaultScope' | ScopeOptions<ScopeNames> | readonly (ScopeNames | 'defaultScope' | ScopeOptions<ScopeNames>)[];
   }
 ) => IncludeOptions<any> & { model: ModelStatic<M>; as: string };
 

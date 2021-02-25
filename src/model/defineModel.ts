@@ -1,5 +1,5 @@
 import { BaseColumn } from '../columns/BaseColumn';
-import { IncludeAssociation, AssociationToModels } from '../types/custom/AssociationType';
+import { Associate, AssociationToModels } from '../types/custom/AssociationType';
 import { RealColumnTypes } from '../types/custom/ColumnType';
 import { Model } from '../types/override/Model';
 import { ModelCtor } from '../types/override/ModelCtor';
@@ -28,7 +28,7 @@ export const defineModel = <
   options: DefineModelOptions<Attrs, Assocs, Scopes, RealAttrs>
 ): ModelCtor<
   Model<RealAttrs, RealAttrs, Scopes, Assocs> & RealAttrs & AssociationToModels<Assocs>,
-  IncludeAssociation<Assocs>
+  Associate<Assocs>
 > => {
   // @ts-ignore
   return new TemporaryModel(options);

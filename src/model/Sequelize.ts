@@ -68,9 +68,15 @@ export class Sequelize extends OriginSequelize {
   protected parseModels(modelsPath: string) {
     glob.sync(path.resolve(modelsPath, '**/!(*.d).{ts,js}')).forEach((fileName) => {
       const modules = require(fileName);
+      let parsed: boolean = false;
 
       for (const [key, model] of Object.entries(modules)) {
         if (model && model instanceof TemporaryModel) {
+          if (parsed) {
+            throw new Error(`One file can only contains one model at file "${fileName}"`);
+          }
+
+          parsed = true;
           model.updateModelName(key);
           modules[key] = model.define(this);
         }
