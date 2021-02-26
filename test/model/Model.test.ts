@@ -9,6 +9,7 @@ beforeAll(() => {
   sequelize = new Sequelize({
     dialect: 'sqlite',
     modelsPath: join(__dirname, '..', 'fixture', 'models'),
+    logging: false,
   });
 });
 

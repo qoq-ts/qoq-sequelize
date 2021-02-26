@@ -5,6 +5,7 @@
 import { column, defineModel } from '../../src';
 import { Project } from '../fixture/models/Project';
 import { User } from '../fixture/models/User';
+import { UserProject } from '../fixture/models/UserProject';
 
 test ('Type checking only', () => {});
 
@@ -250,4 +251,20 @@ export function _getterSetter() {
       }
     }
   })
+}
+
+export async function _through() {
+  User.belongsToMany(Project, {
+    through: UserProject,
+    foreignKey: 'project_id',
+    otherKey: 'user_id',
+  });
+
+  User.belongsToMany(Project, {
+    through: UserProject,
+    // @ts-expect-error
+    foreignKey: 'name',
+    // @ts-expect-error
+    otherKey: 'user_ids',
+  });
 }

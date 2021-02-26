@@ -15,10 +15,5 @@ export abstract class BaseColumn<T extends BaseColumnOptions<any> = BaseColumnOp
     return this.config;
   }
 
-  public/*protected*/ methods(methods: { get?(): any; set?(value: any): any; }): void {
-    this.config.get = methods.get;
-    this.config.set = methods.set;
-  }
-
   protected abstract getType(): AbstractDataTypeConstructor | AbstractDataType;
 }

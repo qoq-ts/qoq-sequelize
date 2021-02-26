@@ -14,6 +14,7 @@ beforeEach(() => {
   token = topic.keep('modelsInitialized', true);
   sequelize = new Sequelize({
     dialect: 'sqlite',
+    logging: false,
   });
 });
 

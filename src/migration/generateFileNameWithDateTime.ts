@@ -1,14 +1,13 @@
-const zeroFill = (time: number): string => {
-  if (time < 10) {
-    return '0' + time;
-  }
+import sanitize from 'sanitize-filename';
 
-  return time.toString();
+const zeroFill = (time: number): string => {
+  return time < 10
+    ? '0' + time
+    : time.toString();
 };
 
 export const generateFileNameWithDateTime = (name: string): string => {
   const date = new Date();
-
   const dateString =
     zeroFill(date.getFullYear()) +
     zeroFill(date.getMonth() + 1) +
@@ -17,5 +16,5 @@ export const generateFileNameWithDateTime = (name: string): string => {
     zeroFill(date.getMinutes()) +
     zeroFill(date.getSeconds());
 
-  return dateString + '-' + name + '.ts';
+  return dateString + '-' + sanitize(name) + '.ts';
 };
