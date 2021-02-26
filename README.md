@@ -168,6 +168,7 @@ What amazing things will happen next?
 ![](https://github.com/qoq-ts/qoq-sequelize/blob/master/images/association-1.png?raw=true)
 ![](https://github.com/qoq-ts/qoq-sequelize/blob/master/images/association-2.png?raw=true)
 ![](https://github.com/qoq-ts/qoq-sequelize/blob/master/images/association-3.png?raw=true)
+![](https://github.com/qoq-ts/qoq-sequelize/blob/master/images/association-4.png?raw=true)
 
 ### BelongsToMany
 ```typescript
