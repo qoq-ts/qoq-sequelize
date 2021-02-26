@@ -17,9 +17,9 @@ beforeEach(() => {
   });
 });
 
-afterEach(() => {
-  sequelize.close();
+afterEach(async () => {
   token.release();
+  await sequelize.close();
 });
 
 const define = <M extends Model>(model: ModelStatic<M>, moduleName = 'User'): ModelCtor<M, Associate<M['_type_assocs']>> => {

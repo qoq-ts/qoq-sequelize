@@ -27,7 +27,7 @@ export const defineModel = <
 >(
   options: DefineModelOptions<Attrs, Assocs, Scopes, RealAttrs>
 ): ModelCtor<
-  Model<RealAttrs, RealAttrs, Scopes, Assocs> & RealAttrs & AssociationToModels<Assocs>,
+  Model<RealAttrs, Partial<RealAttrs>, Scopes, Assocs> & RealAttrs & AssociationToModels<Assocs>,
   Associate<Assocs>
 > => {
   // @ts-ignore

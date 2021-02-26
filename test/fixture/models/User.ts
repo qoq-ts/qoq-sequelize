@@ -5,12 +5,14 @@ import { UserProject } from './UserProject';
 
 export const User = defineModel({
   attributes: {
-    id: column.int.primaryKey(),
+    id: column.int.primaryKey().autoIncrement(),
     name: column.varChar.notNull().comment('User Name'),
     age: column.tinyInt.notNull(),
   },
   associations: {
-    projects: () => User.hasMany(Project),
+    projects: () => User.hasMany(Project, {
+      foreignKey: 'userId',
+    }),
     projs: () => User.belongsToMany(Project, {
       through: UserProject,
       otherKey: 'project_id',
@@ -29,11 +31,4 @@ export const User = defineModel({
       }
     })),
   },
-  options: {
-    setterMethods: {
-      age(value) {
-        this.setDataValue('age', value + 2);
-      }
-    }
-  }
 });

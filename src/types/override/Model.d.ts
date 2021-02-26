@@ -1147,7 +1147,7 @@ export abstract class Model<
   public get(options: { plain: true; clone?: boolean }): TModelAttributes & {
     [K in keyof Assocs]: AssociationToObject<Assocs[K]>;
   };
-  public get(options?: { plain?: boolean; clone?: boolean }): TModelAttributes & AssociationToModels<Assocs>;
+  public get(options?: { plain?: false; clone?: boolean }): TModelAttributes & AssociationToModels<Assocs>;
   public get<K extends keyof TModelAttributes>(key: K, options?: { plain?: boolean; clone?: boolean }): TModelAttributes[K];
   public get<K extends keyof Assocs>(key: K, options: { plain: true; clone?: boolean }): AssociationToObject<Assocs[K]>;
   public get<K extends keyof Assocs>(key: K, options?: { plain?: false; clone?: boolean }): AssociationToModel<Assocs[K]>;

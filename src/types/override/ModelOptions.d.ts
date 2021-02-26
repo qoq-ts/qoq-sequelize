@@ -3,8 +3,9 @@ import { FindOptions } from './FindOptions';
 import { Model } from './Model';
 import { ModelHooks } from './ModelHooks';
 
-/** ###################
- * Notice: omit scope
+/**
+ * ###################
+ * Omit: scope
  * ###################
  */
 

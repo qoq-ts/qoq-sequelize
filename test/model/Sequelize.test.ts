@@ -6,7 +6,7 @@ import { TemporaryModel } from '../../src/model/TemporaryModel';
 import { Project } from '../fixture/models/Project';
 import { User } from '../fixture/models/User';
 
-it ('can search models path', () => {
+it ('can search models path', async () => {
   expect(Project).toBeInstanceOf(TemporaryModel);
   expect(User).toBeInstanceOf(TemporaryModel);
 
@@ -18,7 +18,7 @@ it ('can search models path', () => {
   expect(Project).toBeInstanceOf(Function);
   expect(User).toBeInstanceOf(Function);
 
-  sequelize.close();
+  await sequelize.close();
 });
 
 it ('one file only contains one model', () => {
@@ -52,4 +52,5 @@ it ('can mount commands to app', async () => {
   expect(message).toContain('db:migrate');
 
   spy.mockRestore();
+  await sequelize.close();
 });

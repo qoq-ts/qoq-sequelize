@@ -98,7 +98,7 @@ export class Sequelize extends OriginSequelize {
         attrs[attribute] = getFinalDataType(definition);
       }
 
-      return createTable(tableName, attrs, options);
+      return createTable.call(this, tableName, attrs, options);
     };
 
     queryInferface.addColumn = function (
@@ -107,7 +107,7 @@ export class Sequelize extends OriginSequelize {
       attribute: AdvancedColumn,
       options?: QueryInterfaceOptions
     ): Promise<void> {
-      return addColumn(table, key, getFinalDataType(attribute), options);
+      return addColumn.call(this, table, key, getFinalDataType(attribute), options);
     }
 
     queryInferface.changeColumn = function (
@@ -116,7 +116,13 @@ export class Sequelize extends OriginSequelize {
       dataTypeOrOptions: AdvancedColumn,
       options?: QueryInterfaceOptions
     ): Promise<void> {
-      return changeColumn(tableName, attributeName, getFinalDataType(dataTypeOrOptions), options);
+      return changeColumn.call(
+        this,
+        tableName,
+        attributeName,
+        getFinalDataType(dataTypeOrOptions),
+        options
+      );
     }
   }
 }
