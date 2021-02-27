@@ -268,3 +268,340 @@ export async function _through() {
     otherKey: 'user_ids',
   });
 }
+
+export async function _createdAt() {
+  const  attributes = {
+    id: column.int.notNull(),
+    name: column.varChar,
+  };
+
+  const User = defineModel({
+    attributes,
+  });
+
+  User.findAll({
+    attributes: [
+      'id', 'createdAt'
+    ],
+  });
+
+  const User1 = defineModel({
+    attributes,
+    options: {
+      timestamps: false,
+    }
+  });
+
+  User1.findAll({
+    attributes: [
+      'id',
+      // @ts-expect-error
+      'createdAt',
+    ],
+  });
+
+  const User2 = defineModel({
+    attributes,
+    options: {
+      timestamps: true,
+    }
+  });
+
+  User2.findAll({
+    attributes: [
+      'id', 'createdAt',
+    ],
+  });
+
+  const User3 = defineModel({
+    attributes,
+    options: {
+      createdAt: false,
+    }
+  });
+
+  User3.findAll({
+    attributes: [
+      'id',
+      // @ts-expect-error
+      'createdAt',
+    ],
+  });
+
+  const User4 = defineModel({
+    attributes,
+    options: {
+      createdAt: 'created_at'
+    }
+  });
+
+  User4.findAll({
+    attributes: [
+      'id', 'created_at',
+      // @ts-expect-error
+      'createdAt',
+    ],
+  });
+
+  const User5 = defineModel({
+    attributes,
+    options: {
+      createdAt: true,
+    }
+  });
+
+  User5.findAll({
+    attributes: [
+      'id', 'createdAt'
+    ],
+  });
+
+  const User6 = defineModel({
+    attributes,
+    options: {
+      timestamps: true,
+      createdAt: false,
+    }
+  });
+
+  User6.findAll({
+    attributes: [
+      'id',
+      // @ts-expect-error
+      'createdAt',
+    ],
+  });
+}
+
+
+export async function _updatedAt() {
+  const  attributes = {
+    id: column.int.notNull(),
+    name: column.varChar,
+  };
+
+  const User = defineModel({
+    attributes,
+  });
+
+  User.findAll({
+    attributes: [
+      'id', 'updatedAt'
+    ],
+  });
+
+  const User1 = defineModel({
+    attributes,
+    options: {
+      timestamps: false,
+    }
+  });
+
+  User1.findAll({
+    attributes: [
+      'id',
+      // @ts-expect-error
+      'updatedAt',
+    ],
+  });
+
+  const User2 = defineModel({
+    attributes,
+    options: {
+      timestamps: true,
+    }
+  });
+
+  User2.findAll({
+    attributes: [
+      'id', 'updatedAt',
+    ],
+  });
+
+  const User3 = defineModel({
+    attributes,
+    options: {
+      updatedAt: false,
+    }
+  });
+
+  User3.findAll({
+    attributes: [
+      'id',
+      // @ts-expect-error
+      'updatedAt',
+    ],
+  });
+
+  const User4 = defineModel({
+    attributes,
+    options: {
+      updatedAt: 'updated_at'
+    }
+  });
+
+  User4.findAll({
+    attributes: [
+      'id', 'updated_at',
+      // @ts-expect-error
+      'updatedAt',
+    ],
+  });
+
+  const User5 = defineModel({
+    attributes,
+    options: {
+      updatedAt: true,
+    }
+  });
+
+  User5.findAll({
+    attributes: [
+      'id', 'updatedAt'
+    ],
+  });
+
+  const User6 = defineModel({
+    attributes,
+    options: {
+      timestamps: true,
+      updatedAt: false,
+    }
+  });
+
+  User6.findAll({
+    attributes: [
+      'id',
+      // @ts-expect-error
+      'updatedAt',
+    ],
+  });
+}
+
+export async function _deletedAt() {
+  const  attributes = {
+    id: column.int.notNull(),
+    name: column.varChar,
+  };
+
+  const User = defineModel({
+    attributes,
+  });
+
+  User.findAll({
+    attributes: [
+      'id', 'createdAt', 'updatedAt',
+      // @ts-expect-error
+      'deletedAt',
+    ],
+  });
+
+  const User1 = defineModel({
+    attributes,
+    options: {
+      paranoid: false,
+    }
+  });
+
+  User1.findAll({
+    attributes: [
+      'id', 'createdAt', 'updatedAt',
+      // @ts-expect-error
+      'deletedAt',
+    ],
+  });
+
+  const User2 = defineModel({
+    attributes,
+    options: {
+      paranoid: undefined,
+    }
+  });
+
+  User2.findAll({
+    attributes: [
+      'id', 'createdAt', 'updatedAt',
+      // @ts-expect-error
+      'deletedAt',
+    ],
+  });
+
+  const User3 = defineModel({
+    attributes,
+    options: {
+      paranoid: true,
+      deletedAt: false,
+    }
+  });
+
+  User3.findAll({
+    attributes: [
+      'id', 'createdAt', 'updatedAt',
+      // @ts-expect-error
+      'deletedAt',
+    ],
+  });
+
+  const User4 = defineModel({
+    attributes,
+    options: {
+      paranoid: true,
+      deletedAt: false,
+    }
+  });
+
+  User4.findAll({
+    attributes: [
+      'id', 'createdAt', 'updatedAt',
+      // @ts-expect-error
+      'deletedAt',
+    ],
+  });
+
+  const User5 = defineModel({
+    attributes,
+    options: {
+      paranoid: true,
+      deletedAt: 'deleted_at',
+    }
+  });
+
+  User5.findAll({
+    attributes: [
+      'id', 'createdAt', 'updatedAt', 'deleted_at',
+      // @ts-expect-error
+      'deletedAt',
+    ],
+  });
+
+  const User6 = defineModel({
+    attributes,
+    options: {
+      paranoid: true,
+      deletedAt: true,
+    }
+  });
+
+  User6.findAll({
+    attributes: [
+      'id', 'createdAt', 'updatedAt', 'deletedAt',
+    ],
+  });
+
+  const User7 = defineModel({
+    attributes,
+    options: {
+      timestamps: false,
+      paranoid: true,
+      deletedAt: true,
+    }
+  });
+
+  User7.findAll({
+    attributes: [
+      'id',
+      // @ts-expect-error
+      'deletedAt',
+    ],
+  });
+}

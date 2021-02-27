@@ -12,7 +12,14 @@ import { ModelHooks } from './ModelHooks';
 /**
  * Options for model definition
  */
-export interface ModelOptions<M extends Model = Model> {
+export interface ModelOptions<
+  M extends Model = Model,
+  Timestamp extends boolean | undefined = undefined,
+  Created extends string | boolean | undefined = undefined,
+  Updated extends string | boolean | undefined = undefined,
+  Deleted extends string | boolean | undefined = undefined,
+  Paranoid extends boolean | undefined = undefined,
+> {
   /**
    * Define the default search scope to use for this model. Scopes have the same form as the options passed to
    * find / findAll.
@@ -33,13 +40,13 @@ export interface ModelOptions<M extends Model = Model> {
   /**
    * Adds createdAt and updatedAt timestamps to the model. Default true.
    */
-  timestamps?: boolean;
+  timestamps?: Timestamp;
 
   /**
    * Calling destroy will not delete the model, but instead set a deletedAt timestamp if this is true. Needs
    * timestamps=true to work. Default false.
    */
-  paranoid?: boolean;
+  paranoid?: Paranoid;
 
   /**
    * Converts all camelCased columns to underscored if true. Default false.
@@ -77,19 +84,19 @@ export interface ModelOptions<M extends Model = Model> {
    * Override the name of the createdAt column if a string is provided, or disable it if false. Timestamps
    * must be true. Not affected by underscored setting.
    */
-  createdAt?: string | boolean;
+  createdAt?: Created;
 
   /**
    * Override the name of the deletedAt column if a string is provided, or disable it if false. Timestamps
    * must be true. Not affected by underscored setting.
    */
-  deletedAt?: string | boolean;
+  deletedAt?: Deleted;
 
   /**
    * Override the name of the updatedAt column if a string is provided, or disable it if false. Timestamps
    * must be true. Not affected by underscored setting.
    */
-  updatedAt?: string | boolean;
+  updatedAt?: Updated;
 
   /**
    * @default pluralized model name, unless freezeTableName is true, in which case it uses model name
@@ -135,12 +142,12 @@ export interface ModelOptions<M extends Model = Model> {
   /**
    * Allows defining additional setters that will be available on model instances.
    */
-  setterMethods?: { [K in keyof M['_attributes']]?: (this: Model<M['_attributes']> & Omit<M['_attributes'], K>, value: M['_attributes'][K]) => void };
+  setterMethods?: { [K in keyof M['_attributes']]?: (this: Model<M['_attributes']> & M['_attributes'], value: M['_attributes'][K]) => void };
 
   /**
    * Allows defining additional getters that will be available on model instances.
    */
-  getterMethods?: { [K in keyof M['_attributes']]?: (this: Model<M['_attributes']> & Omit<M['_attributes'], K>) => M['_attributes'][K] };
+  getterMethods?: { [K in keyof M['_attributes']]?: (this: Model<M['_attributes']> & M['_attributes']) => M['_attributes'][K] };
 
   /**
    * Enable optimistic locking.

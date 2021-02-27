@@ -5,7 +5,7 @@ export default migration({
     await queryInterface.createTable('user', {
       id: column.int.primaryKey().autoIncrement(),
       name: column.varChar.notNull().comment('User Name'),
-      age: column.tinyInt.unsigned().notNull().comment('Less than 256'),
+      age: column.tinyInt.notNull().comment('Less than 127'),
     });
   },
   async down(queryInterface) {
