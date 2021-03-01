@@ -11,8 +11,8 @@ export abstract class BaseColumn<T extends BaseColumnOptions<any> = BaseColumnOp
     type: this.getType(),
   } as T;
 
-  public/*protected*/ collect(): ModelAttributeColumnOptions | false {
-    return this.config;
+  public/*protected*/ collect(): ModelAttributeColumnOptions {
+    return Object.assign({}, this.config);
   }
 
   protected abstract getType(): AbstractDataTypeConstructor | AbstractDataType;

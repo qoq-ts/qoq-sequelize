@@ -28,11 +28,13 @@ export class Enum<Type extends string | null = null> extends AdvancedColumn<Enum
   }
 
   public/*protected*/ collect(): ModelAttributeColumnOptions {
-    this.config.type = (this.config.type as EnumDataTypeConstructor)({
+    const config = super.collect();
+
+    config.type = (config.type as EnumDataTypeConstructor)({
       values: this.enumValues,
     });
 
-    return super.collect();
+    return config;
   }
 
   protected getType() {

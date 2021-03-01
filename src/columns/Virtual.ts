@@ -17,11 +17,11 @@ export type AliasType<As> = (
             : unknown
 );
 
-export class ColumnVirtual<T = null> extends BaseColumn<BaseColumnOptions<T>> {
+export class ColumnVirtual<T = unknown> extends BaseColumn<BaseColumnOptions<T>> {
   public type<As extends AvailableTypes>(
     // @ts-expect-error
     as: As
-  ): ColumnVirtual<(null extends T ? null : AliasType<As>) | AliasType<As>> {
+  ): ColumnVirtual<(unknown extends T ? unknown : AliasType<As>) | AliasType<As>> {
     // @ts-expect-error
     return this;
   }

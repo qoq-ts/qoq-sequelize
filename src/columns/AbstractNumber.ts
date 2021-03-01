@@ -37,16 +37,17 @@ export abstract class AbstractNumber<T extends AbstractNumberOptions<any>> exten
   }
 
   public/*protected*/ collect(): ModelAttributeColumnOptions {
-    this.config.type = (this.config.type as NumberDataTypeConstructor)(this.numberOptions);
+    const config = super.collect();
+    let type = (config.type as NumberDataTypeConstructor)(this.numberOptions);
 
     if (this.isUnsigned) {
-      this.config.type = this.config.type.UNSIGNED;
+      type = type.UNSIGNED;
     }
 
     if (this.isZeroFill) {
-      this.config.type = this.config.type.ZEROFILL;
+      type = type.ZEROFILL;
     }
 
-    return super.collect();
+    return config.type = type, config;
   }
 }

@@ -50,11 +50,13 @@ export class DateTime<Type extends Date | null = Date | null> extends AdvancedCo
   }
 
   public/*protected*/ collect(): ModelAttributeColumnOptions {
+    const config = super.collect();
+
     if (this.precision) {
-      this.config.type = (this.config.type as DateDataTypeConstructor)(this.precision);
+      config.type = (config.type as DateDataTypeConstructor)(this.precision);
     }
 
-    return super.collect();
+    return config;
   }
 
   protected getType() {

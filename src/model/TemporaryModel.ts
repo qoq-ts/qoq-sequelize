@@ -106,10 +106,7 @@ export class TemporaryModel {
     const attributes: ModelAttributes = {};
 
     Object.keys(this.attributes).forEach((attribute) => {
-      const descriptor = this.attributes[attribute]!.collect();
-      if (descriptor) {
-        attributes[attribute] = descriptor;
-      }
+      attributes[attribute] = this.attributes[attribute]!.collect();
     });
 
     return attributes;

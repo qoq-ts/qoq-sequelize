@@ -15,8 +15,9 @@ export abstract class AbstractText<T extends AbstractTextOptions<any>> extends A
   }
 
   public/*protected*/ collect(): ModelAttributeColumnOptions {
-    this.config.type = (this.config.type as TextDataTypeConstructor)(this.stringOptions);
-    return super.collect();
+    const config = super.collect();
+    config.type = (config.type as TextDataTypeConstructor)(this.stringOptions);
+    return config;
   }
 
   protected getType() {

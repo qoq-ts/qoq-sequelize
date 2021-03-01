@@ -1,4 +1,4 @@
-import { ModelAttributeColumnReferencesOptions, ModelAttributeColumnOptions } from 'sequelize';
+import { ModelAttributeColumnReferencesOptions } from 'sequelize';
 import { BaseColumn, BaseColumnOptions } from './BaseColumn';
 
 interface ReferenceOptions extends ModelAttributeColumnReferencesOptions {
@@ -43,9 +43,5 @@ export abstract class AdvancedColumn<T extends BaseColumnOptions<any> = BaseColu
   public field(field: string): this {
     this.config.field = field;
     return this;
-  }
-
-  public/*protected*/ collect(): ModelAttributeColumnOptions {
-    return super.collect() as ModelAttributeColumnOptions;
   }
 }

@@ -2,7 +2,7 @@ import path from 'path';
 import glob from 'glob';
 import { Umzug, SequelizeStorage, RunnableMigration } from 'umzug';
 import { MigrationHelper } from './MigrationHelper';
-import * as meta from './SequelizeMeta';
+import { SequelizeMeta } from './SequelizeMeta';
 import { TemporaryModel } from '../model/TemporaryModel';
 import { Sequelize } from '../model/Sequelize';
 import { QueryInterface } from '../types/override/QueryInterface';
@@ -27,13 +27,8 @@ const parseMigrations = (dir: string): RunnableMigration<QueryInterface>[] => {
 };
 
 const createStorage = (sequelize: Sequelize) => {
-  if (meta.SequelizeMeta instanceof TemporaryModel) {
-    // @ts-expect-error
-    meta.SequelizeMeta = meta.SequelizeMeta.define(sequelize);
-  }
-
   return new SequelizeStorage({
-    model: meta.SequelizeMeta,
+    model: (SequelizeMeta as unknown as TemporaryModel).define(sequelize),
     columnName: 'name',
   });
 };

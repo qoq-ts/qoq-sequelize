@@ -22,12 +22,13 @@ export abstract class AbstractString<T extends AbstractStringOptions<any>> exten
   }
 
   public/*protected*/ collect(): ModelAttributeColumnOptions {
-    this.config.type = (this.config.type as StringDataTypeConstructor)(this.stringOptions);
+    const config = super.collect();
+    let type = (config.type as StringDataTypeConstructor)(this.stringOptions);
 
     if (this.isBinary) {
-      this.config.type = this.config.type.BINARY;
+      type = type.BINARY;
     }
 
-    return super.collect();
+    return config.type = type, config;
   }
 }
