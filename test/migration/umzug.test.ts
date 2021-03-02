@@ -8,8 +8,8 @@ let sequelize: Sequelize;
 beforeAll(() => {
   sequelize = new Sequelize({
     dialect: 'sqlite',
-    migrationsPath: join(__dirname, '..', 'fixture', 'migrations'),
-    seedersPath: join(__dirname, '..', 'fixture', 'seeders'),
+    migrationsDir: join(__dirname, '..', 'fixture', 'migrations'),
+    seedersDir: join(__dirname, '..', 'fixture', 'seeders'),
     logging: false,
   });
 });

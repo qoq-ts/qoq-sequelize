@@ -9,9 +9,9 @@ import { getFinalDataType } from '../util/getFinalDataType';
 import { QueryInterface } from '../types/override/QueryInterface';
 
 export interface SequelizeOptions extends Options {
-  modelsPath?: string;
-  migrationsPath?: string;
-  seedersPath?: string;
+  modelsDir?: string;
+  migrationsDir?: string;
+  seedersDir?: string;
 }
 
 export class Sequelize extends OriginSequelize {
@@ -22,9 +22,9 @@ export class Sequelize extends OriginSequelize {
   constructor(options: SequelizeOptions = {}) {
     super(options);
 
-    this.modelsPath = options.modelsPath || './src/models';
-    this.migrationsPath = options.migrationsPath || './src/migrations';
-    this.seedersPath = options.seedersPath || './src/seeders';
+    this.modelsPath = options.modelsDir || './src/models';
+    this.migrationsPath = options.migrationsDir || './src/migrations';
+    this.seedersPath = options.seedersDir || './src/seeders';
 
     this.updateQueryInterface();
     this.parseModels(this.modelsPath);

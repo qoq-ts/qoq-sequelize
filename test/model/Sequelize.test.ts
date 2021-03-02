@@ -12,7 +12,7 @@ it ('can search models path', async () => {
 
   const sequelize = new Sequelize({
     dialect: 'sqlite',
-    modelsPath: join(__dirname, '..', 'fixture', 'models'),
+    modelsDir: join(__dirname, '..', 'fixture', 'models'),
   });
 
   expect(Project).toBeInstanceOf(Function);
@@ -24,7 +24,7 @@ it ('can search models path', async () => {
 it ('one file only contains one model', () => {
   expect(() => new Sequelize({
     dialect: 'sqlite',
-    modelsPath: join(__dirname, '..', 'fixture', 'bad-models'),
+    modelsDir: join(__dirname, '..', 'fixture', 'bad-models'),
   })).toThrowError();
 });
 
@@ -34,7 +34,7 @@ it ('can mount commands to app', async () => {
   });
   const sequelize = new Sequelize({
     dialect: 'sqlite',
-    modelsPath: join(__dirname, '..', 'fixture', 'models'),
+    modelsDir: join(__dirname, '..', 'fixture', 'models'),
   });
 
   const spy = jest.spyOn(console, 'log');
