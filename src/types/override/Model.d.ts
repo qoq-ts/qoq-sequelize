@@ -1,4 +1,4 @@
-import { AddScopeOptions, DataType, DestroyOptions, DropOptions, Identifier, IncrementDecrementOptions, IncrementDecrementOptionsWithBy, InstanceDestroyOptions, InstanceRestoreOptions, InstanceUpdateOptions, ModelAttributeColumnOptions, RestoreOptions, SaveOptions, SchemaOptions, SetOptions, SyncOptions, TruncateOptions, UpdateOptions, UpsertOptions, WhereAttributeHash } from 'sequelize';
+import { AddScopeOptions, DataType, DestroyOptions, DropOptions, Identifier, IncrementDecrementOptions, IncrementDecrementOptionsWithBy, InstanceDestroyOptions, InstanceRestoreOptions, InstanceUpdateOptions, RestoreOptions, SaveOptions, SchemaOptions, SetOptions, SyncOptions, TruncateOptions, UpdateOptions, UpsertOptions, WhereAttributeHash } from 'sequelize';
 import { HookReturn } from 'sequelize/types/lib/hooks';
 import { ValidationOptions } from 'sequelize/types/lib/instance-validator';
 import { Sequelize } from '../../model/Sequelize';
@@ -24,6 +24,7 @@ import { HasOne } from './HasOne';
 import { HasOneOptions } from './HasOneOptions';
 import { Hooks } from './Hooks';
 import { InitOptions } from './InitOptions';
+import { ModelAttributeColumnOptions } from './ModelAttributeColumnOptions';
 import { ModelCtor } from './ModelCtor';
 import { ModelStatic } from './ModelStatic';
 import { NonNullFindOptions } from './NonNullFindOptions';

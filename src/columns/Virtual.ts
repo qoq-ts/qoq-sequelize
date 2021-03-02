@@ -1,27 +1,21 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, ModelAttributeColumnOptions, VirtualDataTypeConstructor } from 'sequelize';
+import { RealColumnType } from '../types/custom/ColumnType';
+import { AdvancedColumn } from './AdvancedColumn';
 import { BaseColumn, BaseColumnOptions } from './BaseColumn';
 
-export type AvailableTypes = 'number' | 'string' | 'date' | 'buffer' | 'boolean';
-
-export type AliasType<As> = (
-  As extends 'number'
-    ? number
-    : As extends 'string'
-      ? string
-      : As extends 'date'
-        ? Date
-        : As extends 'buffer'
-          ? Buffer
-          : As extends 'boolean'
-            ? boolean
-            : unknown
-);
-
 export class ColumnVirtual<T = unknown> extends BaseColumn<BaseColumnOptions<T>> {
-  public type<As extends AvailableTypes>(
-    // @ts-expect-error
-    as: As
-  ): ColumnVirtual<(unknown extends T ? unknown : AliasType<As>) | AliasType<As>> {
+  protected type?: AdvancedColumn;
+  protected fields?: string[];
+
+  /**
+   * @see DataTypes.VIRTUAL
+   */
+  public returnType<Type extends AdvancedColumn>(
+    columnType: Type,
+    dependentFields?: string[]
+  ): ColumnVirtual<RealColumnType<Type>> {
+    this.type = columnType;
+    this.fields = dependentFields;
     // @ts-expect-error
     return this;
   }
@@ -33,5 +27,19 @@ export class ColumnVirtual<T = unknown> extends BaseColumn<BaseColumnOptions<T>>
 
   protected getType() {
     return DataTypes.VIRTUAL;
+  }
+
+  public/*protected*/ collect(): ModelAttributeColumnOptions {
+    const config = super.collect();
+
+    if (this.type) {
+      const realType = this.type.collect().type;
+
+      if (typeof realType !== 'string') {
+        config.type = (config.type as VirtualDataTypeConstructor)(realType, this.fields);
+      }
+    }
+
+    return config;
   }
 }
