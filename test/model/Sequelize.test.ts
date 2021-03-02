@@ -30,7 +30,7 @@ it ('one file only contains one model', () => {
 
 it ('can mount commands to app', async () => {
   const app = new ConsoleApplication({
-    routerDir: [],
+    commandsDir: [],
   });
   const sequelize = new Sequelize({
     dialect: 'sqlite',

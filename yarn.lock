@@ -3465,10 +3465,10 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.npmjs.org/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-qoq@^0.0.21:
-  version "0.0.21"
-  resolved "https://registry.npmjs.org/qoq/-/qoq-0.0.21.tgz#d406d0d69f0f9b3fed414c93d1a53ede6d75672c"
-  integrity sha512-fpczx0md9+I1UPCFnBKQKK9a+i+KRrN1COrlHDsP/8f+EsYdqKVoluD2SQh/RBW59xD4Ufh49D1epc4uUPhe1Q==
+qoq@^0.0.22:
+  version "0.0.22"
+  resolved "https://registry.npmjs.org/qoq/-/qoq-0.0.22.tgz#fda696f18907349259f3f24ea8b9b9f9b6a046c3"
+  integrity sha512-fF/bxNZPY+DYuAkAxdRGaGslRjNv9o0FaQkZRStiR12l65Wan4la2ygCGO/wDJ5ksdGKoBX8fsMgox+AjUAmMg==
   dependencies:
     "@types/accepts" "1.3.5"
     "@types/content-disposition" "0.5.3"
