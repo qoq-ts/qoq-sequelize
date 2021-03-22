@@ -1,5 +1,14 @@
 import { AssociationScope } from './AssociationScope';
 import { Model } from './Model';
+import { ModelType } from './ModelType';
+
+/**
+ * ###############
+ *
+ * Omit: model.string
+ *
+ * ################
+ */
 
 /**
  * Used for a association table in n:m associations.

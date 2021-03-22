@@ -2,7 +2,7 @@ import { Filterable, Paranoid, WhereOptions } from 'sequelize';
 import { Association } from './Association';
 import { Includeable } from './Includeable';
 import { IncludeThroughOptions } from './IncludeThroughOptions';
-import { Model } from './Model';
+import { ModelType } from './ModelType';
 import { Order } from './Order';
 import { Projectable } from './Projectable';
 
@@ -17,7 +17,7 @@ export interface IncludeOptions<Attrs> extends Filterable<Attrs>, Projectable<At
   /**
    * The model you want to eagerly load
    */
-  model?: typeof Model;
+  model?: ModelType;
 
   /**
    * The alias of the relation, in case the model you want to eagerly load is aliassed. For `hasOne` /

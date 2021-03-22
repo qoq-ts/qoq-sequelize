@@ -3,6 +3,7 @@ import { Sequelize } from '../../model/Sequelize';
 import { AdvancedColumn } from '../../columns/AdvancedColumn';
 import { Model } from './Model';
 import { SetRequired } from 'sequelize/types/type-helpers/set-required';
+import { ModelType } from './ModelType';
 
 /**
 * The interface that Sequelize uses to talk to all databases.
@@ -16,7 +17,7 @@ export class QueryInterface {
    *
    * We don't have a definition for the QueryGenerator, because I doubt it is commonly in use separately.
    */
-  public QueryGenerator: unknown;
+  public queryGenerator: unknown;
 
   /**
    * Returns the current sequelize instance.
@@ -215,7 +216,7 @@ export class QueryInterface {
     insertValues: object,
     updateValues: object,
     where: object,
-    model: typeof Model,
+    model: ModelType,
     options?: QueryOptions
   ): Promise<object>;
 
@@ -268,13 +269,13 @@ export class QueryInterface {
     tableName: TableName,
     identifier: WhereOptions<any>,
     options?: QueryOptions,
-    model?: typeof Model
+    model?: ModelType
   ): Promise<object>;
 
   /**
    * Returns selected rows
    */
-  public select(model: typeof Model | null, tableName: TableName, options?: QueryOptionsWithWhere): Promise<object[]>;
+  public select(model: ModelType | null, tableName: TableName, options?: QueryOptionsWithWhere): Promise<object[]>;
 
   /**
    * Increments a row value
@@ -294,7 +295,7 @@ export class QueryInterface {
     tableName: TableName,
     options: QueryOptionsWithWhere,
     attributeSelector: string | string[],
-    model?: typeof Model
+    model?: ModelType
   ): Promise<string[]>;
 
   /**

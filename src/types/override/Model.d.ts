@@ -27,6 +27,7 @@ import { InitOptions } from './InitOptions';
 import { ModelAttributeColumnOptions } from './ModelAttributeColumnOptions';
 import { ModelCtor } from './ModelCtor';
 import { ModelStatic } from './ModelStatic';
+import { ModelType } from './ModelType';
 import { NonNullFindOptions } from './NonNullFindOptions';
 import { ScopeOptions } from './ScopeOptions';
 
@@ -141,7 +142,7 @@ export abstract class Model<
     this: ModelStatic<M>,
     schema: string,
     options?: SchemaOptions
-  ): { new(): M } & typeof Model;
+  ): ModelCtor<M>;
 
   /**
    * Get the tablename of the model, taking schema into account. The method will return The name as a string
@@ -613,7 +614,7 @@ export abstract class Model<
   /**
    * Unscope the model
    */
-  public static unscoped<M extends typeof Model>(this: M): M;
+  public static unscoped<M extends ModelType>(this: M): M;
 
   /**
    * A hook that is run before validation
@@ -1200,7 +1201,7 @@ export abstract class Model<
   /**
    * Returns the previous value for key from `_previousDataValues`.
    */
-  public previous<K extends keyof TModelAttributes>(key: K): TModelAttributes[K];
+  public previous<K extends keyof TCreationAttributes>(key: K): TCreationAttributes[K] | undefined;
 
   /**
    * Validates this instance, and if the validation passes, persists it to the database.
