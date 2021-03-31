@@ -44,11 +44,11 @@ it ('can mount commands to app', async () => {
     message = msg;
   });
 
-  await app.run('-h');
+  await app.execute('-h');
   expect(message).not.toContain('db:migrate');
 
   sequelize.mountCommands(app);
-  await app.run('-h');
+  await app.execute('-h');
   expect(message).toContain('db:migrate');
 
   spy.mockRestore();

@@ -22,9 +22,9 @@ router
       description: 'Defines the name of the seed',
     }),
   })
-  .action((ctx) => {
+  .action((ctx, payload) => {
     const templateContent = getTemplateContent('seed');
-    const outputFileName =  generateFileNameWithDateTime(ctx.options.name);
+    const outputFileName =  generateFileNameWithDateTime(payload.options.name);
     const seedPath = path.resolve(ctx.db.seedersPath, outputFileName);
 
     mkdirp.sync(ctx.db.seedersPath);

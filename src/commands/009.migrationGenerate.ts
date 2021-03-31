@@ -22,9 +22,9 @@ router
       description: 'Defines the name of the migration',
     }),
   })
-  .action((ctx) => {
+  .action((ctx, payload) => {
     const templateContent = getTemplateContent('migration');
-    const outputFileName =  generateFileNameWithDateTime(ctx.options.name);
+    const outputFileName =  generateFileNameWithDateTime(payload.options.name);
     const migrationPath = path.resolve(ctx.db.migrationsPath, outputFileName);
 
     mkdirp.sync(ctx.db.migrationsPath);

@@ -31,9 +31,9 @@ router
       description: 'Revert to the provided migration',
     }),
   })
-  .action(async (ctx) => {
+  .action(async (ctx, payload) => {
     const umzug = createUmzugForSeeder(ctx.db);
-    const { to } = ctx.options;
+    const { to } = payload.options;
 
     await umzug.down({
       to: to || 0,

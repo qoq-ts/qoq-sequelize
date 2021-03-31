@@ -17,9 +17,9 @@ router
       description: 'Migration name to run migrations until',
     }),
   })
-  .action(async (ctx) => {
+  .action(async (ctx, payload) => {
     const umzug = createUmzugForMigration(ctx.db);
     await umzug.up({
-      to: ctx.options.to,
+      to: payload.options.to,
     });
   });

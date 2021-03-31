@@ -17,11 +17,11 @@ router
       description: 'List of seed files',
     }),
   })
-  .action((ctx) => {
+  .action((ctx, payload) => {
     const umzug = createUmzugForSeeder(ctx.db);
 
     umzug.up({
-      migrations: ctx.options.seed,
+      migrations: payload.options.seed,
     });
   });
 

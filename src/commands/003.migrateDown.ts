@@ -32,9 +32,9 @@ router
       description: 'Revert to the provided migration',
     }),
   })
-  .action((ctx) => {
+  .action((ctx, payload) => {
     const umzug = createUmzugForMigration(ctx.db);
-    const { to } = ctx.options;
+    const { to } = payload.options;
 
     return umzug.down({
       to: to || 0,
