@@ -57,11 +57,10 @@ export type AssociationToModels<T extends object> = {
 };
 
 export type Associate<T extends object> = {
-  [K in keyof T as `associate${Capitalize<string & K>}`]: IncludeFn<T[K]>;
+  [K in keyof T]: IncludeFn<T[K]>;
 };
 
 export type IncludeFn<T, M extends Model = T extends () => Association<any, infer R> ? R : never, ScopeNames = keyof TModelScopes<M>> = (
-  this: typeof Model,
   options?:
     Omit<IncludeOptions<M['_attributes']>, 'association' | 'model' | 'as'> & {
     // WhereAttributeHash<M> should omit here.

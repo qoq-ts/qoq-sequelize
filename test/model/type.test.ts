@@ -97,8 +97,8 @@ export async function _AddScope() {
   User.addScope({
     attributes: ['id', 'name'],
     include: [
-      User.associateProjects(),
-      User.associateProjs({}),
+      User.include.projects(),
+      User.include.projs({}),
     ]
   });
 
@@ -120,7 +120,7 @@ export async function _AddScope() {
       'name123'
     ],
     include: [
-      User.associateProjects(),
+      User.include.projects(),
       // @ts-expect-error
       'xyz',
     ],
@@ -144,29 +144,29 @@ export async function _scope() {
     ],
   });
 
-  User.scope('defaultScope').associateProjs({
+  User.scope('defaultScope').include.projs({
     scope: 'hasDesc',
   });
 
-  User.scope('defaultScope').associateProjs({
+  User.scope('defaultScope').include.projs({
     // @ts-expect-error
     scope: 'hasDesc123',
   });
 
-  User.scope('limitAge').unscoped().associateProjects();
+  User.scope('limitAge').unscoped().include.projects();
 }
 
 export async function _association() {
-  User.associateProjects();
+  User.include.projects();
 
-  User.associateProjs({
+  User.include.projs({
     attributes: [
       'description',
       // @ts-expect-error
       'title11',
     ],
     include: [
-      Project.associateUser({
+      Project.include.user({
         attributes: [
           'name',
           // @ts-expect-error
@@ -176,8 +176,9 @@ export async function _association() {
     ],
   });
 
+  User.include
   // @ts-expect-error
-  User.associateProject;
+  .roject;
 }
 
 export async function _associationValue() {

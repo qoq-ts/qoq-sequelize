@@ -5,6 +5,7 @@ import { topic } from '../util/topic';
 import { BaseColumn } from '../columns/BaseColumn';
 import { IncludeFn } from '../types/custom/AssociationType';
 import { Sequelize } from './Sequelize';
+import { Model as AdvancedModel } from '../types/override/Model';
 
 interface Options {
   attributes: Record<string, BaseColumn>;
@@ -14,6 +15,8 @@ interface Options {
 }
 
 export class TemporaryModel {
+  public include: Record<string, Function> = {};
+
   protected readonly attributes: Record<string, BaseColumn>;
   protected readonly options: ModelOptions;
   protected readonly associations: Record<string, Function>;
@@ -58,38 +61,37 @@ export class TemporaryModel {
     });
 
     topic.subscribeOnce('modelsInitialized', () => {
-      this.model = model;
+      const include: Record<string, Function> = {};
 
-      Object.keys(this.associations).forEach((key) => {
-        this.currentKey = key;
-        this.associations[key]!.call(undefined);
+      this.model = model;
+      // @ts-ignore
+      model.include = include;
+
+      Object.keys(this.associations).forEach((methodName) => {
+        this.currentKey = methodName;
+        this.associations[methodName]!.call(undefined);
         this.currentKey = undefined;
 
-        const methodName = 'associate' + key.substr(0, 1).toUpperCase() + key.substr(1);
-
-        const fn: IncludeFn<any> = function (options = {}) {
-          const association = this.associations[key]!;
+        const fn: IncludeFn<any, AdvancedModel, string> = function (options = {}) {
+          const association = (model as unknown as typeof AdvancedModel).associations[methodName]!;
           const { scope, ...rest } = options;
 
           if (scope) {
             return {
               ...rest,
               model: association.target.scope(scope),
-              as: key,
+              as: methodName,
             };
           }
 
           return {
             ...rest,
             model: association.target,
-            as: key,
+            as: methodName,
           };
         };
 
-        // @ts-ignore
-        model[methodName] = fn;
-        // @ts-ignore
-        this[methodName] = function() { return model[methodName].apply(model, arguments) };
+        this.include[methodName] = include[methodName] = fn;
       });
 
       Object.keys(this.scopes).forEach((key) => {

@@ -204,15 +204,15 @@ it ('can use the association with prefix associate', () => {
   const ProjectModel = define(Project);
   topic.publish('modelsInitialized');
 
-  expect(UserModel.associateProjects()).toMatchObject({
+  expect(UserModel.include.projects()).toMatchObject({
     model: ProjectModel,
     as: 'projects',
   });
-  expect(User.associateProjects()).toMatchObject({
+  expect(User.include.projects()).toMatchObject({
     model: ProjectModel,
     as: 'projects',
   });
-  expect(User.associateProjects({ scope: 'test1' }).model).toBeInstanceOf(Function);
+  expect(User.include.projects({ scope: 'test1' }).model).toBeInstanceOf(Function);
   // @ts-expect-error
-  expect(() => User.associateProjects({ scope: 'non-exist' })).toThrowError();
+  expect(() => User.include.projects({ scope: 'non-exist' })).toThrowError();
 });
