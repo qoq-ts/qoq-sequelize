@@ -76,7 +76,7 @@ type Singular<K> = K extends `${string}ss`
     : K;
 
 // @see https://sequelize.org/master/manual/assocs.html
-export type AssociationMethods<M extends Model, T = M['_type_assocs']> = M & {
+export type AssociationMethods<M extends Model, T extends object = M['_type_assocs']> = M & AssociationToModels<T> & {
   [K in keyof T as T[K] extends () => HasMany | BelongsToMany
     ? `get${Capitalize<string & Singular<K>>}s`
     : `get${Capitalize<string & K>}`

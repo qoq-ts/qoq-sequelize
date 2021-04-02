@@ -1,5 +1,5 @@
 import { BaseColumn } from '../columns/BaseColumn';
-import { Associate, AssociationToModels } from '../types/custom/AssociationType';
+import { Associate } from '../types/custom/AssociationType';
 import { RealColumnTypes, TimestampType } from '../types/custom/ColumnType';
 import { Model } from '../types/override/Model';
 import { ModelCtor } from '../types/override/ModelCtor';
@@ -37,7 +37,7 @@ export const defineModel = <
 >(
   options: DefineModelOptions<Attrs, Assocs, Scopes, RealAttrs, Timestamp, Created, Updated, Deleted, Paranoid>
 ): ModelCtor<
-  Model<RealAttrs & TimestampType<Timestamp, Created, Updated, Deleted, Paranoid>, Partial<RealAttrs>, Scopes, Assocs> & RealAttrs & AssociationToModels<Assocs>,
+  Model<RealAttrs & TimestampType<Timestamp, Created, Updated, Deleted, Paranoid>, Partial<RealAttrs>, Scopes, Assocs> & RealAttrs,
   Associate<Assocs>
 > => {
   // @ts-ignore
