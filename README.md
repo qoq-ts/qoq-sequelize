@@ -23,7 +23,7 @@ yarn add sqlite3
 yarn add tedious # Microsoft SQL Server
 ```
 
-Remember **DO NOT** install package `sequelize` and `sequelize-cli` by yourself!
+Remember **DO NOT** install package ~~`sequelize`~~ and ~~`sequelize-cli`~~ by yourself!
 
 # Full documents
 Just see the [sequelize website](https://sequelize.org/master/index.html), and take a second please to see the minimum [engine version](https://github.com/sequelize/sequelize/blob/main/ENGINE.md#v6) which are supported by sequelize.
