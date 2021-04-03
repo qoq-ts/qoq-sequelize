@@ -1,8 +1,9 @@
 import { DataTypes } from 'sequelize';
 import { KeepToken } from 'topic';
-import { column, defineModel, Model, Sequelize } from '../../src';
+import { column, defineModel, Sequelize } from '../../src';
 import { TemporaryModel } from '../../src/model/TemporaryModel';
 import { Associate } from '../../src/types/custom/AssociationType';
+import { Model } from '../../src/types/override/Model';
 import { ModelCtor } from '../../src/types/override/ModelCtor';
 import { ModelStatic } from '../../src/types/override/ModelStatic';
 import { topic } from '../../src/util/topic';
