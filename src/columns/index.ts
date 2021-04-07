@@ -20,6 +20,8 @@ import { DateTime } from './DateTime';
 import { Boolean } from './Boolean';
 import { Uuid } from './Uuid';
 import { Enum } from './Enum';
+import { Json } from './Json';
+import { Jsonb } from './Jsonb';
 
 export class Static {
   get virtual() {
@@ -108,6 +110,14 @@ export class Static {
 
   get uuid() {
     return new Uuid();
+  }
+
+  get json() {
+    return new Json();
+  }
+
+  get jsonb() {
+    return new Jsonb();
   }
 }
 
