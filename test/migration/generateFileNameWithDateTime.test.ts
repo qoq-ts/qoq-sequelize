@@ -5,6 +5,6 @@ it ('can generate file name', () => {
   expect(generateFileNameWithDateTime('updateMe')).toMatch(/^\d{14}-updateMe\.ts$/);
 });
 
-it ('invalid character will be removed', () => {
+it ('invalid symbol will be removed', () => {
   expect(generateFileNameWithDateTime('update/Me')).toMatch(/^\d{14}-updateMe\.ts$/);
 });
