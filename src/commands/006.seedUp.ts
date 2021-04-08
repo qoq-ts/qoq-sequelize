@@ -18,7 +18,7 @@ router
     }),
   })
   .action((ctx, payload) => {
-    const umzug = createUmzugForSeeder(ctx.db);
+    const umzug = createUmzugForSeeder(ctx.sequelize);
 
     umzug.up({
       migrations: payload.options.seed,
@@ -32,7 +32,7 @@ router
     description: 'Run every seeder',
   })
   .action((ctx) => {
-    const umzug = createUmzugForSeeder(ctx.db);
+    const umzug = createUmzugForSeeder(ctx.sequelize);
 
     umzug.up();
   });

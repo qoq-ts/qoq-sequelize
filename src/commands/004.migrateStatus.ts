@@ -14,7 +14,7 @@ router
     description: 'List the status of all migrations',
   })
   .action(async (ctx) => {
-    const umzug = createUmzugForMigration(ctx.db);
+    const umzug = createUmzugForMigration(ctx.sequelize);
     const executed = await umzug.executed();
     const pending = await umzug.pending();
 

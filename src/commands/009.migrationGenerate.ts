@@ -25,9 +25,9 @@ router
   .action((ctx, payload) => {
     const templateContent = getTemplateContent('migration');
     const outputFileName =  generateFileNameWithDateTime(payload.options.name);
-    const migrationPath = path.resolve(ctx.db.migrationsPath, outputFileName);
+    const migrationPath = path.resolve(ctx.sequelize.migrationsPath, outputFileName);
 
-    mkdirp.sync(ctx.db.migrationsPath);
+    mkdirp.sync(ctx.sequelize.migrationsPath);
     fs.writeFileSync(migrationPath, templateContent);
     console.log('New migration was created at: ' + chalk.blueBright(migrationPath));
   });

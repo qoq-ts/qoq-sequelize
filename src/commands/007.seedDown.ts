@@ -13,7 +13,7 @@ router
     description: 'Deletes data from the database',
   })
   .action(async (ctx) => {
-    const umzug = createUmzugForSeeder(ctx.db);
+    const umzug = createUmzugForSeeder(ctx.sequelize);
 
     await umzug.down({
       step: 1,
@@ -32,7 +32,7 @@ router
     }),
   })
   .action(async (ctx, payload) => {
-    const umzug = createUmzugForSeeder(ctx.db);
+    const umzug = createUmzugForSeeder(ctx.sequelize);
     const { to } = payload.options;
 
     await umzug.down({

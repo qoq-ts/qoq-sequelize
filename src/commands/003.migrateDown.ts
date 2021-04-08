@@ -14,7 +14,7 @@ router
   })
 
   .action((ctx) => {
-    const umzug = createUmzugForMigration(ctx.db);
+    const umzug = createUmzugForMigration(ctx.sequelize);
 
     return umzug.down({
       step: 1,
@@ -33,7 +33,7 @@ router
     }),
   })
   .action((ctx, payload) => {
-    const umzug = createUmzugForMigration(ctx.db);
+    const umzug = createUmzugForMigration(ctx.sequelize);
     const { to } = payload.options;
 
     return umzug.down({
