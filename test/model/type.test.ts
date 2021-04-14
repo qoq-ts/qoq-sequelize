@@ -2,11 +2,11 @@
  * Actually, this file execute nothing except type checking.
  */
 
-import { column, defineModel, PlainModel } from '../../src';
+import { column, defineModel } from '../../src';
+import type { ModelClass, ModelObject } from '../../src';
 import { Project } from '../fixture/models/Project';
 import { User } from '../fixture/models/User';
 import { UserProject } from '../fixture/models/UserProject';
-import type { Model } from '../../src';
 
 test ('Type checking only', () => {});
 
@@ -609,7 +609,7 @@ export async function _deletedAt() {
 }
 
 export async function _GetModel() {
-  const testData: Model<typeof User> = await User.findOne({ rejectOnEmpty: true });
+  const testData: ModelClass<typeof User> = await User.findOne({ rejectOnEmpty: true });
 
   testData.age;
   // @ts-expect-error
@@ -623,8 +623,8 @@ export async function _GetModel() {
   testData.get('projects1')[0];
 }
 
-export async function _GetPlainModel() {
-  const testData: PlainModel<typeof User> = (await User.findOne({ rejectOnEmpty: true })).get({ plain: true });
+export async function _GetModelObject() {
+  const testData: ModelObject<typeof User> = (await User.findOne({ rejectOnEmpty: true })).get({ plain: true });
 
   testData.age;
   // @ts-expect-error

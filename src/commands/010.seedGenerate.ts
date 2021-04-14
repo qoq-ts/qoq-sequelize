@@ -24,7 +24,7 @@ router
   })
   .action((ctx, payload) => {
     const templateContent = getTemplateContent('seed');
-    const outputFileName =  generateFileNameWithDateTime(payload.options.name);
+    const outputFileName = generateFileNameWithDateTime(payload.options.name);
     const seedPath = path.resolve(ctx.sequelize.seedersPath, outputFileName);
 
     mkdirp.sync(ctx.sequelize.seedersPath);

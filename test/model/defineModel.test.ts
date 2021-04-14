@@ -1,5 +1,4 @@
 import { DataTypes } from 'sequelize';
-import { KeepToken } from 'topic';
 import { column, defineModel, Sequelize } from '../../src';
 import { TemporaryModel } from '../../src/model/TemporaryModel';
 import { Associate } from '../../src/types/custom/AssociationType';
@@ -9,10 +8,8 @@ import { ModelStatic } from '../../src/types/override/ModelStatic';
 import { topic } from '../../src/util/topic';
 
 let sequelize: Sequelize;
-let token: KeepToken;
 
 beforeEach(() => {
-  token = topic.keep('modelsInitialized', true);
   sequelize = new Sequelize({
     dialect: 'sqlite',
     logging: false,
@@ -20,15 +17,17 @@ beforeEach(() => {
 });
 
 afterEach(async () => {
-  token.release();
   await sequelize.close();
 });
 
-const define = <M extends Model>(model: ModelStatic<M>, moduleName = 'User'): ModelCtor<M, Associate<M['_type_assocs']>> => {
-  const realModel = (model as unknown as TemporaryModel).updateModelName(moduleName).define(sequelize);
-
+const init = <M extends Model>(model: ModelStatic<M>, moduleName = 'User'): ModelCtor<M, Associate<M['_type_assocs']>> => {
+  (model as unknown as typeof TemporaryModel).__init(sequelize, moduleName);
   // @ts-ignore
-  return realModel;
+  return model;
+};
+
+const modelsInitialized = () => {
+  topic.publish('modelsInitialized', sequelize);
 };
 
 it ('can create temporary model', () => {
@@ -36,7 +35,7 @@ it ('can create temporary model', () => {
     attributes: {}
   });
 
-  expect(User).toBeInstanceOf(TemporaryModel);
+  expect(User.prototype).toBeInstanceOf(TemporaryModel);
 });
 
 it ('can define attributes', () => {
@@ -47,7 +46,7 @@ it ('can define attributes', () => {
     }
   });
 
-  expect(define(User).rawAttributes).toMatchObject({
+  expect(init(User).rawAttributes).toMatchObject({
     id: {
       field: 'id',
       type: DataTypes.INTEGER(),
@@ -64,10 +63,10 @@ it ('the tableName is default the snake case of model name', () => {
   const User = defineModel({
     attributes: {},
   });
-  const Defined = define(User, 'UserMe');
+  init(User, 'UserMe');
 
-  expect(Defined.name).toBe('UserMe');
-  expect(Defined.tableName).toBe('user_me');
+  expect(User.name).toBe('UserMe');
+  expect(User.tableName).toBe('user_me');
 });
 
 it ('table name will copy from model name', () => {
@@ -77,10 +76,10 @@ it ('table name will copy from model name', () => {
       freezeTableName: true,
     }
   });
-  const Defined = define(User, 'UserMe');
+  init(User, 'UserMe');
 
-  expect(Defined.name).toBe('UserMe');
-  expect(Defined.tableName).toBe('UserMe');
+  expect(User.name).toBe('UserMe');
+  expect(User.tableName).toBe('UserMe');
 });
 
 it ('can set table name manually', () => {
@@ -91,15 +90,7 @@ it ('can set table name manually', () => {
     }
   });
 
-  expect(define(User, 'UserMe').tableName).toBe('zzz');
-});
-
-it ('define model without model name will throw error', () => {
-  const User = defineModel({
-    attributes: {},
-  });
-
-  expect(() => (User as unknown as TemporaryModel).define(sequelize)).toThrowError();
+  expect(init(User, 'UserMe').tableName).toBe('zzz');
 });
 
 it ('can define scopes', () => {
@@ -123,7 +114,8 @@ it ('can define scopes', () => {
     }
   });
 
-  define(User);
+  init(User);
+  modelsInitialized();
 
   expect(User.scope('test1')).toBeInstanceOf(Function);
   expect(User.scope(['test1', 'test2'])).toBeInstanceOf(Function);
@@ -140,7 +132,7 @@ it ('can define associations', () => {
       title: column.varChar.notNull(),
     },
     associations: {
-      user: () => Project.belongsTo(UserModel, {
+      user: () => Project.belongsTo(User, {
         targetKey: 'id',
         foreignKey: 'userId',
       }),
@@ -153,25 +145,24 @@ it ('can define associations', () => {
       name: column.varChar.notNull(),
     },
     associations: {
-      projects: () => User.hasMany(ProjectModel, {
+      projects: () => User.hasMany(Project, {
         foreignKey: 'userId',
         sourceKey: 'id',
       }),
-      projs: () => User.hasMany(ProjectModel, {
+      projs: () => User.hasMany(Project, {
         foreignKey: 'userId',
         sourceKey: 'id',
       }),
     },
   });
 
-  token.release();
-  const UserModel = define(User);
-  const ProjectModel = define(Project);
-  topic.publish('modelsInitialized');
+  init(User);
+  init(Project);
+  modelsInitialized();
 
-  expect(UserModel.associations).toHaveProperty('projects');
-  expect(UserModel.associations).toHaveProperty('projs');
-  expect(ProjectModel.associations).toHaveProperty('user');
+  expect(User.associations).toHaveProperty('projects');
+  expect(User.associations).toHaveProperty('projs');
+  expect(Project.associations).toHaveProperty('user');
 });
 
 it ('can use the association with prefix associate', () => {
@@ -194,23 +185,22 @@ it ('can use the association with prefix associate', () => {
       name: column.varChar.notNull(),
     },
     associations: {
-      projects: () => User.hasMany(ProjectModel, {
+      projects: () => User.hasMany(Project, {
         foreignKey: 'userId',
       }),
     },
   });
 
-  token.release();
-  const UserModel = define(User);
-  const ProjectModel = define(Project);
-  topic.publish('modelsInitialized');
+  init(User);
+  init(Project, 'Project');
+  modelsInitialized();
 
-  expect(UserModel.include.projects()).toMatchObject({
-    model: ProjectModel,
+  expect(User.include.projects()).toMatchObject({
+    model: Project,
     as: 'projects',
   });
   expect(User.include.projects()).toMatchObject({
-    model: ProjectModel,
+    model: Project,
     as: 'projects',
   });
   expect(User.include.projects({ scope: 'test1' }).model).toBeInstanceOf(Function);

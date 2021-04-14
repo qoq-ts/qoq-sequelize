@@ -18,7 +18,7 @@ router
     }),
   })
   .action(async (ctx, payload) => {
-    const umzug = createUmzugForMigration(ctx.sequelize);
+    const umzug = await createUmzugForMigration(ctx.sequelize);
     await umzug.up({
       to: payload.options.to,
     });

@@ -18,13 +18,13 @@ afterAll(async () => {
   await sequelize.close();
 });
 
-it ('can instance umzug', () => {
-  expect(createUmzugForMigration(sequelize)).toBeInstanceOf(Umzug);
-  expect(createUmzugForSeeder(sequelize)).toBeInstanceOf(Umzug);
+it ('can instance umzug', async () => {
+  expect(await createUmzugForMigration(sequelize)).toBeInstanceOf(Umzug);
+  expect(await createUmzugForSeeder(sequelize)).toBeInstanceOf(Umzug);
 });
 
 it ('will log when migrating', async () => {
-  const umzug = createUmzugForMigration(sequelize);
+  const umzug = await createUmzugForMigration(sequelize);
   const spy = jest.spyOn(console, 'log');
   let message = '';
 
@@ -58,9 +58,9 @@ it ('will log when migrating seeders', async () => {
   const spy = jest.spyOn(console, 'log');
 
   spy.mockImplementation(() => {});
-  await createUmzugForMigration(sequelize).up();
+  await (await createUmzugForMigration(sequelize)).up();
 
-  const umzug = createUmzugForSeeder(sequelize);
+  const umzug = await createUmzugForSeeder(sequelize);
 
   let message = '';
   spy.mockImplementation((msg: string) => {

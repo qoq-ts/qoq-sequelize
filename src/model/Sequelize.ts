@@ -1,17 +1,19 @@
-import path, { join } from 'path';
-import glob from 'glob';
+import { dirname, join, resolve } from 'path';
+import { fileURLToPath } from 'url';
 import { Model, ModelAttributes, ModelCtor, ModelOptions, Options, QueryInterfaceCreateTableOptions, Sequelize as OriginSequelize, QueryInterface as OriginQueryInterface, QueryInterfaceOptions } from 'sequelize';
 import { topic } from '../util/topic';
-import { TemporaryModel } from './TemporaryModel';
 import { ConsoleApplication } from 'qoq';
 import { AdvancedColumn } from '../columns/AdvancedColumn';
 import { getFinalDataType } from '../util/getFinalDataType';
 import { QueryInterface } from '../types/override/QueryInterface';
+import glob from 'glob';
+import { TemporaryModel } from './TemporaryModel';
 
 export interface SequelizeOptions extends Options {
   modelsDir?: string;
   migrationsDir?: string;
   seedersDir?: string;
+  migrationStorageTableName?: string;
 }
 
 export class Sequelize extends OriginSequelize {
@@ -26,9 +28,14 @@ export class Sequelize extends OriginSequelize {
     this.migrationsPath = options.migrationsDir || './src/migrations';
     this.seedersPath = options.seedersDir || './src/seeders';
 
+    this.parseModels(this.modelsPath).then(() => {
+      topic.publish('modelsInitialized', this);
+    });
     this.updateQueryInterface();
-    this.parseModels(this.modelsPath);
-    topic.publish('modelsInitialized');
+  }
+
+  getModelsPath() {
+    return this.modelsPath;
   }
 
   /**
@@ -60,27 +67,29 @@ export class Sequelize extends OriginSequelize {
     return super.getQueryInterface();
   }
 
-  mountCommands(app: ConsoleApplication) {
-    app.mountRouter(join(__dirname, '..', 'commands'));
-    topic.publish('sequelizeShared', this);
+  async mountCommands(app: ConsoleApplication) {
+    const dir = __dirname || dirname(fileURLToPath(
+      // FIXME: jest can't parse import.meta.
+      'import.meta.url'
+    ));
+
+    const token = topic.keep('sequelizeShared', true, this);
+    await app.mountCommandPath(join(dir, '..', 'commands'));
+    token.release();
   }
 
   protected parseModels(modelsPath: string) {
-    glob.sync(path.resolve(modelsPath, '**/!(*.d).{ts,js}')).forEach((fileName) => {
-      const modules = require(fileName);
-      let parsed: boolean = false;
+    return Promise.all(
+      glob.sync(resolve(modelsPath, '**/!(*.d).{ts,js}')).map(async (fileName) => {
+        const modules = await import(fileName);
 
-      for (const [key, model] of Object.entries(modules)) {
-        if (model && model instanceof TemporaryModel) {
-          if (parsed) {
-            throw new Error(`One file can only contains one model at file "${fileName}"`);
+        for (const [key, model] of Object.entries<typeof TemporaryModel>(modules)) {
+          if (model && model.prototype instanceof TemporaryModel) {
+            model.__init(this, key);
           }
-
-          parsed = true;
-          modules[key] = model.updateModelName(key).define(this);
         }
-      }
-    });
+      }),
+    );
   }
 
   protected updateQueryInterface() {

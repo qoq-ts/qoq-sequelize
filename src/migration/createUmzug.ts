@@ -2,40 +2,57 @@ import path from 'path';
 import glob from 'glob';
 import { Umzug, SequelizeStorage, RunnableMigration } from 'umzug';
 import { MigrationHelper } from './MigrationHelper';
-import { SequelizeMeta } from './SequelizeMeta';
-import { TemporaryModel } from '../model/TemporaryModel';
 import { Sequelize } from '../model/Sequelize';
 import { QueryInterface } from '../types/override/QueryInterface';
+import { DataTypes } from 'sequelize';
 
-const parseMigrations = (dir: string): RunnableMigration<QueryInterface>[] => {
+const parseMigrations = async (dir: string): Promise<RunnableMigration<QueryInterface>[]> => {
   const migrationList: RunnableMigration<QueryInterface>[] = [];
 
-  glob.sync(path.resolve(dir, '**', '!(*.d).{ts,js}')).forEach((fileName) => {
-    const modules = require(fileName);
-    const defaultModule = modules.default;
+  await Promise.all(
+    glob.sync(path.resolve(dir, '**', '!(*.d).{ts,js}')).map(async (fileName) => {
+      const modules = await import(fileName);
+      const defaultModule = modules.default;
 
-    if (defaultModule && defaultModule instanceof MigrationHelper) {
-      migrationList.push({
-        // Omit the extension to make name globally
-        name: path.basename(fileName, path.extname(fileName)),
-        ...defaultModule.execute(),
-      });
-    }
-  });
+      if (defaultModule && defaultModule instanceof MigrationHelper) {
+        migrationList.push({
+          // Omit the extension to make name globally
+          name: path.basename(fileName, path.extname(fileName)),
+          ...defaultModule.execute(),
+        });
+      }
+    })
+  );
 
   return migrationList;
 };
 
 const createStorage = (sequelize: Sequelize) => {
   return new SequelizeStorage({
-    model: (SequelizeMeta as unknown as TemporaryModel).define(sequelize),
+    model: sequelize.define(
+      'SequelizeMeta',
+      {
+        name: {
+          type: DataTypes.STRING,
+          primaryKey: true,
+          allowNull: false,
+        },
+      },
+      {
+        tableName: 'sequelize_meta',
+        underscored: true,
+        timestamps: true,
+        updatedAt: false,
+        paranoid: false,
+      },
+    ),
     columnName: 'name',
   });
 };
 
-const createUmzug = (sequelize: Sequelize, path: string): Umzug<QueryInterface> => {
+const createUmzug = async (sequelize: Sequelize, path: string): Promise<Umzug<QueryInterface>> => {
   const umzug = new Umzug<QueryInterface>({
-    migrations: parseMigrations(path),
+    migrations: await parseMigrations(path),
     context: sequelize.getQueryInterface(),
     storage: createStorage(sequelize),
     logger: undefined,
@@ -46,11 +63,11 @@ const createUmzug = (sequelize: Sequelize, path: string): Umzug<QueryInterface> 
   return umzug;
 }
 
-export const createUmzugForMigration = (sequelize: Sequelize): Umzug<QueryInterface> => {
+export const createUmzugForMigration = (sequelize: Sequelize): Promise<Umzug<QueryInterface>> => {
   return createUmzug(sequelize, sequelize.migrationsPath);
 };
 
-export const createUmzugForSeeder = (sequelize: Sequelize): Umzug<QueryInterface> => {
+export const createUmzugForSeeder = (sequelize: Sequelize): Promise<Umzug<QueryInterface>> => {
   return createUmzug(sequelize, sequelize.seedersPath);
 };
 

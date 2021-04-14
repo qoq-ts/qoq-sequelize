@@ -24,7 +24,7 @@ router
   })
   .action((ctx, payload) => {
     const templateContent = getTemplateContent('migration');
-    const outputFileName =  generateFileNameWithDateTime(payload.options.name);
+    const outputFileName = generateFileNameWithDateTime(payload.options.name);
     const migrationPath = path.resolve(ctx.sequelize.migrationsPath, outputFileName);
 
     mkdirp.sync(ctx.sequelize.migrationsPath);

@@ -40,6 +40,10 @@ export const defineModel = <
   Model<RealAttrs & TimestampType<Timestamp, Created, Updated, Deleted, Paranoid>, Partial<RealAttrs>, Scopes, Assocs> & RealAttrs,
   Associate<Assocs>
 > => {
+  const Custom = class extends TemporaryModel {
+    static __INIT__ = options;
+  }
+
   // @ts-ignore
-  return new TemporaryModel(options);
+  return Custom;
 };

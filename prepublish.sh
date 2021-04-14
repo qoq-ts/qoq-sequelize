@@ -5,12 +5,12 @@ set -e
 rm -rf ./es/ ./lib/ ./types/
 
 rm -rf ./build
-./node_modules/.bin/tsc
+./node_modules/.bin/tsc --module commonjs
 cp -R ./src/template ./build/src/template
 mv ./build/src ./lib
 
 rm -rf ./build
-./node_modules/.bin/tsc --module ES6
+./node_modules/.bin/tsc
 cp -R ./src/template ./build/src/template
 mv ./build/src ./es
 

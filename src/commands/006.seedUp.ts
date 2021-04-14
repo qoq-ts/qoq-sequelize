@@ -17,8 +17,8 @@ router
       description: 'List of seed files',
     }),
   })
-  .action((ctx, payload) => {
-    const umzug = createUmzugForSeeder(ctx.sequelize);
+  .action(async (ctx, payload) => {
+    const umzug = await createUmzugForSeeder(ctx.sequelize);
 
     umzug.up({
       migrations: payload.options.seed,
@@ -31,8 +31,7 @@ router
   .docs({
     description: 'Run every seeder',
   })
-  .action((ctx) => {
-    const umzug = createUmzugForSeeder(ctx.sequelize);
-
-    umzug.up();
+  .action(async (ctx) => {
+    const umzug = await createUmzugForSeeder(ctx.sequelize);
+    await umzug.up();
   });

@@ -7,8 +7,8 @@ import { Project } from '../fixture/models/Project';
 import { User } from '../fixture/models/User';
 
 it ('can search models path', async () => {
-  expect(Project).toBeInstanceOf(TemporaryModel);
-  expect(User).toBeInstanceOf(TemporaryModel);
+  expect(Project.prototype).toBeInstanceOf(TemporaryModel);
+  expect(User.prototype).toBeInstanceOf(TemporaryModel);
 
   const sequelize = new Sequelize({
     dialect: 'sqlite',
@@ -19,13 +19,6 @@ it ('can search models path', async () => {
   expect(User).toBeInstanceOf(Function);
 
   await sequelize.close();
-});
-
-it ('one file only contains one model', () => {
-  expect(() => new Sequelize({
-    dialect: 'sqlite',
-    modelsDir: join(__dirname, '..', 'fixture', 'bad-models'),
-  })).toThrowError();
 });
 
 it ('can mount commands to app', async () => {
@@ -47,7 +40,7 @@ it ('can mount commands to app', async () => {
   await app.execute('-h');
   expect(message).not.toContain('db:migrate');
 
-  sequelize.mountCommands(app);
+  await sequelize.mountCommands(app);
   await app.execute('-h');
   expect(message).toContain('db:migrate');
 

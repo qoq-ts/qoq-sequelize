@@ -13,8 +13,8 @@ router
     description: 'Reverts a migration',
   })
 
-  .action((ctx) => {
-    const umzug = createUmzugForMigration(ctx.sequelize);
+  .action(async (ctx) => {
+    const umzug = await createUmzugForMigration(ctx.sequelize);
 
     return umzug.down({
       step: 1,
@@ -32,8 +32,8 @@ router
       description: 'Revert to the provided migration',
     }),
   })
-  .action((ctx, payload) => {
-    const umzug = createUmzugForMigration(ctx.sequelize);
+  .action(async (ctx, payload) => {
+    const umzug = await createUmzugForMigration(ctx.sequelize);
     const { to } = payload.options;
 
     return umzug.down({
