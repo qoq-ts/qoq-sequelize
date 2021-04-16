@@ -1,5 +1,7 @@
+import { RealModel } from '../custom/TransformModel';
 import { CreateOptions } from './CreateOptions';
 import { HasOneSetAssociationMixinOptions } from './HasOneSetAssociationMixin';
+import { Model } from './Model';
 
 /**
  * The createAssociation mixin applied to models with hasOne.
@@ -19,10 +21,10 @@ import { HasOneSetAssociationMixinOptions } from './HasOneSetAssociationMixin';
  * @see https://sequelize.org/master/class/lib/associations/has-one.js~HasOne.html
  * @see Instance
  */
-export type HasOneCreateAssociationMixin<TModel> = (
+export type HasOneCreateAssociationMixin<TModel extends Model> = (
   values?: { [attribute: string]: unknown },
   options?: HasOneCreateAssociationMixinOptions
-) => Promise<TModel>;
+) => Promise<RealModel<TModel>>;
 
 /**
  * The options for the createAssociation mixin of the hasOne association.

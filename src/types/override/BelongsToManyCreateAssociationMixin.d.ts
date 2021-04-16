@@ -1,5 +1,7 @@
+import { RealModel } from '../custom/TransformModel';
 import { CreateOptions } from './CreateOptions';
 import { JoinTableAttributes } from './JoinTableAttributes';
+import { Model } from './Model';
 
 /**
  * The createAssociation mixin applied to models with belongsToMany.
@@ -26,10 +28,10 @@ import { JoinTableAttributes } from './JoinTableAttributes';
  * @see https://sequelize.org/master/class/lib/associations/belongs-to-many.js~BelongsToMany.html
  * @see Instance
  */
-export type BelongsToManyCreateAssociationMixin<TModel> = (
+export type BelongsToManyCreateAssociationMixin<TModel extends Model> = (
   values?: { [attribute: string]: unknown },
   options?: BelongsToManyCreateAssociationMixinOptions
-) => Promise<TModel>;
+) => Promise<RealModel<TModel>>;
 
 /**
  * The options for the createAssociation mixin of the belongsToMany association.

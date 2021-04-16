@@ -31,10 +31,10 @@ import { HasOneGetAssociationMixin } from '../override/HasOneGetAssociationMixin
 import { HasOneSetAssociationMixin } from '../override/HasOneSetAssociationMixin';
 import { IncludeOptions } from '../override/IncludeOptions';
 import { Model } from '../override/Model';
-import { ModelCtor } from '../override/ModelCtor';
 import { ModelStatic } from '../override/ModelStatic';
 import { ScopeOptions } from '../override/ScopeOptions';
 import { TModelScopes } from './ModelGenericType';
+import { RealModel } from './TransformModel';
 
 export type ModelToObject<M extends Model> = M['_attributes'] & {
   [K in keyof M['_type_assocs']]: AssociationToObject<M['_type_assocs'][K]>;
@@ -47,9 +47,9 @@ export type AssociationToObject<T> = T extends () => HasMany<any, infer R> | Bel
     : never;
 
 export type AssociationToModel<T> = T extends () => HasMany<any, infer R> | BelongsToMany<any, infer R>
-  ? R extends Model ? AssociationMethods<R>[] : never[]
+  ? R extends Model ? RealModel<R>[] : never[]
   : T extends () => HasOne<any, infer R> | BelongsTo<any, infer R>
-    ? R extends Model ? AssociationMethods<R> : never
+    ? R extends Model ? RealModel<R> : never
     : never;
 
 export type AssociationToModels<T extends object> = {
@@ -75,7 +75,7 @@ type Singular<K> = K extends `${string}ss`
     : K;
 
 // @see https://sequelize.org/master/manual/assocs.html
-export type AssociationMethods<M extends Model, T extends object = M['_type_assocs']> = M & AssociationToModels<T> & {
+export type AssociationMethods<M extends Model, T extends object = M['_type_assocs']> = {
   [K in keyof T as T[K] extends () => HasMany | BelongsToMany
     ? `get${Capitalize<string & Singular<K>>}s`
     : `get${Capitalize<string & K>}`

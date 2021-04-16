@@ -1,5 +1,7 @@
+import { RealModel } from '../custom/TransformModel';
 import { BelongsToSetAssociationMixinOptions } from './BelongsToSetAssociationMixin';
 import { CreateOptions } from './CreateOptions';
+import { Model } from './Model';
 
 /**
  * The createAssociation mixin applied to models with belongsTo.
@@ -19,10 +21,10 @@ import { CreateOptions } from './CreateOptions';
  * @see https://sequelize.org/master/class/lib/associations/belongs-to.js~BelongsTo.html
  * @see Instance
  */
-export type BelongsToCreateAssociationMixin<TModel> = (
+export type BelongsToCreateAssociationMixin<TModel extends Model> = (
   values?: { [attribute: string]: unknown },
   options?: BelongsToCreateAssociationMixinOptions
-) => Promise<TModel>;
+) => Promise<RealModel<TModel>>;
 
 /**
  * The options for the createAssociation mixin of the belongsTo association.

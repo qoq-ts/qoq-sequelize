@@ -1,4 +1,6 @@
+import { RealModel } from '../custom/TransformModel';
 import { FindOptions } from './FindOptions';
+import { Model } from './Model';
 
 /**
  * The getAssociations mixin applied to models with hasMany.
@@ -25,7 +27,7 @@ import { FindOptions } from './FindOptions';
  * @see https://sequelize.org/master/class/lib/associations/has-many.js~HasMany.html
  * @see Instance
  */
-export type HasManyGetAssociationsMixin<TModel> = (options?: HasManyGetAssociationsMixinOptions) => Promise<TModel[]>;
+export type HasManyGetAssociationsMixin<TModel extends Model> = (options?: HasManyGetAssociationsMixinOptions) => Promise<RealModel<TModel>[]>;
 
 /**
  * The options for the getAssociations mixin of the hasMany association.

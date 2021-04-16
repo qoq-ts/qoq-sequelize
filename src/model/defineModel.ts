@@ -37,7 +37,7 @@ export const defineModel = <
 >(
   options: DefineModelOptions<Attrs, Assocs, Scopes, RealAttrs, Timestamp, Created, Updated, Deleted, Paranoid>
 ): ModelCtor<
-  Model<RealAttrs & TimestampType<Timestamp, Created, Updated, Deleted, Paranoid>, Partial<RealAttrs>, Scopes, Assocs> & RealAttrs,
+  Model<RealAttrs & TimestampType<Timestamp, Created, Updated, Deleted, Paranoid>, Partial<RealAttrs>, Scopes, Assocs>,
   Associate<Assocs>
 > => {
   const Custom = class extends TemporaryModel {

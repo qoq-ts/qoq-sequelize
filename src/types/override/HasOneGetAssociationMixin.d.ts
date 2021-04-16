@@ -1,4 +1,6 @@
+import { RealModel } from '../custom/TransformModel';
 import { FindOptions } from './FindOptions';
+import { Model } from './Model';
 
 /**
  * The getAssociation mixin applied to models with hasOne.
@@ -18,7 +20,7 @@ import { FindOptions } from './FindOptions';
  * @see https://sequelize.org/master/class/lib/associations/has-one.js~HasOne.html
  * @see Instance
  */
-export type HasOneGetAssociationMixin<TModel> = (options?: HasOneGetAssociationMixinOptions) => Promise<TModel>;
+export type HasOneGetAssociationMixin<TModel extends Model> = (options?: HasOneGetAssociationMixinOptions) => Promise<RealModel<TModel>>;
 
 /**
  * The options for the getAssociation mixin of the hasOne association.

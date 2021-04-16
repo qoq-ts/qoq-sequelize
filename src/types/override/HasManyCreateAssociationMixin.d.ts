@@ -1,4 +1,6 @@
+import { RealModel } from '../custom/TransformModel';
 import { CreateOptions } from './CreateOptions';
+import { Model } from './Model';
 
 /**
  * The createAssociation mixin applied to models with hasMany.
@@ -25,10 +27,10 @@ import { CreateOptions } from './CreateOptions';
  * @see https://sequelize.org/master/class/lib/associations/has-many.js~HasMany.html
  * @see Instance
  */
-export type HasManyCreateAssociationMixin<TModel> = (
+export type HasManyCreateAssociationMixin<TModel extends Model> = (
   values?: { [attribute: string]: unknown },
   options?: HasManyCreateAssociationMixinOptions
-) => Promise<TModel>;
+) => Promise<RealModel<TModel>>;
 
 /**
  * The options for the createAssociation mixin of the hasMany association.

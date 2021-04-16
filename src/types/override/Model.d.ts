@@ -2,8 +2,9 @@ import { AddScopeOptions, DataType, DestroyOptions, DropOptions, Identifier, Inc
 import { HookReturn } from 'sequelize/types/lib/hooks';
 import { ValidationOptions } from 'sequelize/types/lib/instance-validator';
 import { Sequelize } from '../../model/Sequelize';
-import { AssociationToObject, AssociationToModel, AssociationToModels, AssociationMethods, Associate } from '../custom/AssociationType';
+import { AssociationToObject, AssociationToModel, AssociationToModels, Associate } from '../custom/AssociationType';
 import { TModelScopes, TModelAssocs } from '../custom/ModelGenericType';
+import { RealModel } from '../custom/TransformModel';
 import { AggregateOptions } from './AggregateOptions';
 import { Association } from './Association';
 import { BelongsTo } from './BelongsTo';
@@ -299,10 +300,10 @@ export abstract class Model<
    */
   public static findAll<M extends Model>(
     this: ModelStatic<M>,
-    options?: FindOptions<M['_attributes']> & { plain?: false }): Promise<AssociationMethods<M>[]>;
+    options?: FindOptions<M['_attributes']> & { plain?: false }): Promise<RealModel<M>[]>;
   public static findAll<M extends Model>(
     this: ModelStatic<M>,
-    options: FindOptions<M['_attributes']> & { plain: true }): Promise<AssociationMethods<M> | null>;
+    options: FindOptions<M['_attributes']> & { plain: true }): Promise<RealModel<M> | null>;
 
 
   /**
@@ -313,12 +314,12 @@ export abstract class Model<
     this: ModelStatic<M>,
     identifier: Identifier,
     options: Omit<NonNullFindOptions<M['_attributes']>, 'where'>
-  ): Promise<AssociationMethods<M>>;
+  ): Promise<RealModel<M>>;
   public static findByPk<M extends Model>(
     this: ModelStatic<M>,
     identifier?: Identifier,
     options?: Omit<FindOptions<M['_attributes']>, 'where'>
-  ): Promise<AssociationMethods<M> | null>;
+  ): Promise<RealModel<M> | null>;
 
   /**
    * Search for a single instance. Returns the first instance found, or null if none can be found.
@@ -326,11 +327,11 @@ export abstract class Model<
   public static findOne<M extends Model>(
     this: ModelStatic<M>,
     options: NonNullFindOptions<M['_attributes']>
-  ): Promise<AssociationMethods<M>>;
+  ): Promise<RealModel<M>>;
   public static findOne<M extends Model>(
     this: ModelStatic<M>,
     options?: FindOptions<M['_attributes']>
-  ): Promise<AssociationMethods<M> | null>;
+  ): Promise<RealModel<M> | null>;
 
   /**
    * Run an aggregation method on the specified field
@@ -458,7 +459,7 @@ export abstract class Model<
     this: ModelStatic<M>,
     values?: M['_creationAttributes'],
     options?: CreateOptions<M['_attributes']>
-  ): Promise<AssociationMethods<M>>;
+  ): Promise<RealModel<M>>;
   public static create<M extends Model>(
     this: ModelStatic<M>,
     values: M['_creationAttributes'],
@@ -472,7 +473,7 @@ export abstract class Model<
   public static findOrBuild<M extends Model>(
     this: ModelStatic<M>,
     options: FindOrCreateOptions<M['_attributes'], M['_creationAttributes']>
-  ): Promise<[AssociationMethods<M>, boolean]>;
+  ): Promise<[RealModel<M>, boolean]>;
 
   /**
    * Find a row that matches the query, or build and save the row if none is found
@@ -488,7 +489,7 @@ export abstract class Model<
   public static findOrCreate<M extends Model>(
     this: ModelStatic<M>,
     options: FindOrCreateOptions<M['_attributes'], M['_creationAttributes']>
-  ): Promise<[AssociationMethods<M>, boolean]>;
+  ): Promise<[RealModel<M>, boolean]>;
 
   /**
    * A more performant findOrCreate that will not work under a transaction (at least not in postgres)
@@ -497,7 +498,7 @@ export abstract class Model<
   public static findCreateFind<M extends Model>(
     this: ModelStatic<M>,
     options: FindOrCreateOptions<M['_attributes'], M['_creationAttributes']>
-  ): Promise<[AssociationMethods<M>, boolean]>;
+  ): Promise<[RealModel<M>, boolean]>;
 
   /**
    * Insert or update a single row. An update will be executed if a row which matches the supplied values on
@@ -522,7 +523,7 @@ export abstract class Model<
     this: ModelStatic<M>,
     values: M['_creationAttributes'],
     options?: UpsertOptions<M['_attributes']>
-  ): Promise<[AssociationMethods<M>, boolean | null]>;
+  ): Promise<[RealModel<M>, boolean | null]>;
 
   /**
    * Create and insert multiple instances in bulk.
@@ -539,7 +540,7 @@ export abstract class Model<
     this: ModelStatic<M>,
     records: ReadonlyArray<M['_creationAttributes']>,
     options?: BulkCreateOptions<M['_attributes']>
-  ): Promise<AssociationMethods<M>[]>;
+  ): Promise<RealModel<M>[]>;
 
   /**
    * Truncate all instances of the model. This is a convenient method for Model.destroy({ truncate: true }).
@@ -585,7 +586,7 @@ export abstract class Model<
     this: ModelStatic<M>,
     field: keyof M['_attributes'],
     options: IncrementDecrementOptionsWithBy<M['_attributes']>
-  ): Promise<AssociationMethods<M>>;
+  ): Promise<RealModel<M>>;
 
   /**
    * Increments multiple fields by the same value.
@@ -594,7 +595,7 @@ export abstract class Model<
     this: ModelStatic<M>,
     fields: ReadonlyArray<keyof M['_attributes']>,
     options: IncrementDecrementOptionsWithBy<M['_attributes']>
-  ): Promise<AssociationMethods<M>>;
+  ): Promise<RealModel<M>>;
 
   /**
    * Increments multiple fields by different values.
@@ -603,7 +604,7 @@ export abstract class Model<
     this: ModelStatic<M>,
     fields: { [key in keyof M['_attributes']]?: number },
     options: IncrementDecrementOptions<M['_attributes']>
-  ): Promise<AssociationMethods<M>>;
+  ): Promise<RealModel<M>>;
 
   /**
    * Run a describe query on the table. The result will be return to the listener as a hash of attributes and
