@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest --runInBand",
-    "prepublishOnly": "sh ./prepublish.sh",
+    "prepublishOnly": "sh scripts/prepublish.sh",
     "type": "sh scripts/createTypeFile.sh",
     "diff": "sh scripts/diffTypes.sh"
   },
