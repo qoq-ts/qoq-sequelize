@@ -113,3 +113,62 @@ it ('can find multiple records', async () => {
   expect(result).toHaveLength(2);
   expect(result[0]?.name).toBe('ttst');
 });
+
+it ('can use order helper to sort result', async () => {
+  await User.bulkCreate([
+    {
+      name: 'ttst',
+      age: 10,
+    },
+    {
+      name: 'ttst',
+      age: 20,
+    }
+  ]);
+
+  let result = await User.findAll({
+    order: [
+      User.order.asc('age'),
+    ]
+  });
+  expect(result[0]!.age).toBe(10);
+
+  result = await User.findAll({
+    order: [
+      User.order.desc('age'),
+    ]
+  });
+  expect(result[0]!.age).toBe(20);
+});
+
+it ('order helper can invoke deeply', async () => {
+  const user = await User.create({
+    name: 'ttst',
+    age: 10,
+  });
+
+  await user.createProject({
+    title: 'zz',
+  });
+
+  await user.createProject({
+    title: 'bb',
+  });
+
+  await user.createProject({
+    title: 'cc',
+  });
+
+  const result = await User.findAll({
+    include: [
+      User.include.projects(),
+    ],
+    order: [
+      User.order.projects.asc('title'),
+    ]
+  });
+
+  expect(result[0]!.projects[0]!.title).toBe('bb');
+  expect(result[0]!.projects[1]!.title).toBe('cc');
+  expect(result[0]!.projects[2]!.title).toBe('zz');
+});

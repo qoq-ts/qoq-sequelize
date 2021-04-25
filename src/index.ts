@@ -7,3 +7,4 @@ export { Sequelize, SequelizeOptions } from './model/Sequelize';
 export { migration } from './migration/migration';
 export { seed } from './migration/seed';
 export { SequelizeSlot } from './slot/SequelizeSlot';
+export { Order } from './types/override/Order';

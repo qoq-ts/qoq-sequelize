@@ -2,7 +2,7 @@
  * Actually, this file execute nothing except type checking.
  */
 
-import { column, defineModel } from '../../src';
+import { column, defineModel, Order, col } from '../../src';
 import type { ModelClass, ModelObject } from '../../src';
 import { Project } from '../fixture/models/Project';
 import { User } from '../fixture/models/User';
@@ -638,4 +638,30 @@ export async function _GetModelObject() {
   testData.get('projects');
   // @ts-expect-error
   testData.save;
+}
+
+export async function _Order() {
+  const order: Order = [
+    User.order.projs.asc('userId'),
+    User.order.asc(col('alias_x')),
+  ];
+
+  await User.findAll({
+    attributes: ['*'],
+    order: [
+      User.order.asc('age'),
+      User.order.desc('createdAt'),
+      User.order.projects.asc('description'),
+      User.order.projs.user.asc('age'),
+      User.scope('limitAge').order.projects.asc('title'),
+      ...order,
+    ],
+  });
+
+  // @ts-expect-error
+  User.order.projs.asc('userIds');
+  // @ts-expect-error
+  User.order.projects.asc('descriptions');
+  // @ts-expect-error
+  User.order.projs.user.asc('agee');
 }

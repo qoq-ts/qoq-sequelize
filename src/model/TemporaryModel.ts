@@ -7,6 +7,7 @@ import { Sequelize } from './Sequelize';
 import { Model as AdvancedModel } from '../types/override/Model';
 import type { DefineModelOptions } from './defineModel';
 import { topic } from '../util/topic';
+import { OrderHelper } from './OrderHelper';
 
 export abstract class TemporaryModel extends Model {
   static __currentKey?: string;
@@ -14,6 +15,8 @@ export abstract class TemporaryModel extends Model {
   static __INIT__?: DefineModelOptions<{ [key: string]: BaseColumn }, { [key: string]: Function }, { [key: string]: Function }, any, any, any, any, any, any>;
 
   static include: Record<string, IncludeFn<any, AdvancedModel, string>> = {};
+  static order: OrderHelper;
+  protected static __ORDER__: typeof OrderHelper;
 
   static __init(sequelize: Sequelize, modelName: string) {
     if (!this.__INIT__) {
@@ -52,6 +55,10 @@ export abstract class TemporaryModel extends Model {
         return;
       }
 
+      const that = this;
+      const CustomOrder = this.__ORDER__ = class extends OrderHelper {}
+      this.order = new CustomOrder([]);
+
       Object.keys(associations).forEach((methodName) => {
         this.__currentKey = methodName;
         associations[methodName]!.call(undefined);
@@ -75,6 +82,15 @@ export abstract class TemporaryModel extends Model {
             as: methodName,
           };
         };
+
+        Object.defineProperty(CustomOrder.prototype, methodName, {
+          get(this: OrderHelper) {
+            const association = (that as unknown as typeof AdvancedModel).associations[methodName]!;
+            const NextOrderChain = (association.target as unknown as typeof TemporaryModel).__ORDER__;
+
+            return new NextOrderChain(this.orderItem.concat(association));
+          },
+        });
       });
 
       Object.keys(scopes).forEach((key) => {

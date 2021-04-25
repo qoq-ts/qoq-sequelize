@@ -1,6 +1,7 @@
 import { BaseColumn } from '../columns/BaseColumn';
 import { Associate } from '../types/custom/AssociationType';
 import { RealColumnTypes, TimestampType } from '../types/custom/ColumnType';
+import { OrderChain } from '../types/custom/OrderChain';
 import { Model } from '../types/override/Model';
 import { ModelCtor } from '../types/override/ModelCtor';
 import { ModelOptions } from '../types/override/ModelOptions';
@@ -38,7 +39,8 @@ export const defineModel = <
   options: DefineModelOptions<Attrs, Assocs, Scopes, RealAttrs, Timestamp, Created, Updated, Deleted, Paranoid>
 ): ModelCtor<
   Model<RealAttrs & TimestampType<Timestamp, Created, Updated, Deleted, Paranoid>, Partial<RealAttrs>, Scopes, Assocs>,
-  Associate<Assocs>
+  Associate<Assocs>,
+  OrderChain<Assocs, Attrs & TimestampType<Timestamp, Created, Updated, Deleted, Paranoid>>
 > => {
   const Custom = class extends TemporaryModel {
     static __INIT__ = options;

@@ -4,6 +4,7 @@ import { ValidationOptions } from 'sequelize/types/lib/instance-validator';
 import { Sequelize } from '../../model/Sequelize';
 import { AssociationToObject, AssociationToModel, AssociationToModels, Associate } from '../custom/AssociationType';
 import { TModelScopes, TModelAssocs } from '../custom/ModelGenericType';
+import { OrderChain } from '../custom/OrderChain';
 import { RealModel } from '../custom/TransformModel';
 import { AggregateOptions } from './AggregateOptions';
 import { Association } from './Association';
@@ -212,7 +213,11 @@ export abstract class Model<
   public static scope<M extends Model, Scopes = TModelScopes<M>, ScopeNames extends keyof Scopes = keyof Scopes>(
     this: ModelStatic<M>,
     options?: ScopeNames | 'defaultScope' | ScopeOptions<ScopeNames> | readonly (ScopeNames | 'defaultScope' | ScopeOptions<ScopeNames>)[] | WhereAttributeHash<M>
-  ): ModelCtor<M, Associate<TModelAssocs<M>>>;
+  ): ModelCtor<
+    M,
+    Associate<TModelAssocs<M>>,
+    OrderChain<M['_type_assocs'], M['_attributes']>
+  >;
 
   /**
    * Add a new scope to the model
