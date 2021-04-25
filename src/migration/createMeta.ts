@@ -17,7 +17,7 @@ export const createMeta = (sequelize: Sequelize) => {
     },
     {
       tableName: 'sequelize_meta',
-      underscored: false,
+      underscored: true,
       timestamps: true,
       updatedAt: false,
       paranoid: false,
