@@ -4,7 +4,7 @@ import { Umzug, SequelizeStorage, RunnableMigration } from 'umzug';
 import { MigrationHelper } from './MigrationHelper';
 import { Sequelize } from '../model/Sequelize';
 import { QueryInterface } from '../types/override/QueryInterface';
-import { DataTypes } from 'sequelize';
+import { createMeta } from './createMeta';
 
 const parseMigrations = async (dir: string): Promise<RunnableMigration<QueryInterface>[]> => {
   const migrationList: RunnableMigration<QueryInterface>[] = [];
@@ -29,23 +29,7 @@ const parseMigrations = async (dir: string): Promise<RunnableMigration<QueryInte
 
 const createStorage = (sequelize: Sequelize) => {
   return new SequelizeStorage({
-    model: sequelize.define(
-      'SequelizeMeta',
-      {
-        name: {
-          type: DataTypes.STRING,
-          primaryKey: true,
-          allowNull: false,
-        },
-      },
-      {
-        tableName: 'sequelize_meta',
-        underscored: true,
-        timestamps: true,
-        updatedAt: false,
-        paranoid: false,
-      },
-    ),
+    model: createMeta(sequelize),
     columnName: 'name',
   });
 };
