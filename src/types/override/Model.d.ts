@@ -410,7 +410,7 @@ export abstract class Model<
   public static findAndCountAll<M extends Model>(
     this: ModelStatic<M>,
     options?: FindAndCountOptions<M['_attributes']>
-  ): Promise<{ rows: M[]; count: number }>;
+  ): Promise<{ rows: RealModel<M>[]; count: number }>;
 
   /**
    * Find the maximum value of field
