@@ -1,9 +1,9 @@
 import { DataTypes } from 'sequelize';
 import { Sequelize } from '../model/Sequelize';
 
-export const createMeta = (sequelize: Sequelize) => {
+export const createMeta = (sequelize: Sequelize, modelName: string = 'SequelizeMeta') => {
   return sequelize.define(
-    'SequelizeMeta',
+    modelName,
     {
       name: {
         /**

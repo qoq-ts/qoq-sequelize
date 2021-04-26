@@ -12,12 +12,15 @@ router
   .docs({
     description: 'Reverts a migration',
   })
-
-  .action(async (ctx) => {
+  .options({
+    step: validator.integer.min(1).optional(),
+  })
+  .action(async (ctx, payload) => {
+    const { step }  = payload.options;
     const umzug = await createUmzugForMigration(ctx.sequelize);
 
     return umzug.down({
-      step: 1,
+      step: step ?? 1,
     });
   });
 

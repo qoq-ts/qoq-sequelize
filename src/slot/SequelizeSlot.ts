@@ -20,7 +20,7 @@ export class SequelizeSlot extends Slot<Slot.Mix, { sequelize: Sequelize }> {
   }
 
   public/*protected*/ fromShared() {
-    topic.subscribeOnce('sequelizeShared', (sequelize) => {
+    topic.subscribe('sequelizeShared', (sequelize) => {
       this.instance = sequelize;
     });
     return this;
