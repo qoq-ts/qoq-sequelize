@@ -1,6 +1,6 @@
 import path from 'path';
 import glob from 'glob';
-import { Umzug, SequelizeStorage, RunnableMigration } from 'umzug';
+import { Umzug, SequelizeStorage, RunnableMigration, memoryStorage } from 'umzug';
 import { MigrationHelper } from './MigrationHelper';
 import { Sequelize } from '../model/Sequelize';
 import { QueryInterface } from '../types/override/QueryInterface';
@@ -27,32 +27,31 @@ const parseMigrations = async (dir: string): Promise<RunnableMigration<QueryInte
   return migrationList;
 };
 
-const createStorage = (sequelize: Sequelize) => {
-  return new SequelizeStorage({
-    model: createMeta(sequelize),
-    columnName: 'name',
-  });
-};
-
-const createUmzug = async (sequelize: Sequelize, path: string): Promise<Umzug<QueryInterface>> => {
+export const createUmzugForMigration = async (sequelize: Sequelize): Promise<Umzug<QueryInterface>> => {
   const umzug = new Umzug<QueryInterface>({
-    migrations: await parseMigrations(path),
+    migrations: await parseMigrations(sequelize.migrationsPath),
     context: sequelize.getQueryInterface(),
-    storage: createStorage(sequelize),
+    storage: new SequelizeStorage({
+      model: createMeta(sequelize),
+      columnName: 'name',
+    }),
     logger: undefined,
   });
 
   registerEvents(umzug);
-
   return umzug;
-}
-
-export const createUmzugForMigration = (sequelize: Sequelize): Promise<Umzug<QueryInterface>> => {
-  return createUmzug(sequelize, sequelize.migrationsPath);
 };
 
-export const createUmzugForSeeder = (sequelize: Sequelize): Promise<Umzug<QueryInterface>> => {
-  return createUmzug(sequelize, sequelize.seedersPath);
+export const createUmzugForSeeder = async (sequelize: Sequelize): Promise<Umzug<QueryInterface>> => {
+  const umzug = new Umzug<QueryInterface>({
+    migrations: await parseMigrations(sequelize.seedersPath),
+    context: sequelize.getQueryInterface(),
+    storage: memoryStorage(),
+    logger: undefined,
+  });
+
+  registerEvents(umzug);
+  return umzug;
 };
 
 const registerEvents = (umzug: Umzug<QueryInterface>) => {
