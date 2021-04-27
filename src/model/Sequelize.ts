@@ -20,6 +20,7 @@ export class Sequelize extends OriginSequelize {
   protected readonly modelsPath: string;
   public/*protected*/ readonly migrationsPath: string;
   public/*protected*/ readonly seedersPath: string;
+  private ready: boolean = false;
 
   constructor(options: SequelizeOptions = {}) {
     super(options);
@@ -29,9 +30,25 @@ export class Sequelize extends OriginSequelize {
     this.seedersPath = options.seedersDir || './src/seeders';
 
     this.parseModels(this.modelsPath).then(() => {
+      this.ready = true;
       topic.publish('modelsInitialized', this);
     });
     this.updateQueryInterface();
+  }
+
+  async waitReady() {
+    if (this.ready) {
+      return;
+    }
+
+    return new Promise((resolve) => {
+      const token = topic.subscribe('modelsInitialized', () => {
+        if (this.ready) {
+          resolve(undefined);
+          token.unsubscribe();
+        }
+      });
+    });
   }
 
   getModelsPath() {

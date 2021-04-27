@@ -31,4 +31,7 @@ export const User = defineModel({
       }
     })),
   },
+  options: {
+    underscored: true,
+  }
 });
