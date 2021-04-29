@@ -1,7 +1,7 @@
 import { Int } from './Int';
 import { ColumnVirtual } from './Virtual';
 import { SmallInt } from './SmallInt';
-import { MediumInt } from './mediumInt';
+import { MediumInt } from './MediumInt';
 import { TinyText } from './TinyText';
 import { Text } from './Text';
 import { MediumText } from './MediumText';
