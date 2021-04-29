@@ -12,13 +12,9 @@ export interface DateTimeOptions<T extends Date | null> extends BaseColumnOption
 export class DateTime<Type extends Date | null = Date | null> extends AdvancedColumn<DateTimeOptions<Type>> {
   protected precision?: number | string;
 
-  public primaryKey(): DateTime<NonNullable<Type>> {
-    return super.primaryKey();
-  }
+  declare readonly primaryKey: () => DateTime<NonNullable<Type>>;
 
-  public notNull(): DateTime<NonNullable<Type>> {
-    return super.notNull();
-  }
+  declare readonly notNull: () => DateTime<NonNullable<Type>>;
 
   /**
    * inject sql `CURRENT_TIMESTAMP`
@@ -38,6 +34,7 @@ export class DateTime<Type extends Date | null = Date | null> extends AdvancedCo
   public default(value: Fn | Literal | 'now'): DateTime<NonNullable<Type>>;
   public default(value: string): DateTime<NonNullable<Type>>;
   public default(value: string | Fn | Literal | 'now'): DateTime<NonNullable<Type>> {
+    // @ts-expect-error
     return super.default(value === 'now' ? DataTypes.NOW : value);
   }
 

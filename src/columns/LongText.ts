@@ -9,15 +9,9 @@ export class LongText<Type extends string | null = string | null> extends Abstra
     });
   }
 
-  public primaryKey(): LongText<NonNullable<Type>> {
-    return super.primaryKey();
-  }
+  declare readonly primaryKey: () => LongText<NonNullable<Type>>;
 
-  public notNull(): LongText<NonNullable<Type>> {
-    return super.notNull();
-  }
+  declare readonly notNull: () => LongText<NonNullable<Type>>;
 
-  public default(value: string): LongText<NonNullable<Type>> {
-    return super.default(value);
-  }
+  declare readonly default: (value: string) => LongText<NonNullable<Type>>;
 }

@@ -9,15 +9,9 @@ export class MediumText<Type extends string | null = string | null> extends Abst
     });
   }
 
-  public primaryKey(): MediumText<NonNullable<Type>> {
-    return super.primaryKey();
-  }
+  declare readonly primaryKey: () => MediumText<NonNullable<Type>>;
 
-  public notNull(): MediumText<NonNullable<Type>> {
-    return super.notNull();
-  }
+  declare readonly notNull: () => MediumText<NonNullable<Type>>;
 
-  public default(value: string): MediumText<NonNullable<Type>> {
-    return super.default(value);
-  }
+  declare readonly default: (value: string) => MediumText<NonNullable<Type>>;
 }

@@ -4,17 +4,11 @@ import { AbstractNumber, AbstractNumberOptions } from './AbstractNumber';
 interface BigIntOptions<T extends number | null> extends AbstractNumberOptions<T> {}
 
 export class BigInt<Type extends number | null = number | null> extends AbstractNumber<BigIntOptions<Type>> {
-  public primaryKey(): BigInt<NonNullable<Type>> {
-    return super.primaryKey();
-  }
+  declare readonly primaryKey: () => BigInt<NonNullable<Type>>;
 
-  public notNull(): BigInt<NonNullable<Type>> {
-    return super.notNull();
-  }
+  declare readonly notNull: () => BigInt<NonNullable<Type>>;
 
-  public default(value: number): BigInt<NonNullable<Type>> {
-    return super.default(value);
-  }
+  declare readonly default: (value: number) => BigInt<NonNullable<Type>>;
 
   protected getType() {
     return DataTypes.BIGINT;

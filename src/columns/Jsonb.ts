@@ -8,19 +8,11 @@ interface JsonbOptions<T extends object | null> extends BaseColumnOptions<T> {}
  * JSON Data Types for postgress
  */
 export class Jsonb<Type extends object | null = object | null> extends AdvancedColumn<JsonbOptions<Type>> {
-  public primaryKey(): Jsonb<NonNullable<Type>> {
-    return super.primaryKey();
-  }
+  declare readonly primaryKey: () => Jsonb<NonNullable<Type>>;
 
-  public notNull(): Jsonb<NonNullable<Type>> {
-    this.config.allowNull = false;
-    // @ts-expect-error
-    return this;
-  }
+  declare readonly notNull: () => Jsonb<NonNullable<Type>>;
 
-  public default(value: NonNullable<Type>): Jsonb<NonNullable<Type>> {
-    return super.default(value);
-  }
+  declare readonly default: (value: NonNullable<Type>) => Jsonb<NonNullable<Type>>;
 
   protected getType() {
     return DataTypes.JSONB;

@@ -4,19 +4,11 @@ import { AbstractNumber, AbstractNumberOptions } from './AbstractNumber';
 interface MediumIntOptions<T extends number | null> extends AbstractNumberOptions<T> {}
 
 export class MediumInt<Type extends number | null = number | null> extends AbstractNumber<MediumIntOptions<Type>> {
-  public primaryKey(): MediumInt<NonNullable<Type>> {
-    return super.primaryKey();
-  }
+  declare readonly primaryKey: () => MediumInt<NonNullable<Type>>;
 
-  public notNull(): MediumInt<NonNullable<Type>> {
-    this.config.allowNull = false;
-    // @ts-expect-error
-    return this;
-  }
+  declare readonly notNull: () => MediumInt<NonNullable<Type>>;
 
-  public default(value: number): MediumInt<NonNullable<Type>> {
-    return super.default(value);
-  }
+  declare readonly default: (value: number) => MediumInt<NonNullable<Type>>;
 
   protected getType() {
     return DataTypes.MEDIUMINT;

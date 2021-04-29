@@ -9,15 +9,9 @@ export class TinyText<Type extends string | null = string | null> extends Abstra
     });
   }
 
-  public primaryKey(): TinyText<NonNullable<Type>> {
-    return super.primaryKey();
-  }
+  declare readonly primaryKey: () => TinyText<NonNullable<Type>>;
 
-  public notNull(): TinyText<NonNullable<Type>> {
-    return super.notNull();
-  }
+  declare readonly notNull: () => TinyText<NonNullable<Type>>;
 
-  public default(value: string): TinyText<NonNullable<Type>> {
-    return super.default(value);
-  }
+  declare readonly default: (value: string) => TinyText<NonNullable<Type>>;
 }

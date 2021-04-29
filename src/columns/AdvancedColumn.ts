@@ -12,17 +12,17 @@ export abstract class AdvancedColumn<T extends BaseColumnOptions<any> = BaseColu
     return this;
   }
 
-  public primaryKey(): any {
+  public primaryKey(): AdvancedColumn {
     this.config.primaryKey = true;
     return this;
   }
 
-  public notNull(): any {
+  public notNull(): AdvancedColumn {
     this.config.allowNull = false;
     return this;
   }
 
-  public default(value: any): any {
+  public default(value: any): AdvancedColumn {
     this.config.defaultValue = value;
     return this;
   }

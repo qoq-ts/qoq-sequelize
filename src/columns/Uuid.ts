@@ -5,15 +5,12 @@ import { BaseColumnOptions } from './BaseColumn';
 export interface UuidOptions<T extends boolean | null> extends BaseColumnOptions<T> {}
 
 export class Uuid<Type extends boolean | null = boolean | null> extends AdvancedColumn<UuidOptions<Type>> {
-  public primaryKey(): Uuid<NonNullable<Type>> {
-    return super.primaryKey();
-  }
+  declare readonly primaryKey: () => Uuid<NonNullable<Type>>;
 
-  public notNull(): Uuid<NonNullable<Type>> {
-    return super.notNull();
-  }
+  declare readonly notNull: () => Uuid<NonNullable<Type>>;
 
   public default(value: 'uuid_v4' | 'uuid_v1'): Uuid<NonNullable<Type>> {
+    // @ts-expect-error
     return super.default(value === 'uuid_v1' ? DataTypes.UUIDV1 : DataTypes.UUIDV4);
   }
 

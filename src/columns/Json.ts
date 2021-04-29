@@ -12,19 +12,11 @@ interface JsonOptions<T extends object | null> extends BaseColumnOptions<T> {}
  * @since postgres 9.4.0
  */
 export class Json<Type extends object | null = object | null> extends AdvancedColumn<JsonOptions<Type>> {
-  public primaryKey(): Json<NonNullable<Type>> {
-    return super.primaryKey();
-  }
+  declare readonly primaryKey: () => Json<NonNullable<Type>>;
 
-  public notNull(): Json<NonNullable<Type>> {
-    this.config.allowNull = false;
-    // @ts-expect-error
-    return this;
-  }
+  declare readonly notNull: () => Json<NonNullable<Type>>;
 
-  public default(value: NonNullable<Type>): Json<NonNullable<Type>> {
-    return super.default(value);
-  }
+  declare readonly default: (value: NonNullable<Type>) => Json<NonNullable<Type>>;
 
   protected getType() {
     return DataTypes.JSON;

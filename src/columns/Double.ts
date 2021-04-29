@@ -8,17 +8,11 @@ export interface DoubleOptions<T extends number | null> extends AbstractNumberOp
 export class Double<Type extends number | null = number | null> extends AbstractNumber<DoubleOptions<Type>> {
   protected numberOptions: DoubleDataTypeOptions = {};
 
-  public primaryKey(): Double<NonNullable<Type>> {
-    return super.primaryKey();
-  }
+  declare readonly primaryKey: () => Double<NonNullable<Type>>;
 
-  public notNull(): Double<NonNullable<Type>> {
-    return super.notNull();
-  }
+  declare readonly notNull: () => Double<NonNullable<Type>>;
 
-  public default(value: string): Double<NonNullable<Type>> {
-    return super.default(value);
-  }
+  declare readonly default: (value: string) => Double<NonNullable<Type>>;
 
   public decimals(length: number): this {
     this.numberOptions.decimals = length;

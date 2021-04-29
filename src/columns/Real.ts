@@ -9,17 +9,11 @@ export interface RealOptions<T extends number | null> extends AbstractNumberOpti
 export class Real<Type extends number | null = number | null> extends AbstractNumber<RealOptions<Type>> {
   protected numberOptions: RealDataTypeOptions = {};
 
-  public primaryKey(): Real<NonNullable<Type>> {
-    return super.primaryKey();
-  }
+  declare readonly primaryKey: () => Real<NonNullable<Type>>;
 
-  public notNull(): Real<NonNullable<Type>> {
-    return super.notNull();
-  }
+  declare readonly notNull: () => Real<NonNullable<Type>>;
 
-  public default(value: string): Real<NonNullable<Type>> {
-    return super.default(value);
-  }
+  declare readonly default: (value: string) => Real<NonNullable<Type>>;
 
   public decimals(length: number): this {
     this.numberOptions.decimals = length;

@@ -8,17 +8,11 @@ export interface DecimalOptions<T extends number | null> extends AbstractNumberO
 export class Decimal<Type extends number | null = number | null> extends AbstractNumber<DecimalOptions<Type>> {
   protected numberOptions: DecimalDataTypeOptions = {};
 
-  public primaryKey(): Decimal<NonNullable<Type>> {
-    return super.primaryKey();
-  }
+  declare readonly primaryKey: () => Decimal<NonNullable<Type>>;
 
-  public notNull(): Decimal<NonNullable<Type>> {
-    return super.notNull();
-  }
+  declare readonly notNull: () => Decimal<NonNullable<Type>>;
 
-  public default(value: number): Decimal<NonNullable<Type>> {
-    return super.default(value);
-  }
+  declare readonly default: (value: number) => Decimal<NonNullable<Type>>;
 
   public scale(length: number): this {
     this.numberOptions.scale = length;

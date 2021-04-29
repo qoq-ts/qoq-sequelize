@@ -5,17 +5,11 @@ import { BaseColumnOptions } from './BaseColumn';
 export interface BooleanOptions<T extends boolean | null> extends BaseColumnOptions<T> {}
 
 export class Boolean<Type extends boolean | null = boolean | null> extends AdvancedColumn<BooleanOptions<Type>> {
-  public primaryKey(): Boolean<NonNullable<Type>> {
-    return super.primaryKey();
-  }
+  declare readonly primaryKey: () => Boolean<NonNullable<Type>>;
 
-  public notNull(): Boolean<NonNullable<Type>> {
-    return super.notNull();
-  }
+  declare readonly notNull: () => Boolean<NonNullable<Type>>;
 
-  public default(value: boolean): Boolean<NonNullable<Type>> {
-    return super.default(value);
-  }
+  declare readonly default: (value: boolean) => Boolean<NonNullable<Type>>;
 
   protected getType() {
     return DataTypes.BOOLEAN;

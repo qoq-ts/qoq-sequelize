@@ -4,17 +4,11 @@ import { AbstractString, AbstractStringOptions } from './AbstractString';
 interface VarcharOptions<T extends string | null> extends AbstractStringOptions<T> {}
 
 export class Varchar<Type extends string | null = string | null> extends AbstractString<VarcharOptions<Type>> {
-  public primaryKey(): Varchar<NonNullable<Type>> {
-    return super.primaryKey();
-  }
+  declare readonly primaryKey: () => Varchar<NonNullable<Type>>;
 
-  public notNull(): Varchar<NonNullable<Type>> {
-    return super.notNull();
-  }
+  declare readonly notNull: () => Varchar<NonNullable<Type>>;
 
-  public default(value: string): Varchar<NonNullable<Type>> {
-    return super.default(value);
-  }
+  declare readonly default: (value: string) => Varchar<NonNullable<Type>>;
 
   protected getType() {
     return DataTypes.STRING;

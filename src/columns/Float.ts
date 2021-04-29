@@ -8,17 +8,11 @@ export interface FloatOptions<T extends number | null> extends AbstractNumberOpt
 export class Float<Type extends number | null = number | null> extends AbstractNumber<FloatOptions<Type>> {
   protected numberOptions: FloatDataTypeOptions = {};
 
-  public primaryKey(): Float<NonNullable<Type>> {
-    return super.primaryKey();
-  }
+  declare readonly primaryKey: () => Float<NonNullable<Type>>;
 
-  public notNull(): Float<NonNullable<Type>> {
-    return super.notNull();
-  }
+  declare readonly notNull: () => Float<NonNullable<Type>>;
 
-  public default(value: string): Float<NonNullable<Type>> {
-    return super.default(value);
-  }
+  declare readonly default: (value: string) => Float<NonNullable<Type>>;
 
   public decimals(length: number): this {
     this.numberOptions.decimals = length;

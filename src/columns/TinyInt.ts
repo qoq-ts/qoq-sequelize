@@ -4,17 +4,11 @@ import { AbstractNumber, AbstractNumberOptions } from './AbstractNumber';
 interface TinyIntOptions<T extends number | null> extends AbstractNumberOptions<T> {}
 
 export class TinyInt<Type extends number | null = number | null> extends AbstractNumber<TinyIntOptions<Type>> {
-  public primaryKey(): TinyInt<NonNullable<Type>> {
-    return super.primaryKey();
-  }
+  declare readonly primaryKey: () => TinyInt<NonNullable<Type>>;
 
-  public notNull(): TinyInt<NonNullable<Type>> {
-    return super.notNull();
-  }
+  declare readonly notNull: () => TinyInt<NonNullable<Type>>;
 
-  public default(value: number): TinyInt<NonNullable<Type>> {
-    return super.default(value);
-  }
+  declare readonly default: (value: number) => TinyInt<NonNullable<Type>>;
 
   protected getType() {
     return DataTypes.TINYINT;

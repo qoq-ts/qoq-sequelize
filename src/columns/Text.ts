@@ -3,15 +3,9 @@ import { AbstractTextOptions, AbstractText } from './AbstractText';
 interface TextOptions<T extends string | null> extends AbstractTextOptions<T> {}
 
 export class Text<Type extends string | null = string | null> extends AbstractText<TextOptions<Type>> {
-  public primaryKey(): Text<NonNullable<Type>> {
-    return super.primaryKey();
-  }
+  declare readonly primaryKey: () => Text<NonNullable<Type>>;
 
-  public notNull(): Text<NonNullable<Type>> {
-    return super.notNull();
-  }
+  declare readonly notNull: () => Text<NonNullable<Type>>;
 
-  public default(value: string): Text<NonNullable<Type>> {
-    return super.default(value);
-  }
+  declare readonly default: (value: string) => Text<NonNullable<Type>>;
 }

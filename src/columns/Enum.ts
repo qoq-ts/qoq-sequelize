@@ -9,9 +9,7 @@ export interface EnumOptions<T extends string | null> extends BaseColumnOptions<
 export class Enum<Type extends string | null = null> extends AdvancedColumn<EnumOptions<Type>> {
   protected enumValues: any[] = [];
 
-  public primaryKey(): Enum<NonNullable<Type>> {
-    return super.primaryKey();
-  }
+  declare readonly primaryKey: () => Enum<NonNullable<Type>>;
 
   public values<T extends string>(values: T[]): Enum<T | (null extends Type ? null : T)> {
     this.enumValues = values;
@@ -19,13 +17,9 @@ export class Enum<Type extends string | null = null> extends AdvancedColumn<Enum
     return this;
   }
 
-  public default(value: NonNullable<Type>): Enum<NonNullable<Type>> {
-    return super.default(value);
-  }
+  declare readonly default: (value: NonNullable<Type>) => Enum<NonNullable<Type>>;
 
-  public notNull(): Enum<NonNullable<Type>> {
-    return super.notNull();
-  }
+  declare readonly notNull: () => Enum<NonNullable<Type>>;
 
   public/*protected*/ collect(): ModelAttributeColumnOptions {
     const config = super.collect();
