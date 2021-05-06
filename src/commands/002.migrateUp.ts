@@ -9,11 +9,9 @@ export const router = new ConsoleRouter({
 router
   .command('db:migrate')
   .showInHelp()
-  .docs({
-    description: 'Run pending migrations',
-  })
+  .description('Run pending migrations')
   .options({
-    to: validator.string.optional().docs({
+    to: validator.string.optional().document({
       description: 'Migration name to run migrations until',
     }),
   })

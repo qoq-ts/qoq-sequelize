@@ -9,9 +9,7 @@ export const router = new ConsoleRouter({
 router
   .command('db:migrate:undo')
   .showInHelp()
-  .docs({
-    description: 'Reverts a migration',
-  })
+  .description('Reverts a migration')
   .options({
     step: validator.integer.min(1).optional(),
   })
@@ -27,11 +25,9 @@ router
 router
   .command('db:migrate:undo:all')
   .showInHelp()
-  .docs({
-    description: 'Revert all migrations ran',
-  })
+  .description('Revert all migrations ran')
   .options({
-    to: validator.string.optional().docs({
+    to: validator.string.optional().document({
       description: 'Revert to the provided migration',
     }),
   })

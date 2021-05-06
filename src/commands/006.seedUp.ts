@@ -9,11 +9,9 @@ export const router = new ConsoleRouter({
 router
   .command('db:seed')
   .showInHelp()
-  .docs({
-    description: 'Run specified seeder',
-  })
+  .description('Run specified seeder')
   .options({
-    seed: validator.array.each(validator.string).docs({
+    seed: validator.array.each(validator.string).document({
       description: 'List of seed files',
     }),
   })
@@ -28,9 +26,7 @@ router
 router
   .command('db:seed:all')
   .showInHelp()
-  .docs({
-    description: 'Run every seeder',
-  })
+  .description('Run every seeder')
   .action(async (ctx) => {
     const umzug = await createUmzugForSeeder(ctx.sequelize);
     await umzug.up();

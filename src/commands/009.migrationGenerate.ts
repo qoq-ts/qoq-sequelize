@@ -14,11 +14,9 @@ export const router = new ConsoleRouter({
 router
   .command(['migration:generate', 'migration:create'])
   .showInHelp()
-  .docs({
-    description: 'Generates a new migration file',
-  })
+  .description('Generates a new migration file')
   .options({
-    name: validator.string.docs({
+    name: validator.string.document({
       description: 'Defines the name of the migration',
     }),
   })

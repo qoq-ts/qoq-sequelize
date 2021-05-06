@@ -9,9 +9,7 @@ export const router = new ConsoleRouter({
 router
   .command('db:seed:undo')
   .showInHelp()
-  .docs({
-    description: 'Deletes data from the database',
-  })
+  .description('Deletes data from the database')
   .action(async (ctx) => {
     const umzug = await createUmzugForSeeder(ctx.sequelize);
 
@@ -23,11 +21,9 @@ router
 router
   .command('db:seed:undo:all')
   .showInHelp()
-  .docs({
-    description: 'Deletes data from the database',
-  })
+  .description('Deletes data from the database')
   .options({
-    to: validator.string.optional().docs({
+    to: validator.string.optional().document({
       description: 'Revert to the provided migration',
     }),
   })

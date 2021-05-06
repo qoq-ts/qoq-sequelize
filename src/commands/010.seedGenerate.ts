@@ -14,11 +14,9 @@ export const router = new ConsoleRouter({
 router
   .command(['seed:generate', 'seed:create'])
   .showInHelp()
-  .docs({
-    description: 'Generates a new seed file',
-  })
+  .description('Generates a new seed file')
   .options({
-    name: validator.string.docs({
+    name: validator.string.document({
       description: 'Defines the name of the seed',
     }),
   })

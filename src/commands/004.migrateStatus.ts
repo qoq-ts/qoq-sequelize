@@ -10,9 +10,7 @@ export const router = new ConsoleRouter({
 router
   .command('db:migrate:status')
   .showInHelp()
-  .docs({
-    description: 'List the status of all migrations',
-  })
+  .description('List the status of all migrations')
   .action(async (ctx) => {
     const umzug = await createUmzugForMigration(ctx.sequelize);
     const executed = await umzug.executed();
