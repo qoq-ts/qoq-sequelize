@@ -35,7 +35,7 @@ it ('cannot operate the model before sequelize is initialized', async () => {
     expect(true).toBeTruthy();
   }
 
-  await sequelize.waitReady();
+  await sequelize.ready();
 
   await User.create({
     name: 'x',

@@ -1,4 +1,4 @@
-import { dirname, join, resolve } from 'path';
+import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { Model, ModelAttributes, ModelCtor, ModelOptions, Options, QueryInterfaceCreateTableOptions, Sequelize as OriginSequelize, QueryInterface as OriginQueryInterface, QueryInterfaceOptions } from 'sequelize';
 import { topic } from '../util/topic';
@@ -6,7 +6,6 @@ import { ConsoleApplication, finder } from 'qoq';
 import { AdvancedColumn } from '../columns/AdvancedColumn';
 import { getFinalDataType } from '../util/getFinalDataType';
 import { QueryInterface } from '../types/override/QueryInterface';
-import glob from 'glob';
 import { TemporaryModel } from './TemporaryModel';
 
 export interface SequelizeOptions extends Options {
@@ -20,7 +19,7 @@ export class Sequelize extends OriginSequelize {
   protected readonly modelsPath: string;
   public/*protected*/ readonly migrationsPath: string;
   public/*protected*/ readonly seedersPath: string;
-  private ready: boolean = false;
+  private isReady: boolean = false;
 
   constructor(options: SequelizeOptions = {}) {
     super(options);
@@ -30,20 +29,20 @@ export class Sequelize extends OriginSequelize {
     this.seedersPath = options.seedersDir || './src/seeders';
 
     this.parseModels(this.modelsPath).then(() => {
-      this.ready = true;
+      this.isReady = true;
       topic.publish('modelsInitialized', this);
     });
     this.updateQueryInterface();
   }
 
-  async waitReady() {
-    if (this.ready) {
+  async ready() {
+    if (this.isReady) {
       return;
     }
 
     return new Promise((resolve) => {
       const token = topic.subscribe('modelsInitialized', () => {
-        if (this.ready) {
+        if (this.isReady) {
           resolve(undefined);
           token.unsubscribe();
         }
@@ -95,9 +94,11 @@ export class Sequelize extends OriginSequelize {
     token.release();
   }
 
-  protected parseModels(modelsPath: string) {
-    return Promise.all(
-      glob.sync(resolve(modelsPath, '**/!(*.d).{ts,js}')).map(async (fileName) => {
+  protected async parseModels(modelsPath: string) {
+    const matches = await finder(finder.normalize(finder.resolve(modelsPath)));
+
+    await Promise.all(
+      matches.map(async (fileName) => {
         const modules = await import(fileName);
 
         for (const [key, model] of Object.entries<typeof TemporaryModel>(modules)) {

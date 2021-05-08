@@ -1,16 +1,17 @@
 import path from 'path';
-import glob from 'glob';
 import { Umzug, SequelizeStorage, RunnableMigration, memoryStorage } from 'umzug';
 import { MigrationHelper } from './MigrationHelper';
 import { Sequelize } from '../model/Sequelize';
 import { QueryInterface } from '../types/override/QueryInterface';
 import { createMeta } from './createMeta';
+import { finder } from 'qoq';
 
 const parseMigrations = async (dir: string): Promise<RunnableMigration<QueryInterface>[]> => {
   const migrationList: RunnableMigration<QueryInterface>[] = [];
+  const matches = await finder(finder.normalize(finder.resolve(dir)));
 
   await Promise.all(
-    glob.sync(path.resolve(dir, '**', '!(*.d).{ts,js}')).map(async (fileName) => {
+    matches.map(async (fileName) => {
       const modules = await import(fileName);
       const defaultModule = modules.default;
 

@@ -30,20 +30,16 @@ it ('migrate up all files', async () => {
   expect(names).toContain('002-createProject');
 });
 
-it ('migrate up with option from-to', async () => {
-  await app.execute('db:migrate', '--from', '001-createUser', '--to', '003-createCard');
+it ('migrate up with option to', async () => {
+  await app.execute('db:migrate', '--to', '001-createUser');
   const meta = await Meta.findAll();
   const names = meta.map((item) => item.get('name'));
-  expect(names).toHaveLength(3);
+  expect(names).toHaveLength(1);
   expect(names).toContain('001-createUser');
 
   await sequelize.dropAllSchemas({});
-  await app.execute('db:migrate', '--from', '001-createUser');
-  expect(await Meta.findAll()).toHaveLength(3);
-
-  await sequelize.dropAllSchemas({});
-  await app.execute('db:migrate', '--to', '003-createCard');
-  expect(await Meta.findAll()).toHaveLength(3);
+  await app.execute('db:migrate', '--to', '002-createProject');
+  expect(await Meta.findAll()).toHaveLength(2);
 
   await sequelize.dropAllSchemas({});
   await app.execute('db:migrate');

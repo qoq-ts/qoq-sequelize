@@ -5,12 +5,13 @@ import { User } from '../fixture/models/User';
 
 let sequelize: Sequelize;
 
-beforeAll(() => {
+beforeAll(async () => {
   sequelize = new Sequelize({
     dialect: 'sqlite',
     modelsDir: join(__dirname, '..', 'fixture', 'models'),
     logging: false,
   });
+  await sequelize.ready();
 });
 
 beforeEach(async () => {
