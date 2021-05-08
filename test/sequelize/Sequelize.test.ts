@@ -23,7 +23,7 @@ it ('can search models path', async () => {
 
 it ('can mount commands to app', async () => {
   const app = new ConsoleApplication({
-    commandsPath: [],
+    commandsDir: [],
   });
   const sequelize = new Sequelize({
     dialect: 'sqlite',

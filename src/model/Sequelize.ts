@@ -90,12 +90,12 @@ export class Sequelize extends OriginSequelize {
     ));
 
     const token = topic.keep('sequelizeShared', true, this);
-    await app.mountCommandPath(finder.resolve(join(dir, '..', 'commands')));
+    await app.mountCommandPath(join(dir, '..', 'commands'));
     token.release();
   }
 
   protected async parseModels(modelsPath: string) {
-    const matches = await finder(finder.normalize(finder.resolve(modelsPath)));
+    const matches = await finder(finder.normalize(modelsPath));
 
     await Promise.all(
       matches.map(async (fileName) => {

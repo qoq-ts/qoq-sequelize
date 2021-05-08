@@ -8,7 +8,7 @@ import { finder } from 'qoq';
 
 const parseMigrations = async (dir: string): Promise<RunnableMigration<QueryInterface>[]> => {
   const migrationList: RunnableMigration<QueryInterface>[] = [];
-  const matches = await finder(finder.normalize(finder.resolve(dir)));
+  const matches = await finder(finder.normalize(dir));
 
   await Promise.all(
     matches.map(async (fileName) => {
