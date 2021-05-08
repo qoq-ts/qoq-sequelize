@@ -11,7 +11,7 @@ router
   .showInHelp()
   .description('Run specified seeder')
   .options({
-    seed: validator.array.each(validator.string).document({
+    seed: validator.array.item(validator.string).document({
       description: 'List of seed files',
     }),
   })

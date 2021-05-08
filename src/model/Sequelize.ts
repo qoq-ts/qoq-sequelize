@@ -2,7 +2,7 @@ import { dirname, join, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import { Model, ModelAttributes, ModelCtor, ModelOptions, Options, QueryInterfaceCreateTableOptions, Sequelize as OriginSequelize, QueryInterface as OriginQueryInterface, QueryInterfaceOptions } from 'sequelize';
 import { topic } from '../util/topic';
-import { ConsoleApplication } from 'qoq';
+import { ConsoleApplication, finder } from 'qoq';
 import { AdvancedColumn } from '../columns/AdvancedColumn';
 import { getFinalDataType } from '../util/getFinalDataType';
 import { QueryInterface } from '../types/override/QueryInterface';
@@ -91,7 +91,7 @@ export class Sequelize extends OriginSequelize {
     ));
 
     const token = topic.keep('sequelizeShared', true, this);
-    await app.mountCommandPath(join(dir, '..', 'commands'));
+    await app.mountCommandPath(finder.resolve(join(dir, '..', 'commands')));
     token.release();
   }
 
