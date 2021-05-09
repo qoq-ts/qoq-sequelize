@@ -2,6 +2,14 @@ import { Hookable } from 'sequelize';
 import { AssociationScope } from './AssociationScope';
 import { ForeignKeyOptions } from './ForeignKeyOptions';
 import { Model } from './Model';
+
+/**
+ * ###############
+ *
+ * Omit: as
+ *
+ * ################
+ */
 /**
  * Options provided when associating models
  */
@@ -13,7 +21,7 @@ export interface AssociationOptions<_S extends Model, T extends Model> extends H
    * same alias when eager loading and when getting associated models. Defaults to the singularized name of
    * target
    */
-  as?: string | { singular: string; plural: string };
+  // as?: string | { singular: string; plural: string };
 
   /**
    * The name of the foreign key in the target table or an object representing the type definition for the
