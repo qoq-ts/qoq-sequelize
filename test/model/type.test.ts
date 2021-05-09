@@ -3,7 +3,7 @@
  */
 
 import { column, defineModel, Order, col } from '../../src';
-import type { ModelClass, ModelObject } from '../../src';
+import type { ModelInstance, ModelObject } from '../../src';
 import { Project } from '../fixture/models/Project';
 import { User } from '../fixture/models/User';
 import { UserProject } from '../fixture/models/UserProject';
@@ -609,7 +609,7 @@ export async function _deletedAt() {
 }
 
 export async function _GetModel() {
-  const testData: ModelClass<typeof User> = await User.findOne({ rejectOnEmpty: true });
+  const testData: ModelInstance<typeof User> = await User.findOne({ rejectOnEmpty: true });
 
   testData.age;
   // @ts-expect-error
