@@ -18,6 +18,16 @@ export const User = defineModel({
       otherKey: 'project_id',
       foreignKey: 'user_id',
     }),
+    projs1: () => User.belongsToMany(Project, {
+      through: {
+        model: UserProject,
+        scope: {
+          project_id: 2,
+        }
+      },
+      otherKey: 'project_id',
+      foreignKey: 'user_id',
+    }),
   },
   scopes: {
     withName: () => User.addScope({
