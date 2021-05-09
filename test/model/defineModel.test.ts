@@ -196,12 +196,10 @@ it ('can use the association with prefix associate', () => {
   modelsInitialized();
 
   expect(User.include.projects()).toMatchObject({
-    model: Project,
-    as: 'projects',
+    association: User.associations['projects'],
   });
   expect(User.include.projects()).toMatchObject({
-    model: Project,
-    as: 'projects',
+    association: User.associations['projects'],
   });
   expect(User.include.projects({ scope: 'test1' }).model).toBeInstanceOf(Function);
   // @ts-expect-error

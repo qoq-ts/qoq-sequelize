@@ -62,11 +62,11 @@ export type Associate<T extends object> = {
 
 export type IncludeFn<T, M extends Model = T extends () => Association<any, infer R> ? R : never, ScopeNames = keyof TModelScopes<M>> = (
   options?:
-    Omit<IncludeOptions<M['_attributes']>, 'association' | 'model' | 'as'> & {
+    Omit<IncludeOptions<M['_attributes']>, 'association' | 'model' | 'as' | 'through'> & {
     // WhereAttributeHash<M> should omit here.
     scope?: ScopeNames | 'defaultScope' | ScopeOptions<ScopeNames> | readonly (ScopeNames | 'defaultScope' | ScopeOptions<ScopeNames>)[];
   }
-) => IncludeOptions<any> & { model: ModelStatic<M>; as: string };
+) => IncludeOptions<any>;
 
 type Singular<K> = K extends `${string}ss`
   ? K

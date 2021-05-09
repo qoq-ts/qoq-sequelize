@@ -78,8 +78,7 @@ export abstract class TemporaryModel extends Model {
 
           return {
             ...rest,
-            model: association.target,
-            as: methodName,
+            association,
           };
         };
 
