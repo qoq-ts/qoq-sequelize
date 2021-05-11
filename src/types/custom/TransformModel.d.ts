@@ -8,4 +8,4 @@ export type RealModel<M extends Model, T extends object = M['_type_assocs']> = M
 
 export type ModelObject<T extends ModelCtor<any, any>, P extends Model = T extends ModelCtor<infer R> ? R : Model> = P['_attributes'] & {
   [K in keyof P['_type_assocs']]: AssociationToObject<P['_type_assocs'][K]>;
-};
+} & { [key: string]: unknown };

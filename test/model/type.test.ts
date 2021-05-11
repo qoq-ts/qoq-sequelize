@@ -627,8 +627,9 @@ export async function _GetModelObject() {
   const testData: ModelObject<typeof User> = (await User.findOne({ rejectOnEmpty: true })).get({ plain: true });
 
   testData.age;
+  testData.unknownValue;
   // @ts-expect-error
-  testData.age1;
+  testData.unknownValue.toString();
   testData.projects;
   testData.projects[0]?.title.trim();
   // @ts-expect-error
@@ -637,7 +638,7 @@ export async function _GetModelObject() {
   // @ts-expect-error
   testData.get('projects');
   // @ts-expect-error
-  testData.save;
+  testData.save();
 }
 
 export async function _Order() {
