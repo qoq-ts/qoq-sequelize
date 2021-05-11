@@ -3642,10 +3642,10 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.npmjs.org/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-qoq@^0.0.43:
-  version "0.0.43"
-  resolved "https://registry.npmjs.org/qoq/-/qoq-0.0.43.tgz#a314fa8f439a0516ecace382bb552afd85584272"
-  integrity sha512-Bz62RtkHYIXHTbayRyrv4f7LPd/RHyNMrQNCO/DaG3/aKtGcjT0H8UwQW2vVLv1kBNBCs3KGsuikmhZoEGruvA==
+qoq@^0.0.45:
+  version "0.0.45"
+  resolved "https://registry.npmjs.org/qoq/-/qoq-0.0.45.tgz#e07ca1f72f82ff932aaf810c01b3dd78a2c6a86b"
+  integrity sha512-q56R6IfoLwe3eKXK9XWg+Tqnk+Nswgz/sc+l8qGpteU0ahXJrfUifdOMW30psOZzDWLfqWFIVt5tb88Uek3heg==
   dependencies:
     "@types/formidable" "^1.2.1"
     "@types/koa" "2.13.1"
