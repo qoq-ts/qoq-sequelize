@@ -17,7 +17,11 @@ router
   })
   .action(async (ctx, payload) => {
     const umzug = await createUmzugForMigration(ctx.sequelize);
-    await umzug.up({
+    const metas = await umzug.up({
       to: payload.options.to,
     });
+
+    if (!metas.length) {
+      console.log('No migrations were executed, database schema was already up to date.');
+    }
   });
