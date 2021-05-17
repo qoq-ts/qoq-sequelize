@@ -27,11 +27,13 @@ import { InstanceDestroyOptions } from 'sequelize/types';
  */
 export type BelongsToManyRemoveAssociationsMixin<TModel, TModelPrimaryKey> = (
   oldAssociateds?: (TModel | TModelPrimaryKey)[],
-  options?: BelongsToManyRemoveAssociationsMixinOptions
+  options?: BelongsToManyRemoveAssociationsMixinOptions,
 ) => Promise<void>;
 
 /**
  * The options for the removeAssociations mixin of the belongsToMany association.
  * @see BelongsToManyRemoveAssociationsMixin
  */
-export interface BelongsToManyRemoveAssociationsMixinOptions extends InstanceDestroyOptions, InstanceDestroyOptions {}
+export interface BelongsToManyRemoveAssociationsMixinOptions
+  extends InstanceDestroyOptions,
+    InstanceDestroyOptions {}

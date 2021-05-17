@@ -11,5 +11,5 @@ export default migration({
   },
   async down(queryInferface) {
     await queryInferface.dropTable('card');
-  }
+  },
 });

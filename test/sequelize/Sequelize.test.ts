@@ -6,7 +6,7 @@ import { TemporaryModel } from '../../src/model/TemporaryModel';
 import { Project } from '../fixture/models/Project';
 import { User } from '../fixture/models/User';
 
-it ('can search models path', async () => {
+it('can search models path', async () => {
   expect(Project.prototype).toBeInstanceOf(TemporaryModel);
   expect(User.prototype).toBeInstanceOf(TemporaryModel);
 
@@ -21,7 +21,7 @@ it ('can search models path', async () => {
   await sequelize.close();
 });
 
-it ('can mount commands to app', async () => {
+it('can mount commands to app', async () => {
   const app = new ConsoleApplication({
     commandsDir: [],
   });

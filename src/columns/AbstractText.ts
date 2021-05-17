@@ -1,4 +1,10 @@
-import { ModelAttributeColumnOptions, TextDataTypeConstructor, TextDataType, TextDataTypeOptions, DataTypes } from 'sequelize';
+import {
+  ModelAttributeColumnOptions,
+  TextDataTypeConstructor,
+  TextDataType,
+  TextDataTypeOptions,
+  DataTypes,
+} from 'sequelize';
 import { AdvancedColumn } from './AdvancedColumn';
 import { BaseColumnOptions } from './BaseColumn';
 
@@ -14,7 +20,7 @@ export abstract class AbstractText<T extends AbstractTextOptions<any>> extends A
     this.stringOptions = options;
   }
 
-  public/*protected*/ collect(): ModelAttributeColumnOptions {
+  public /*protected*/ collect(): ModelAttributeColumnOptions {
     const config = super.collect();
     config.type = (config.type as TextDataTypeConstructor)(this.stringOptions);
     return config;

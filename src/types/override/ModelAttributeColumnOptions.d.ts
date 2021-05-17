@@ -1,4 +1,9 @@
-import { ColumnOptions, DataType, ModelAttributeColumnReferencesOptions, ModelValidateOptions } from 'sequelize';
+import {
+  ColumnOptions,
+  DataType,
+  ModelAttributeColumnReferencesOptions,
+  ModelValidateOptions,
+} from 'sequelize';
 import { Model } from './Model';
 
 /**
@@ -53,7 +58,6 @@ export interface ModelAttributeColumnOptions<M extends Model = Model> extends Co
    * NO ACTION
    */
   onDelete?: string;
-
 
   /**
    * An object of validations to execute for this column every time the model is saved. Can be either the

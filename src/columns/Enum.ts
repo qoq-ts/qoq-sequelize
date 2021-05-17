@@ -1,9 +1,14 @@
-import { DataTypes, EnumDataTypeConstructor, EnumDataType, ModelAttributeColumnOptions } from 'sequelize';
+import {
+  DataTypes,
+  EnumDataTypeConstructor,
+  EnumDataType,
+  ModelAttributeColumnOptions,
+} from 'sequelize';
 import { AdvancedColumn } from './AdvancedColumn';
 import { BaseColumnOptions } from './BaseColumn';
 
 export interface EnumOptions<T extends string | null> extends BaseColumnOptions<T> {
-  type: EnumDataTypeConstructor | EnumDataType<NonNullable<T>>
+  type: EnumDataTypeConstructor | EnumDataType<NonNullable<T>>;
 }
 
 export class Enum<Type extends string | null = null> extends AdvancedColumn<EnumOptions<Type>> {
@@ -21,7 +26,7 @@ export class Enum<Type extends string | null = null> extends AdvancedColumn<Enum
 
   declare readonly notNull: () => Enum<NonNullable<Type>>;
 
-  public/*protected*/ collect(): ModelAttributeColumnOptions {
+  public /*protected*/ collect(): ModelAttributeColumnOptions {
     const config = super.collect();
 
     config.type = (config.type as EnumDataTypeConstructor)({

@@ -21,14 +21,16 @@ import { HasOneGetAssociationMixinOptions } from './HasOneGetAssociationMixin';
  */
 export type HasOneSetAssociationMixin<TModel, TModelPrimaryKey> = (
   newAssociation?: TModel | TModelPrimaryKey,
-  options?: HasOneSetAssociationMixinOptions
+  options?: HasOneSetAssociationMixinOptions,
 ) => Promise<void>;
 
 /**
  * The options for the setAssociation mixin of the hasOne association.
  * @see HasOneSetAssociationMixin
  */
-export interface HasOneSetAssociationMixinOptions extends HasOneGetAssociationMixinOptions, SaveOptions<any> {
+export interface HasOneSetAssociationMixinOptions
+  extends HasOneGetAssociationMixinOptions,
+    SaveOptions<any> {
   /**
    * Skip saving this after setting the foreign key if false.
    */

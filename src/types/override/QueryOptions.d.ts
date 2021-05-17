@@ -1,4 +1,11 @@
-import { BindOrReplacements, FieldMap, Logging, Poolable, RetryOptions, Transactionable } from 'sequelize/types';
+import {
+  BindOrReplacements,
+  FieldMap,
+  Logging,
+  Poolable,
+  RetryOptions,
+  Transactionable,
+} from 'sequelize/types';
 import { Model } from './Model';
 
 /**

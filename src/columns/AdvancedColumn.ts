@@ -6,7 +6,9 @@ interface ReferenceOptions extends ModelAttributeColumnReferencesOptions {
   onDelete: 'CASCADE' | 'RESTRICT' | 'SET DEFAULT' | 'SET NULL' | 'NO ACTION';
 }
 
-export abstract class AdvancedColumn<T extends BaseColumnOptions<any> = BaseColumnOptions<any>> extends BaseColumn<T> {
+export abstract class AdvancedColumn<
+  T extends BaseColumnOptions<any> = BaseColumnOptions<any>,
+> extends BaseColumn<T> {
   public unique(is: boolean | string | { name: string; msg: string }): this {
     this.config.unique = is;
     return this;

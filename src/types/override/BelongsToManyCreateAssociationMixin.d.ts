@@ -30,7 +30,7 @@ import { Model } from './Model';
  */
 export type BelongsToManyCreateAssociationMixin<TModel extends Model> = (
   values?: { [attribute: string]: unknown },
-  options?: BelongsToManyCreateAssociationMixinOptions
+  options?: BelongsToManyCreateAssociationMixinOptions,
 ) => Promise<RealModel<TModel>>;
 
 /**

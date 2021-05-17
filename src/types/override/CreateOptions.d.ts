@@ -4,7 +4,12 @@ import { BuildOptions } from './BuildOptions';
 /**
  * Options for Model.create method
  */
-export interface CreateOptions<TAttributes = any> extends BuildOptions, Logging, Silent, Transactionable, Hookable {
+export interface CreateOptions<TAttributes = any>
+  extends BuildOptions,
+    Logging,
+    Silent,
+    Transactionable,
+    Hookable {
   /**
    * If set, only columns matching those in fields will be saved
    */
@@ -21,5 +26,4 @@ export interface CreateOptions<TAttributes = any> extends BuildOptions, Logging,
    * @default true
    */
   validate?: boolean;
-
 }

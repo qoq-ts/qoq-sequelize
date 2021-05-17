@@ -1,6 +1,16 @@
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { Model, ModelAttributes, ModelCtor, ModelOptions, Options, QueryInterfaceCreateTableOptions, Sequelize as OriginSequelize, QueryInterface as OriginQueryInterface, QueryInterfaceOptions } from 'sequelize';
+import {
+  Model,
+  ModelAttributes,
+  ModelCtor,
+  ModelOptions,
+  Options,
+  QueryInterfaceCreateTableOptions,
+  Sequelize as OriginSequelize,
+  QueryInterface as OriginQueryInterface,
+  QueryInterfaceOptions,
+} from 'sequelize';
 import { topic } from '../util/topic';
 import { ConsoleApplication, finder } from 'qoq';
 import { AdvancedColumn } from '../columns/AdvancedColumn';
@@ -17,8 +27,8 @@ export interface SequelizeOptions extends Options {
 
 export class Sequelize extends OriginSequelize {
   protected readonly modelsPath: string;
-  public/*protected*/ readonly migrationsPath: string;
-  public/*protected*/ readonly seedersPath: string;
+  public readonly /*protected*/ migrationsPath: string;
+  public readonly /*protected*/ seedersPath: string;
   private isReady: boolean = false;
 
   constructor(options: SequelizeOptions = {}) {
@@ -72,7 +82,7 @@ export class Sequelize extends OriginSequelize {
   public define<M extends Model, TCreationAttributes = M['_attributes']>(
     modelName: string,
     attributes: ModelAttributes<M, TCreationAttributes>,
-    options?: ModelOptions
+    options?: ModelOptions,
   ): ModelCtor<M> {
     return super.define(modelName, attributes, options);
   }
@@ -84,10 +94,14 @@ export class Sequelize extends OriginSequelize {
   }
 
   async mountCommands(app: ConsoleApplication) {
-    const dir = __dirname || dirname(fileURLToPath(
-      // FIXME: jest can't parse import.meta.
-      'import.meta.url'
-    ));
+    const dir =
+      __dirname ||
+      dirname(
+        fileURLToPath(
+          // FIXME: jest can't parse import.meta.
+          'import.meta.url',
+        ),
+      );
 
     const token = topic.keep('sequelizeShared', true, this);
     await app.mountCommandPath(join(dir, '..', 'commands'));
@@ -112,12 +126,13 @@ export class Sequelize extends OriginSequelize {
 
   protected updateQueryInterface() {
     const queryInferface = this.getQueryInterface();
-    const { createTable, addColumn, changeColumn } = queryInferface as unknown as OriginQueryInterface;
+    const { createTable, addColumn, changeColumn } =
+      queryInferface as unknown as OriginQueryInterface;
 
     queryInferface.createTable = function (
       tableName: string | { schema?: string; tableName?: string },
       attributes: Record<string, AdvancedColumn>,
-      options?: QueryInterfaceCreateTableOptions
+      options?: QueryInterfaceCreateTableOptions,
     ): Promise<void> {
       const attrs: ModelAttributes = {};
 
@@ -132,24 +147,24 @@ export class Sequelize extends OriginSequelize {
       table: string | { schema?: string; tableName?: string },
       key: string,
       attribute: AdvancedColumn,
-      options?: QueryInterfaceOptions
+      options?: QueryInterfaceOptions,
     ): Promise<void> {
       return addColumn.call(this, table, key, getFinalDataType(attribute), options);
-    }
+    };
 
     queryInferface.changeColumn = function (
       tableName: string | { schema?: string; tableName?: string },
       attributeName: string,
       dataTypeOrOptions: AdvancedColumn,
-      options?: QueryInterfaceOptions
+      options?: QueryInterfaceOptions,
     ): Promise<void> {
       return changeColumn.call(
         this,
         tableName,
         attributeName,
         getFinalDataType(dataTypeOrOptions),
-        options
+        options,
       );
-    }
+    };
   }
 }

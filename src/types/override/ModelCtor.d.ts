@@ -6,4 +6,4 @@ import { Model } from './Model';
 export type ModelCtor<M extends Model, Include = unknown, Order = unknown> = {
   include: Include;
   order: Order;
-} & typeof Model & { new(): M };
+} & typeof Model & { new (): M };

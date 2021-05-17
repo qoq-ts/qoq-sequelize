@@ -6,7 +6,9 @@ import { BaseColumnOptions } from './BaseColumn';
 
 export interface TimeOptions<T extends Date | null> extends BaseColumnOptions<T> {}
 
-export class Time<Type extends Date | null = Date | null> extends AdvancedColumn<TimeOptions<Type>> {
+export class Time<Type extends Date | null = Date | null> extends AdvancedColumn<
+  TimeOptions<Type>
+> {
   declare readonly primaryKey: () => Time<NonNullable<Type>>;
 
   declare readonly notNull: () => Time<NonNullable<Type>>;

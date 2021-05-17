@@ -1,4 +1,5 @@
 # qoq-sequelize
+
 qoq orm based on [sequelize@6](https://github.com/sequelize/sequelize) that totally rewritten type files to make your logic code stronger.
 
 [![License](https://img.shields.io/github/license/qoq-ts/qoq-sequelize)](https://github.com/qoq-ts/qoq-sequelize/blob/master/LICENSE)
@@ -26,11 +27,15 @@ yarn add tedious # Microsoft SQL Server
 Remember **DO NOT** install package ~~`sequelize`~~ and ~~`sequelize-cli`~~ by yourself!
 
 # Full documents
+
 Just see the [sequelize website](https://sequelize.org/master/index.html), and take a second please to see the minimum [engine version](https://github.com/sequelize/sequelize/blob/main/ENGINE.md#v6) which are supported by sequelize.
 
 # What's the difference?
+
 ### Initialization
+
 #### Before
+
 ```typescript
 import { Sequelize } from 'sequelize';
 
@@ -39,7 +44,9 @@ export const sequelize = new Sequelize({
   ...
 });
 ```
+
 #### After
+
 ```typescript
 import { Sequelize } from 'qoq-sequelize';
 
@@ -53,7 +60,9 @@ export const sequelize = new Sequelize({
 ```
 
 ### Attributes
+
 #### Before
+
 ```typescript
 export const User = sequelize.define('User', {
   id: {
@@ -68,6 +77,7 @@ export const User = sequelize.define('User', {
 ```
 
 #### After
+
 ```typescript
 import { defineModel, column } from 'qoq-sequelize';
 
@@ -75,16 +85,19 @@ export const User = defineModel({
   attributes: {
     id: column.int.primaryKey(),
     name: column.varChar.notNull(),
-  }
+  },
 });
 ```
+
 What amazing things will happen next?
 <br>
 ![](https://github.com/qoq-ts/qoq-sequelize/blob/master/images/attributes-1.png?raw=true)
 ![](https://github.com/qoq-ts/qoq-sequelize/blob/master/images/attributes-2.png?raw=true)
 
 ### Scopes
+
 #### Before
+
 ```typescript
 const User = sequelize.define('User', {}, {
   scopes: {
@@ -97,25 +110,31 @@ const User = sequelize.define('User', {}, {
   },
 });
 ```
+
 #### After
+
 ```typescript
 export const User = defineModel({
   scopes: {
-    testMe: () => User.addScope({
-      attributes: ['id', 'name'], // With type annotation
-      where: {
-        id: 2
-      },
-    }),
+    testMe: () =>
+      User.addScope({
+        attributes: ['id', 'name'], // With type annotation
+        where: {
+          id: 2,
+        },
+      }),
   },
 });
 ```
+
 What amazing things will happen next?
 <br>
 ![](https://github.com/qoq-ts/qoq-sequelize/blob/master/images/scope-1.png?raw=true)
 
 ### Associations
+
 #### Before
+
 ```typescript
 // Project.ts
 export const Project = defineModel('Project', {
@@ -130,7 +149,7 @@ export const Project = defineModel('Project', {
   title: {
     type: DataType.STRING,
     allowNull: false,
-  }
+  },
 });
 
 // User.ts
@@ -142,7 +161,9 @@ User.hasMany(Project, {
   as: 'projects',
 });
 ```
+
 #### After
+
 ```typescript
 // Project.ts
 export const Project = defineModel({
@@ -156,13 +177,15 @@ export const Project = defineModel({
 // User.ts
 export const User = defineModel({
   associations: {
-    projects: () => User.hasMany(Project, {
-      sourceKey: 'id',
-      foreignKey: 'user_id',
-    }),
+    projects: () =>
+      User.hasMany(Project, {
+        sourceKey: 'id',
+        foreignKey: 'user_id',
+      }),
   },
 });
 ```
+
 What amazing things will happen next?
 <br>
 ![](https://github.com/qoq-ts/qoq-sequelize/blob/master/images/association-1.png?raw=true)
@@ -170,25 +193,28 @@ What amazing things will happen next?
 ![](https://github.com/qoq-ts/qoq-sequelize/blob/master/images/association-3.png?raw=true)
 
 ### BelongsToMany
+
 ```typescript
 // UserProject.ts
 export const UserProject = defineModel({
   attributes: {
     user_id: column.int.notNull(),
     project_id: column.int.notNull(),
-  }
+  },
 });
 
 // User.ts
 export const User = defineModel({
   associations: {
-    projects: () => User.belongsToMany(Project, {
-      through: UserProject,
-      otherKey: 'project_id',
-    }),
+    projects: () =>
+      User.belongsToMany(Project, {
+        through: UserProject,
+        otherKey: 'project_id',
+      }),
   },
 });
 ```
+
 What amazing things will happen next?
 <br>
 ![](https://github.com/qoq-ts/qoq-sequelize/blob/master/images/belongsToMany-1.png?raw=true)

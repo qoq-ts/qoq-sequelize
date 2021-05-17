@@ -18,7 +18,7 @@ beforeAll(async () => {
   await app.execute('db:migrate');
 });
 
-it ('cannot operate the model before sequelize is initialized', async () => {
+it('cannot operate the model before sequelize is initialized', async () => {
   const sequelize = new Sequelize({
     dialect: 'sqlite',
     modelsDir: join(__dirname, '..', 'fixture', 'models'),

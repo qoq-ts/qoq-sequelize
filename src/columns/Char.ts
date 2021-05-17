@@ -3,7 +3,9 @@ import { AbstractString, AbstractStringOptions } from './AbstractString';
 
 interface CharOptions<T extends string | null> extends AbstractStringOptions<T> {}
 
-export class Char<Type extends string | null = string | null> extends AbstractString<CharOptions<Type>> {
+export class Char<Type extends string | null = string | null> extends AbstractString<
+  CharOptions<Type>
+> {
   declare readonly primaryKey: () => Char<NonNullable<Type>>;
 
   declare readonly notNull: () => Char<NonNullable<Type>>;

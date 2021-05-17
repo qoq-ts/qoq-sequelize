@@ -3,7 +3,9 @@ import { AbstractNumber, AbstractNumberOptions } from './AbstractNumber';
 
 interface TinyIntOptions<T extends number | null> extends AbstractNumberOptions<T> {}
 
-export class TinyInt<Type extends number | null = number | null> extends AbstractNumber<TinyIntOptions<Type>> {
+export class TinyInt<Type extends number | null = number | null> extends AbstractNumber<
+  TinyIntOptions<Type>
+> {
   declare readonly primaryKey: () => TinyInt<NonNullable<Type>>;
 
   declare readonly notNull: () => TinyInt<NonNullable<Type>>;

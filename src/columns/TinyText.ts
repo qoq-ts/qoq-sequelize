@@ -2,7 +2,9 @@ import { AbstractText, AbstractTextOptions } from './AbstractText';
 
 interface TinyTextOptions<T extends string | null> extends AbstractTextOptions<T> {}
 
-export class TinyText<Type extends string | null = string | null> extends AbstractText<TinyTextOptions<Type>> {
+export class TinyText<Type extends string | null = string | null> extends AbstractText<
+  TinyTextOptions<Type>
+> {
   constructor() {
     super({
       length: 'tiny',

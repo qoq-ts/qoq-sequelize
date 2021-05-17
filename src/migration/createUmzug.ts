@@ -22,13 +22,15 @@ const parseMigrations = async (dir: string): Promise<RunnableMigration<QueryInte
           ...defaultModule.execute(),
         });
       }
-    })
+    }),
   );
 
   return migrationList;
 };
 
-export const createUmzugForMigration = async (sequelize: Sequelize): Promise<Umzug<QueryInterface>> => {
+export const createUmzugForMigration = async (
+  sequelize: Sequelize,
+): Promise<Umzug<QueryInterface>> => {
   const umzug = new Umzug<QueryInterface>({
     migrations: await parseMigrations(sequelize.migrationsPath),
     context: sequelize.getQueryInterface(),
@@ -43,7 +45,9 @@ export const createUmzugForMigration = async (sequelize: Sequelize): Promise<Umz
   return umzug;
 };
 
-export const createUmzugForSeeder = async (sequelize: Sequelize): Promise<Umzug<QueryInterface>> => {
+export const createUmzugForSeeder = async (
+  sequelize: Sequelize,
+): Promise<Umzug<QueryInterface>> => {
   const umzug = new Umzug<QueryInterface>({
     migrations: await parseMigrations(sequelize.seedersPath),
     context: sequelize.getQueryInterface(),

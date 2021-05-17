@@ -8,12 +8,15 @@ import { Project } from '../fixture/models/Project';
 import { User } from '../fixture/models/User';
 import { UserProject } from '../fixture/models/UserProject';
 
-test ('Type checking only', () => {});
+test('Type checking only', () => {});
 
 export function _attributes() {
   User.findOne({
     attributes: [
-      'id', 'name', ['id', 'xxx'], '*',
+      'id',
+      'name',
+      ['id', 'xxx'],
+      '*',
       // @ts-expect-error
       'name1',
     ],
@@ -92,40 +95,39 @@ export async function _AddScope() {
 
   // @ts-expect-error
   User.addScope({
-    attributes: ['id', 'name123']
+    attributes: ['id', 'name123'],
   });
 
   User.addScope({
     attributes: ['id', 'name'],
-    include: [
-      User.include.projects(),
-      User.include.projs({}),
-    ]
+    include: [User.include.projects(), User.include.projs({})],
   });
 
   // @ts-expect-error
   User.addScope({
-    include: [
-      'xyz',
-    ]
+    include: ['xyz'],
   });
 
-  User.addScope((wrap, _hello: string) => wrap({
-    attributes: ['id', 'name'],
-  }));
+  User.addScope((wrap, _hello: string) =>
+    wrap({
+      attributes: ['id', 'name'],
+    }),
+  );
 
-  User.addScope((wrap, _hello: string) => wrap({
-    attributes: [
-      'id',
-      // @ts-expect-error
-      'name123'
-    ],
-    include: [
-      User.include.projects(),
-      // @ts-expect-error
-      'xyz',
-    ],
-  }));
+  User.addScope((wrap, _hello: string) =>
+    wrap({
+      attributes: [
+        'id',
+        // @ts-expect-error
+        'name123',
+      ],
+      include: [
+        User.include.projects(),
+        // @ts-expect-error
+        'xyz',
+      ],
+    }),
+  );
 }
 
 export async function _scope() {
@@ -141,7 +143,7 @@ export async function _scope() {
   User.scope('withName').findOne({
     attributes: [
       // @ts-expect-error
-      'ids'
+      'ids',
     ],
   });
 
@@ -177,9 +179,8 @@ export async function _association() {
     ],
   });
 
-  User.include
   // @ts-expect-error
-  .roject;
+  User.include.roject;
 }
 
 export async function _associationValue() {
@@ -237,7 +238,7 @@ export function _getterSetter() {
           value?.toLowerCase();
           // @ts-expect-error
           this.set('name', 0);
-        }
+        },
       },
       getterMethods: {
         // @ts-expect-error
@@ -249,10 +250,10 @@ export function _getterSetter() {
         },
         name() {
           return '2';
-        }
-      }
-    }
-  })
+        },
+      },
+    },
+  });
 }
 
 export async function _through() {
@@ -272,7 +273,7 @@ export async function _through() {
 }
 
 export async function _createdAt() {
-  const  attributes = {
+  const attributes = {
     id: column.int.notNull(),
     name: column.varChar,
   };
@@ -282,16 +283,14 @@ export async function _createdAt() {
   });
 
   User.findAll({
-    attributes: [
-      'id', 'createdAt'
-    ],
+    attributes: ['id', 'createdAt'],
   });
 
   const User1 = defineModel({
     attributes,
     options: {
       timestamps: false,
-    }
+    },
   });
 
   User1.findAll({
@@ -306,20 +305,18 @@ export async function _createdAt() {
     attributes,
     options: {
       timestamps: true,
-    }
+    },
   });
 
   User2.findAll({
-    attributes: [
-      'id', 'createdAt',
-    ],
+    attributes: ['id', 'createdAt'],
   });
 
   const User3 = defineModel({
     attributes,
     options: {
       createdAt: false,
-    }
+    },
   });
 
   User3.findAll({
@@ -333,13 +330,14 @@ export async function _createdAt() {
   const User4 = defineModel({
     attributes,
     options: {
-      createdAt: 'created_at'
-    }
+      createdAt: 'created_at',
+    },
   });
 
   User4.findAll({
     attributes: [
-      'id', 'created_at',
+      'id',
+      'created_at',
       // @ts-expect-error
       'createdAt',
     ],
@@ -349,13 +347,11 @@ export async function _createdAt() {
     attributes,
     options: {
       createdAt: true,
-    }
+    },
   });
 
   User5.findAll({
-    attributes: [
-      'id', 'createdAt'
-    ],
+    attributes: ['id', 'createdAt'],
   });
 
   const User6 = defineModel({
@@ -363,7 +359,7 @@ export async function _createdAt() {
     options: {
       timestamps: true,
       createdAt: false,
-    }
+    },
   });
 
   User6.findAll({
@@ -375,9 +371,8 @@ export async function _createdAt() {
   });
 }
 
-
 export async function _updatedAt() {
-  const  attributes = {
+  const attributes = {
     id: column.int.notNull(),
     name: column.varChar,
   };
@@ -387,16 +382,14 @@ export async function _updatedAt() {
   });
 
   User.findAll({
-    attributes: [
-      'id', 'updatedAt'
-    ],
+    attributes: ['id', 'updatedAt'],
   });
 
   const User1 = defineModel({
     attributes,
     options: {
       timestamps: false,
-    }
+    },
   });
 
   User1.findAll({
@@ -411,20 +404,18 @@ export async function _updatedAt() {
     attributes,
     options: {
       timestamps: true,
-    }
+    },
   });
 
   User2.findAll({
-    attributes: [
-      'id', 'updatedAt',
-    ],
+    attributes: ['id', 'updatedAt'],
   });
 
   const User3 = defineModel({
     attributes,
     options: {
       updatedAt: false,
-    }
+    },
   });
 
   User3.findAll({
@@ -438,13 +429,14 @@ export async function _updatedAt() {
   const User4 = defineModel({
     attributes,
     options: {
-      updatedAt: 'updated_at'
-    }
+      updatedAt: 'updated_at',
+    },
   });
 
   User4.findAll({
     attributes: [
-      'id', 'updated_at',
+      'id',
+      'updated_at',
       // @ts-expect-error
       'updatedAt',
     ],
@@ -454,13 +446,11 @@ export async function _updatedAt() {
     attributes,
     options: {
       updatedAt: true,
-    }
+    },
   });
 
   User5.findAll({
-    attributes: [
-      'id', 'updatedAt'
-    ],
+    attributes: ['id', 'updatedAt'],
   });
 
   const User6 = defineModel({
@@ -468,7 +458,7 @@ export async function _updatedAt() {
     options: {
       timestamps: true,
       updatedAt: false,
-    }
+    },
   });
 
   User6.findAll({
@@ -481,7 +471,7 @@ export async function _updatedAt() {
 }
 
 export async function _deletedAt() {
-  const  attributes = {
+  const attributes = {
     id: column.int.notNull(),
     name: column.varChar,
   };
@@ -492,7 +482,9 @@ export async function _deletedAt() {
 
   User.findAll({
     attributes: [
-      'id', 'createdAt', 'updatedAt',
+      'id',
+      'createdAt',
+      'updatedAt',
       // @ts-expect-error
       'deletedAt',
     ],
@@ -502,12 +494,14 @@ export async function _deletedAt() {
     attributes,
     options: {
       paranoid: false,
-    }
+    },
   });
 
   User1.findAll({
     attributes: [
-      'id', 'createdAt', 'updatedAt',
+      'id',
+      'createdAt',
+      'updatedAt',
       // @ts-expect-error
       'deletedAt',
     ],
@@ -517,12 +511,14 @@ export async function _deletedAt() {
     attributes,
     options: {
       paranoid: undefined,
-    }
+    },
   });
 
   User2.findAll({
     attributes: [
-      'id', 'createdAt', 'updatedAt',
+      'id',
+      'createdAt',
+      'updatedAt',
       // @ts-expect-error
       'deletedAt',
     ],
@@ -533,12 +529,14 @@ export async function _deletedAt() {
     options: {
       paranoid: true,
       deletedAt: false,
-    }
+    },
   });
 
   User3.findAll({
     attributes: [
-      'id', 'createdAt', 'updatedAt',
+      'id',
+      'createdAt',
+      'updatedAt',
       // @ts-expect-error
       'deletedAt',
     ],
@@ -549,12 +547,14 @@ export async function _deletedAt() {
     options: {
       paranoid: true,
       deletedAt: false,
-    }
+    },
   });
 
   User4.findAll({
     attributes: [
-      'id', 'createdAt', 'updatedAt',
+      'id',
+      'createdAt',
+      'updatedAt',
       // @ts-expect-error
       'deletedAt',
     ],
@@ -565,12 +565,15 @@ export async function _deletedAt() {
     options: {
       paranoid: true,
       deletedAt: 'deleted_at',
-    }
+    },
   });
 
   User5.findAll({
     attributes: [
-      'id', 'createdAt', 'updatedAt', 'deleted_at',
+      'id',
+      'createdAt',
+      'updatedAt',
+      'deleted_at',
       // @ts-expect-error
       'deletedAt',
     ],
@@ -581,13 +584,11 @@ export async function _deletedAt() {
     options: {
       paranoid: true,
       deletedAt: true,
-    }
+    },
   });
 
   User6.findAll({
-    attributes: [
-      'id', 'createdAt', 'updatedAt', 'deletedAt',
-    ],
+    attributes: ['id', 'createdAt', 'updatedAt', 'deletedAt'],
   });
 
   const User7 = defineModel({
@@ -596,7 +597,7 @@ export async function _deletedAt() {
       timestamps: false,
       paranoid: true,
       deletedAt: true,
-    }
+    },
   });
 
   User7.findAll({
@@ -609,7 +610,9 @@ export async function _deletedAt() {
 }
 
 export async function _GetModel() {
-  const testData: ModelInstance<typeof User> = await User.findOne({ rejectOnEmpty: true });
+  const testData: ModelInstance<typeof User> = await User.findOne({
+    rejectOnEmpty: true,
+  });
 
   testData.age;
   // @ts-expect-error
@@ -624,7 +627,9 @@ export async function _GetModel() {
 }
 
 export async function _GetModelObject() {
-  const testData: ModelObject<typeof User> = (await User.findOne({ rejectOnEmpty: true })).get({ plain: true });
+  const testData: ModelObject<typeof User> = (await User.findOne({ rejectOnEmpty: true })).get({
+    plain: true,
+  });
 
   testData.age;
   testData.unknownValue;
@@ -642,10 +647,7 @@ export async function _GetModelObject() {
 }
 
 export async function _Order() {
-  const order: Order = [
-    User.order.projs.asc('userId'),
-    User.order.asc(col('alias_x')),
-  ];
+  const order: Order = [User.order.projs.asc('userId'), User.order.asc(col('alias_x'))];
 
   await User.findAll({
     attributes: ['*'],

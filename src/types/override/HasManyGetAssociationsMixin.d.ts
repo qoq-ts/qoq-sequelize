@@ -27,7 +27,9 @@ import { Model } from './Model';
  * @see https://sequelize.org/master/class/lib/associations/has-many.js~HasMany.html
  * @see Instance
  */
-export type HasManyGetAssociationsMixin<TModel extends Model> = (options?: HasManyGetAssociationsMixinOptions) => Promise<RealModel<TModel>[]>;
+export type HasManyGetAssociationsMixin<TModel extends Model> = (
+  options?: HasManyGetAssociationsMixinOptions,
+) => Promise<RealModel<TModel>[]>;
 
 /**
  * The options for the getAssociations mixin of the hasMany association.

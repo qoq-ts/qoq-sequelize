@@ -12,7 +12,17 @@ import { OrderHelper } from './OrderHelper';
 export abstract class TemporaryModel extends Model {
   static __currentKey?: string;
 
-  static __INIT__?: DefineModelOptions<{ [key: string]: BaseColumn }, { [key: string]: Function }, { [key: string]: Function }, any, any, any, any, any, any>;
+  static __INIT__?: DefineModelOptions<
+    { [key: string]: BaseColumn },
+    { [key: string]: Function },
+    { [key: string]: Function },
+    any,
+    any,
+    any,
+    any,
+    any,
+    any
+  >;
 
   static include: Record<string, IncludeFn<any, AdvancedModel, string>> = {};
   static order: OrderHelper;
@@ -42,13 +52,10 @@ export abstract class TemporaryModel extends Model {
     });
 
     // @ts-ignore
-    this.init(
-      parsedAttributes,
-      {
-        ...options,
-        sequelize,
-      }
-    );
+    this.init(parsedAttributes, {
+      ...options,
+      sequelize,
+    });
 
     topic.subscribeOnce('modelsInitialized', (s) => {
       if (s !== sequelize) {
@@ -56,7 +63,7 @@ export abstract class TemporaryModel extends Model {
       }
 
       const that = this;
-      const CustomOrder = this.__ORDER__ = class extends OrderHelper {}
+      const CustomOrder = (this.__ORDER__ = class extends OrderHelper {});
       this.order = new CustomOrder([]);
 
       Object.keys(associations).forEach((methodName) => {
@@ -85,7 +92,8 @@ export abstract class TemporaryModel extends Model {
         Object.defineProperty(CustomOrder.prototype, methodName, {
           get(this: OrderHelper) {
             const association = (that as unknown as typeof AdvancedModel).associations[methodName]!;
-            const NextOrderChain = (association.target as unknown as typeof TemporaryModel).__ORDER__;
+            const NextOrderChain = (association.target as unknown as typeof TemporaryModel)
+              .__ORDER__;
 
             return new NextOrderChain(this.orderItem.concat(association));
           },
@@ -105,11 +113,10 @@ function overrideAddScope() {
   const origin = TemporaryModel.addScope;
 
   // @ts-ignore
-  TemporaryModel.addScope = function(scope: object | Function, options?: AddScopeOptions) {
+  TemporaryModel.addScope = function (scope: object | Function, options?: AddScopeOptions) {
     if (this.__currentKey) {
-      const customScope = typeof scope === 'function'
-        ? scope.bind(null, (helper: object) => helper)
-        : scope;
+      const customScope =
+        typeof scope === 'function' ? scope.bind(null, (helper: object) => helper) : scope;
 
       return origin.call(
         // @ts-ignore
@@ -121,47 +128,47 @@ function overrideAddScope() {
     }
 
     console.error(chalk.red(`You get wrong usage of addScope, just use it like this:\n`));
-    console.error(chalk.red(
-`export const ModelA = defineModel({
+    console.error(
+      chalk.red(
+        `export const ModelA = defineModel({
   scopes: {
     myName = () => ModelA.addScope({}),
   }
-})`
-    ));
+})`,
+      ),
+    );
 
     return;
-  }
+  };
 }
 
 function overrideAssociation(key: 'hasMany' | 'hasOne' | 'belongsTo' | 'belongsToMany') {
   const origin = TemporaryModel[key];
 
   // @ts-ignore
-  TemporaryModel[key] = function(target: Model, options: object) {
+  TemporaryModel[key] = function (target: Model, options: object) {
     if (this.__currentKey) {
       // @ts-ignore
-      return origin.call(
-        this,
-        target,
-        {
-          ...options,
-          as: this.__currentKey,
-        }
-      );
+      return origin.call(this, target, {
+        ...options,
+        as: this.__currentKey,
+      });
     }
 
     console.error(chalk.red(`You get wrong usage of ${key}, just use it like this:\n`));
-    console.error(chalk.red(
-`expor const ModelA = defineModel({
+    console.error(
+      chalk.red(
+        `expor const ModelA = defineModel({
   associations: {
     myName: () => ModelA.${key}(ModelB),
   }
-})`
-    ));
+})`,
+      ),
+    );
 
     return;
-  }
-};
+  };
+}
 
 overrideAddScope();
 overrideAssociation('hasMany');

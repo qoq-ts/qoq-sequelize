@@ -1,11 +1,18 @@
-import { FloatDataType, FloatDataTypeConstructor, FloatDataTypeOptions, DataTypes } from 'sequelize';
+import {
+  FloatDataType,
+  FloatDataTypeConstructor,
+  FloatDataTypeOptions,
+  DataTypes,
+} from 'sequelize';
 import { AbstractNumberOptions, AbstractNumber } from './AbstractNumber';
 
 export interface FloatOptions<T extends number | null> extends AbstractNumberOptions<T> {
   type: FloatDataTypeConstructor | FloatDataType;
 }
 
-export class Float<Type extends number | null = number | null> extends AbstractNumber<FloatOptions<Type>> {
+export class Float<Type extends number | null = number | null> extends AbstractNumber<
+  FloatOptions<Type>
+> {
   protected numberOptions: FloatDataTypeOptions = {};
 
   declare readonly primaryKey: () => Float<NonNullable<Type>>;

@@ -2,7 +2,9 @@ import { AbstractText, AbstractTextOptions } from './AbstractText';
 
 interface MediumTextOptions<T extends string | null> extends AbstractTextOptions<T> {}
 
-export class MediumText<Type extends string | null = string | null> extends AbstractText<MediumTextOptions<Type>> {
+export class MediumText<Type extends string | null = string | null> extends AbstractText<
+  MediumTextOptions<Type>
+> {
   constructor() {
     super({
       length: 'medium',

@@ -4,7 +4,7 @@ import rimraf from 'rimraf';
 import { ConsoleApplication } from 'qoq';
 import { Sequelize } from '../../src';
 
-it ('create migration file', async () => {
+it('create migration file', async () => {
   const migrationsDir = path.resolve('node_modules', '.cache', 'migrations-' + Date.now());
   const tplContent = fs.readFileSync(path.resolve('./src/template/migration.tpl')).toString();
   const sequelize = new Sequelize({
@@ -34,7 +34,7 @@ it ('create migration file', async () => {
   rimraf.sync(migrationsDir);
 });
 
-it ('create seeder file', async () => {
+it('create seeder file', async () => {
   const seedersDir = path.resolve('node_modules', '.cache', 'seeders-' + Date.now());
   const tplContent = fs.readFileSync(path.resolve('./src/template/seed.tpl')).toString();
   const sequelize = new Sequelize({

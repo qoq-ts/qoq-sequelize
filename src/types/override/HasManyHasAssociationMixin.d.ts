@@ -27,7 +27,7 @@ import { HasManyGetAssociationsMixinOptions } from './HasManyGetAssociationsMixi
  */
 export type HasManyHasAssociationMixin<TModel, TModelPrimaryKey> = (
   target: TModel | TModelPrimaryKey,
-  options?: HasManyHasAssociationMixinOptions
+  options?: HasManyHasAssociationMixinOptions,
 ) => Promise<boolean>;
 
 /**

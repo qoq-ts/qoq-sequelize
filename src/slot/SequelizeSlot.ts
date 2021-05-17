@@ -11,7 +11,7 @@ export class SequelizeSlot extends Slot<Slot.Mix, { sequelize: Sequelize }> {
     this.instance = sequelize;
     this.use(async (ctx, next) => {
       if (!this.instance) {
-        throw new Error('Sequelize instance doesn\'t exist');
+        throw new Error("Sequelize instance doesn't exist");
       }
 
       ctx.sequelize = this.instance;
@@ -19,7 +19,7 @@ export class SequelizeSlot extends Slot<Slot.Mix, { sequelize: Sequelize }> {
     });
   }
 
-  public/*protected*/ fromShared() {
+  public /*protected*/ fromShared() {
     topic.subscribe('sequelizeShared', (sequelize) => {
       this.instance = sequelize;
     });

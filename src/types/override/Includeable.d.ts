@@ -11,4 +11,8 @@ import { ModelType } from './ModelType';
 /**
  * Options for eager-loading associated models, also allowing for all associations to be loaded at once
  */
-export type Includeable<Attrs = any> = ModelType | Association | IncludeOptions<Attrs> | { all: true, nested?: true } /*| string*/;
+export type Includeable<Attrs = any> =
+  | ModelType
+  | Association
+  | IncludeOptions<Attrs>
+  | { all: true; nested?: true } /*| string*/;

@@ -16,7 +16,7 @@ beforeEach(async () => {
   await sequelize.mountCommands(app);
 });
 
-it ('migrate status', async () => {
+it('migrate status', async () => {
   const spy = jest.spyOn(console, 'log');
   let message = '';
 

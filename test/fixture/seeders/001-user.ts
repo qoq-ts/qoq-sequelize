@@ -10,10 +10,10 @@ export default seed({
       {
         name: 'lucy',
         age: 16,
-      }
+      },
     ]);
   },
   async down(queryInterface) {
     await queryInterface.bulkDelete('user', {});
-  }
-})
+  },
+});

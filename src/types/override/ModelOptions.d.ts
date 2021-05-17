@@ -142,12 +142,21 @@ export interface ModelOptions<
   /**
    * Allows defining additional setters that will be available on model instances.
    */
-  setterMethods?: { [K in keyof M['_attributes']]?: (this: Model<M['_attributes']> & M['_attributes'], value: M['_attributes'][K]) => void };
+  setterMethods?: {
+    [K in keyof M['_attributes']]?: (
+      this: Model<M['_attributes']> & M['_attributes'],
+      value: M['_attributes'][K],
+    ) => void;
+  };
 
   /**
    * Allows defining additional getters that will be available on model instances.
    */
-  getterMethods?: { [K in keyof M['_attributes']]?: (this: Model<M['_attributes']> & M['_attributes']) => M['_attributes'][K] };
+  getterMethods?: {
+    [K in keyof M['_attributes']]?: (
+      this: Model<M['_attributes']> & M['_attributes'],
+    ) => M['_attributes'][K];
+  };
 
   /**
    * Enable optimistic locking.

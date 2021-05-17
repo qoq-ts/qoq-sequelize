@@ -30,7 +30,7 @@ import { JoinTableAttributes } from './JoinTableAttributes';
  */
 export type BelongsToManyAddAssociationMixin<TModel, TModelPrimaryKey> = (
   newAssociation?: TModel | TModelPrimaryKey,
-  options?: BelongsToManyAddAssociationMixinOptions
+  options?: BelongsToManyAddAssociationMixinOptions,
 ) => Promise<void>;
 
 /**

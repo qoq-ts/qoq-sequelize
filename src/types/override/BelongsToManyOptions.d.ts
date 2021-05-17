@@ -15,12 +15,13 @@ import { ThroughOptions } from './ThroughOptions';
 /**
  * Options provided when associating models with belongsToMany relationship
  */
-export interface BelongsToManyOptions<S extends Model, T extends Model, P extends Model> extends Omit<ManyToManyOptions<S, T>, 'foreignKey'> {
+export interface BelongsToManyOptions<S extends Model, T extends Model, P extends Model>
+  extends Omit<ManyToManyOptions<S, T>, 'foreignKey'> {
   /**
    * The name of the table that is used to join source and target in n:m associations. Can also be a
    * sequelize model if you want to define the junction table yourself and add extra attributes to it.
    */
-  through: (new(...args: any[]) => P) /*| string*/ | ThroughOptions<P>;
+  through: (new (...args: any[]) => P) /*| string*/ | ThroughOptions<P>;
 
   /**
    * The name of the foreign key in the join table (representing the target model) or an object representing

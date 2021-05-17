@@ -1,4 +1,9 @@
-import { ModelAttributeColumnOptions, StringDataType, StringDataTypeConstructor, StringDataTypeOptions } from 'sequelize';
+import {
+  ModelAttributeColumnOptions,
+  StringDataType,
+  StringDataTypeConstructor,
+  StringDataTypeOptions,
+} from 'sequelize';
 import { AdvancedColumn } from './AdvancedColumn';
 import { BaseColumnOptions } from './BaseColumn';
 
@@ -6,7 +11,9 @@ export interface AbstractStringOptions<T extends string | null> extends BaseColu
   type: StringDataTypeConstructor | StringDataType;
 }
 
-export abstract class AbstractString<T extends AbstractStringOptions<any>> extends AdvancedColumn<T> {
+export abstract class AbstractString<
+  T extends AbstractStringOptions<any>,
+> extends AdvancedColumn<T> {
   protected stringOptions: StringDataTypeOptions = {};
 
   protected isBinary = false;
@@ -21,7 +28,7 @@ export abstract class AbstractString<T extends AbstractStringOptions<any>> exten
     return this;
   }
 
-  public/*protected*/ collect(): ModelAttributeColumnOptions {
+  public /*protected*/ collect(): ModelAttributeColumnOptions {
     const config = super.collect();
     let type = (config.type as StringDataTypeConstructor)(this.stringOptions);
 
@@ -29,6 +36,6 @@ export abstract class AbstractString<T extends AbstractStringOptions<any>> exten
       type = type.BINARY;
     }
 
-    return config.type = type, config;
+    return (config.type = type), config;
   }
 }

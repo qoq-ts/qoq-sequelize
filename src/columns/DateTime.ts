@@ -1,15 +1,22 @@
-import { DataTypes, DateDataTypeConstructor, DateDataType, ModelAttributeColumnOptions } from 'sequelize';
+import {
+  DataTypes,
+  DateDataTypeConstructor,
+  DateDataType,
+  ModelAttributeColumnOptions,
+} from 'sequelize';
 import { Literal, Fn } from 'sequelize/types/lib/utils';
 import { Sequelize } from '../model/Sequelize';
 import { AdvancedColumn } from './AdvancedColumn';
 import { BaseColumnOptions } from './BaseColumn';
 
 export interface DateTimeOptions<T extends Date | null> extends BaseColumnOptions<T> {
-  type: DateDataTypeConstructor | DateDataType
+  type: DateDataTypeConstructor | DateDataType;
 }
 
 // For mysql / sqlite, TIMESTAMP WITH TIME ZONE for postgres
-export class DateTime<Type extends Date | null = Date | null> extends AdvancedColumn<DateTimeOptions<Type>> {
+export class DateTime<Type extends Date | null = Date | null> extends AdvancedColumn<
+  DateTimeOptions<Type>
+> {
   protected precision?: number | string;
 
   declare readonly primaryKey: () => DateTime<NonNullable<Type>>;
@@ -46,7 +53,7 @@ export class DateTime<Type extends Date | null = Date | null> extends AdvancedCo
     this.precision = precision;
   }
 
-  public/*protected*/ collect(): ModelAttributeColumnOptions {
+  public /*protected*/ collect(): ModelAttributeColumnOptions {
     const config = super.collect();
 
     if (this.precision) {

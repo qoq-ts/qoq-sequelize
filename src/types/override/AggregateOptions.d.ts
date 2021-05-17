@@ -5,8 +5,9 @@ import { QueryOptions } from './QueryOptions';
  * Options used for Model.aggregate
  */
 export interface AggregateOptions<T extends DataType | unknown, TAttributes = any>
-  extends QueryOptions, Filterable<TAttributes>, Paranoid
-{
+  extends QueryOptions,
+    Filterable<TAttributes>,
+    Paranoid {
   /**
    * The type of the result. If `field` is a field in this Model, the default will be the type of that field,
    * otherwise defaults to float.

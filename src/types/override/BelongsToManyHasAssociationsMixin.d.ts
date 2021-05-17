@@ -28,11 +28,12 @@ import { Model } from './Model';
  */
 export type BelongsToManyHasAssociationsMixin<M extends Model, TModelPrimaryKey> = (
   targets: (Model | TModelPrimaryKey)[],
-  options?: BelongsToManyHasAssociationsMixinOptions<M['_attributes']>
+  options?: BelongsToManyHasAssociationsMixinOptions<M['_attributes']>,
 ) => Promise<boolean>;
 
 /**
  * The options for the hasAssociations mixin of the belongsToMany association.
  * @see BelongsToManyHasAssociationsMixin
  */
-export interface BelongsToManyHasAssociationsMixinOptions<Attrs> extends BelongsToManyGetAssociationsMixinOptions<Attrs> {}
+export interface BelongsToManyHasAssociationsMixinOptions<Attrs>
+  extends BelongsToManyGetAssociationsMixinOptions<Attrs> {}

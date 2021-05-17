@@ -1,4 +1,3 @@
-
 /**
  * Options for Association Scope
  */

@@ -1,4 +1,9 @@
-import { NumberDataType, NumberDataTypeConstructor, NumberDataTypeOptions, ModelAttributeColumnOptions } from 'sequelize';
+import {
+  NumberDataType,
+  NumberDataTypeConstructor,
+  NumberDataTypeOptions,
+  ModelAttributeColumnOptions,
+} from 'sequelize';
 import { AdvancedColumn } from './AdvancedColumn';
 import { BaseColumnOptions } from './BaseColumn';
 
@@ -6,7 +11,9 @@ export interface AbstractNumberOptions<T extends number | null> extends BaseColu
   type: NumberDataTypeConstructor | NumberDataType;
 }
 
-export abstract class AbstractNumber<T extends AbstractNumberOptions<any>> extends AdvancedColumn<T> {
+export abstract class AbstractNumber<
+  T extends AbstractNumberOptions<any>,
+> extends AdvancedColumn<T> {
   protected numberOptions: NumberDataTypeOptions = {};
 
   protected isUnsigned = false;
@@ -36,7 +43,7 @@ export abstract class AbstractNumber<T extends AbstractNumberOptions<any>> exten
     return this;
   }
 
-  public/*protected*/ collect(): ModelAttributeColumnOptions {
+  public /*protected*/ collect(): ModelAttributeColumnOptions {
     const config = super.collect();
     let type = (config.type as NumberDataTypeConstructor)(this.numberOptions);
 
@@ -48,6 +55,6 @@ export abstract class AbstractNumber<T extends AbstractNumberOptions<any>> exten
       type = type.ZEROFILL;
     }
 
-    return config.type = type, config;
+    return (config.type = type), config;
   }
 }

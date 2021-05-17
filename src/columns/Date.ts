@@ -6,7 +6,9 @@ import { BaseColumnOptions } from './BaseColumn';
 
 export interface ColDateOptions<T extends Date | null> extends BaseColumnOptions<T> {}
 
-export class ColDate<Type extends Date | null = Date | null> extends AdvancedColumn<ColDateOptions<Type>> {
+export class ColDate<Type extends Date | null = Date | null> extends AdvancedColumn<
+  ColDateOptions<Type>
+> {
   declare readonly primaryKey: () => ColDate<NonNullable<Type>>;
 
   declare readonly notNull: () => ColDate<NonNullable<Type>>;

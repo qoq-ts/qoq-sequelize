@@ -22,7 +22,7 @@ afterAll(async () => {
   await sequelize.close();
 });
 
-it ('can create record', async () => {
+it('can create record', async () => {
   const result = await User.create({
     name: 'test',
     age: 30,
@@ -33,19 +33,19 @@ it ('can create record', async () => {
   expect(await User.count()).toBe(1);
 
   const project = await result.createProject({
-    title: 'test123'
+    title: 'test123',
   });
 
   expect(project.userId).toBe(1);
   expect(project.title).toBe('test123');
 });
 
-it ('can find single record', async () => {
+it('can find single record', async () => {
   let user = await User.findOne({
     attributes: ['id', 'age', 'name'],
     where: {
       id: 1,
-    }
+    },
   });
 
   expect(user).toBeNull();
@@ -59,7 +59,7 @@ it ('can find single record', async () => {
     attributes: ['id', 'age', 'name'],
     where: {
       id: 1,
-    }
+    },
   });
 
   // @ts-expect-error [user may be null]
@@ -67,7 +67,7 @@ it ('can find single record', async () => {
   expect(user?.age).toBe(30);
 });
 
-it ('empty record will throw error', async () => {
+it('empty record will throw error', async () => {
   try {
     await User.findOne({
       rejectOnEmpty: true,
@@ -90,7 +90,7 @@ it ('empty record will throw error', async () => {
   expect(user.get('name').toUpperCase()).toBe('TEST3');
 });
 
-it ('can find multiple records', async () => {
+it('can find multiple records', async () => {
   await User.bulkCreate([
     {
       name: 'ttst',
@@ -99,7 +99,7 @@ it ('can find multiple records', async () => {
     {
       name: 'ttst',
       age: 20,
-    }
+    },
   ]);
 
   const result = await User.findAll({
@@ -107,15 +107,15 @@ it ('can find multiple records', async () => {
     where: {
       id: {
         [Op.lt]: 5,
-      }
-    }
+      },
+    },
   });
 
   expect(result).toHaveLength(2);
   expect(result[0]?.name).toBe('ttst');
 });
 
-it ('can use order helper to sort result', async () => {
+it('can use order helper to sort result', async () => {
   await User.bulkCreate([
     {
       name: 'ttst',
@@ -124,25 +124,21 @@ it ('can use order helper to sort result', async () => {
     {
       name: 'ttst',
       age: 20,
-    }
+    },
   ]);
 
   let result = await User.findAll({
-    order: [
-      User.order.asc('age'),
-    ]
+    order: [User.order.asc('age')],
   });
   expect(result[0]!.age).toBe(10);
 
   result = await User.findAll({
-    order: [
-      User.order.desc('age'),
-    ]
+    order: [User.order.desc('age')],
   });
   expect(result[0]!.age).toBe(20);
 });
 
-it ('order helper can invoke deeply', async () => {
+it('order helper can invoke deeply', async () => {
   const user = await User.create({
     name: 'ttst',
     age: 10,
@@ -161,12 +157,8 @@ it ('order helper can invoke deeply', async () => {
   });
 
   const result = await User.findAll({
-    include: [
-      User.include.projects(),
-    ],
-    order: [
-      User.order.projects.asc('title'),
-    ]
+    include: [User.include.projects()],
+    order: [User.order.projects.asc('title')],
   });
 
   expect(result[0]!.projects[0]!.title).toBe('bb');

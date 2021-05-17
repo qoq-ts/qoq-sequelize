@@ -9,15 +9,17 @@ export const Project = defineModel({
     description: column.varChar,
   },
   associations: {
-    user: () => Project.belongsTo(User, {
-      foreignKey: 'userId',
-    }),
+    user: () =>
+      Project.belongsTo(User, {
+        foreignKey: 'userId',
+      }),
   },
   scopes: {
-    hasDesc: () => Project.addScope({
-      where: {
-        description: literal('is not null'),
-      },
-    })
+    hasDesc: () =>
+      Project.addScope({
+        where: {
+          description: literal('is not null'),
+        },
+      }),
   },
 });

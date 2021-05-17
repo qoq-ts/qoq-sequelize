@@ -1,4 +1,21 @@
-import { QueryInterfaceOptions, QueryInterfaceDropAllTablesOptions, QueryOptions, QueryInterfaceCreateTableOptions, QueryInterfaceDropTableOptions, Logging, QueryInterfaceIndexOptions, WhereOptions, QueryOptionsWithWhere, FunctionParam, QueryOptionsWithForce, Transaction, CreateDatabaseOptions, AddConstraintOptions, ColumnsDescription, TableName } from 'sequelize';
+import {
+  QueryInterfaceOptions,
+  QueryInterfaceDropAllTablesOptions,
+  QueryOptions,
+  QueryInterfaceCreateTableOptions,
+  QueryInterfaceDropTableOptions,
+  Logging,
+  QueryInterfaceIndexOptions,
+  WhereOptions,
+  QueryOptionsWithWhere,
+  FunctionParam,
+  QueryOptionsWithForce,
+  Transaction,
+  CreateDatabaseOptions,
+  AddConstraintOptions,
+  ColumnsDescription,
+  TableName,
+} from 'sequelize';
 import { Sequelize } from '../../model/Sequelize';
 import { AdvancedColumn } from '../../columns/AdvancedColumn';
 import { Model } from './Model';
@@ -6,11 +23,11 @@ import { SetRequired } from 'sequelize/types/type-helpers/set-required';
 import { ModelType } from './ModelType';
 
 /**
-* The interface that Sequelize uses to talk to all databases.
-*
-* This interface is available through sequelize.queryInterface. It should not be commonly used, but it's
-* referenced anyway, so it can be used.
-*/
+ * The interface that Sequelize uses to talk to all databases.
+ *
+ * This interface is available through sequelize.queryInterface. It should not be commonly used, but it's
+ * referenced anyway, so it can be used.
+ */
 export class QueryInterface {
   /**
    * Returns the dialect-specific sql generator.
@@ -67,7 +84,7 @@ export class QueryInterface {
   public createTable(
     tableName: string | { schema?: string; tableName?: string },
     attributes: Record<string, AdvancedColumn>,
-    options?: QueryInterfaceCreateTableOptions
+    options?: QueryInterfaceCreateTableOptions,
   ): Promise<void>;
 
   /**
@@ -107,7 +124,7 @@ export class QueryInterface {
    */
   public describeTable(
     tableName: string | { schema?: string; tableName?: string },
-    options?: string | { schema?: string; schemaDelimiter?: string } & Logging
+    options?: string | ({ schema?: string; schemaDelimiter?: string } & Logging),
   ): Promise<ColumnsDescription>;
 
   /**
@@ -117,7 +134,7 @@ export class QueryInterface {
     table: string | { schema?: string; tableName?: string },
     key: string,
     attribute: AdvancedColumn,
-    options?: QueryInterfaceOptions
+    options?: QueryInterfaceOptions,
   ): Promise<void>;
 
   /**
@@ -126,7 +143,7 @@ export class QueryInterface {
   public removeColumn(
     table: string | { schema?: string; tableName?: string },
     attribute: string,
-    options?: QueryInterfaceOptions
+    options?: QueryInterfaceOptions,
   ): Promise<void>;
 
   /**
@@ -136,7 +153,7 @@ export class QueryInterface {
     tableName: string | { schema?: string; tableName?: string },
     attributeName: string,
     dataTypeOrOptions: AdvancedColumn,
-    options?: QueryInterfaceOptions
+    options?: QueryInterfaceOptions,
   ): Promise<void>;
 
   /**
@@ -146,7 +163,7 @@ export class QueryInterface {
     tableName: string | { schema?: string; tableName?: string },
     attrNameBefore: string,
     attrNameAfter: string,
-    options?: QueryInterfaceOptions
+    options?: QueryInterfaceOptions,
   ): Promise<void>;
 
   /**
@@ -156,32 +173,44 @@ export class QueryInterface {
     tableName: string,
     attributes: string[],
     options?: QueryInterfaceIndexOptions,
-    rawTablename?: string
+    rawTablename?: string,
   ): Promise<void>;
   public addIndex(
     tableName: string,
     options: SetRequired<QueryInterfaceIndexOptions, 'fields'>,
-    rawTablename?: string
+    rawTablename?: string,
   ): Promise<void>;
 
   /**
    * Removes an index of a table
    */
-  public removeIndex(tableName: string, indexName: string, options?: QueryInterfaceIndexOptions): Promise<void>;
-  public removeIndex(tableName: string, attributes: string[], options?: QueryInterfaceIndexOptions): Promise<void>;
+  public removeIndex(
+    tableName: string,
+    indexName: string,
+    options?: QueryInterfaceIndexOptions,
+  ): Promise<void>;
+  public removeIndex(
+    tableName: string,
+    attributes: string[],
+    options?: QueryInterfaceIndexOptions,
+  ): Promise<void>;
 
   /**
    * Adds constraints to a table
    */
   public addConstraint(
     tableName: string,
-    options?: AddConstraintOptions & QueryInterfaceOptions
+    options?: AddConstraintOptions & QueryInterfaceOptions,
   ): Promise<void>;
 
   /**
    * Removes constraints from a table
    */
-  public removeConstraint(tableName: string, constraintName: string, options?: QueryInterfaceOptions): Promise<void>;
+  public removeConstraint(
+    tableName: string,
+    constraintName: string,
+    options?: QueryInterfaceOptions,
+  ): Promise<void>;
 
   /**
    * Shows the index of a table
@@ -196,17 +225,28 @@ export class QueryInterface {
   /**
    * Returns all foreign key constraints of requested tables
    */
-  public getForeignKeysForTables(tableNames: string[], options?: QueryInterfaceOptions): Promise<object>;
+  public getForeignKeysForTables(
+    tableNames: string[],
+    options?: QueryInterfaceOptions,
+  ): Promise<object>;
 
   /**
    * Get foreign key references details for the table
    */
-  public getForeignKeyReferencesForTable(tableName: string, options?: QueryInterfaceOptions): Promise<object>;
+  public getForeignKeyReferencesForTable(
+    tableName: string,
+    options?: QueryInterfaceOptions,
+  ): Promise<object>;
 
   /**
    * Inserts a new record
    */
-  public insert(instance: Model | null, tableName: string, values: object, options?: QueryOptions): Promise<object>;
+  public insert(
+    instance: Model | null,
+    tableName: string,
+    values: object,
+    options?: QueryOptions,
+  ): Promise<object>;
 
   /**
    * Inserts or Updates a record in the database
@@ -217,7 +257,7 @@ export class QueryInterface {
     updateValues: object,
     where: object,
     model: ModelType,
-    options?: QueryOptions
+    options?: QueryOptions,
   ): Promise<object>;
 
   /**
@@ -227,7 +267,7 @@ export class QueryInterface {
     tableName: TableName,
     records: object[],
     options?: QueryOptions,
-    attributes?: string[] | string
+    attributes?: string[] | string,
   ): Promise<object | number>;
 
   /**
@@ -238,7 +278,7 @@ export class QueryInterface {
     tableName: TableName,
     values: object,
     identifier: WhereOptions<M['_attributes']>,
-    options?: QueryOptions
+    options?: QueryOptions,
   ): Promise<object>;
 
   /**
@@ -249,7 +289,7 @@ export class QueryInterface {
     values: object,
     identifier: WhereOptions<any>,
     options?: QueryOptions,
-    attributes?: string[] | string
+    attributes?: string[] | string,
   ): Promise<object>;
 
   /**
@@ -259,7 +299,7 @@ export class QueryInterface {
     instance: Model | null,
     tableName: TableName,
     identifier: WhereOptions<any>,
-    options?: QueryOptions
+    options?: QueryOptions,
   ): Promise<object>;
 
   /**
@@ -269,13 +309,17 @@ export class QueryInterface {
     tableName: TableName,
     identifier: WhereOptions<any>,
     options?: QueryOptions,
-    model?: ModelType
+    model?: ModelType,
   ): Promise<object>;
 
   /**
    * Returns selected rows
    */
-  public select(model: ModelType | null, tableName: TableName, options?: QueryOptionsWithWhere): Promise<object[]>;
+  public select(
+    model: ModelType | null,
+    tableName: TableName,
+    options?: QueryOptionsWithWhere,
+  ): Promise<object[]>;
 
   /**
    * Increments a row value
@@ -285,7 +329,7 @@ export class QueryInterface {
     tableName: TableName,
     values: object,
     identifier: WhereOptions<M['_attributes']>,
-    options?: QueryOptions
+    options?: QueryOptions,
   ): Promise<object>;
 
   /**
@@ -295,7 +339,7 @@ export class QueryInterface {
     tableName: TableName,
     options: QueryOptionsWithWhere,
     attributeSelector: string | string[],
-    model?: ModelType
+    model?: ModelType,
   ): Promise<string[]>;
 
   /**
@@ -312,13 +356,17 @@ export class QueryInterface {
     functionName: string,
     functionParams: FunctionParam[],
     optionsArray: string[],
-    options?: QueryInterfaceOptions
+    options?: QueryInterfaceOptions,
   ): Promise<void>;
 
   /**
    * Postgres only. Drops the specified trigger.
    */
-  public dropTrigger(tableName: TableName, triggerName: string, options?: QueryInterfaceOptions): Promise<void>;
+  public dropTrigger(
+    tableName: TableName,
+    triggerName: string,
+    options?: QueryInterfaceOptions,
+  ): Promise<void>;
 
   /**
    * Postgres only. Renames a trigger
@@ -327,7 +375,7 @@ export class QueryInterface {
     tableName: TableName,
     oldTriggerName: string,
     newTriggerName: string,
-    options?: QueryInterfaceOptions
+    options?: QueryInterfaceOptions,
   ): Promise<void>;
 
   /**
@@ -340,13 +388,17 @@ export class QueryInterface {
     language: string,
     body: string,
     optionsArray?: string[],
-    options?: QueryOptionsWithForce
+    options?: QueryOptionsWithForce,
   ): Promise<void>;
 
   /**
    * Postgres only. Drops a function
    */
-  public dropFunction(functionName: string, params: FunctionParam[], options?: QueryInterfaceOptions): Promise<void>;
+  public dropFunction(
+    functionName: string,
+    params: FunctionParam[],
+    options?: QueryInterfaceOptions,
+  ): Promise<void>;
 
   /**
    * Postgres only. Rename a function
@@ -355,7 +407,7 @@ export class QueryInterface {
     oldFunctionName: string,
     params: FunctionParam[],
     newFunctionName: string,
-    options?: QueryInterfaceOptions
+    options?: QueryInterfaceOptions,
   ): Promise<void>;
 
   /**
@@ -383,12 +435,20 @@ export class QueryInterface {
   /**
    * Set option for autocommit of a transaction
    */
-  public setAutocommit(transaction: Transaction, value: boolean, options?: QueryOptions): Promise<void>;
+  public setAutocommit(
+    transaction: Transaction,
+    value: boolean,
+    options?: QueryOptions,
+  ): Promise<void>;
 
   /**
    * Set the isolation level of a transaction
    */
-  public setIsolationLevel(transaction: Transaction, value: string, options?: QueryOptions): Promise<void>;
+  public setIsolationLevel(
+    transaction: Transaction,
+    value: string,
+    options?: QueryOptions,
+  ): Promise<void>;
 
   /**
    * Begin a new transaction

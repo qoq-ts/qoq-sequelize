@@ -10,7 +10,7 @@ import { ModelType } from './ModelType';
 export interface SequelizeHooks<
   M extends Model<TAttributes, TCreationAttributes> = Model,
   TAttributes = any,
-  TCreationAttributes = TAttributes
+  TCreationAttributes = TAttributes,
 > extends ModelHooks<M, TAttributes> {
   beforeDefine(attributes: ModelAttributes<M, TCreationAttributes>, options: ModelOptions<M>): void;
   afterDefine(model: ModelType): void;

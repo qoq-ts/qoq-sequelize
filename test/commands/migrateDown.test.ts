@@ -4,7 +4,8 @@ import { ConsoleApplication } from 'qoq';
 import { Sequelize } from '../../src';
 import { createMeta } from '../../src/migration/createMeta';
 
-const migrationsCount = fs.readdirSync(path.join(__dirname, '..', 'fixture', 'migrations')).length - 1;
+const migrationsCount =
+  fs.readdirSync(path.join(__dirname, '..', 'fixture', 'migrations')).length - 1;
 const sequelize = new Sequelize({
   modelsDir: path.join(__dirname, '..', 'fixture', 'models'),
   migrationsDir: path.join(__dirname, '..', 'fixture', 'migrations'),
@@ -20,7 +21,7 @@ beforeEach(async () => {
   await sequelize.mountCommands(app);
 });
 
-it ('migrate down with option --to', async () => {
+it('migrate down with option --to', async () => {
   await app.execute('db:migrate');
   expect(await Meta.findAll()).toHaveLength(migrationsCount);
 
@@ -38,7 +39,7 @@ it ('migrate down with option --to', async () => {
   expect(await Meta.findAll()).toHaveLength(0);
 });
 
-it ('migrate down one by one', async () => {
+it('migrate down one by one', async () => {
   await app.execute('db:migrate');
   expect(await Meta.findAll()).toHaveLength(migrationsCount);
 
@@ -49,7 +50,7 @@ it ('migrate down one by one', async () => {
   expect(await Meta.findAll()).toHaveLength(migrationsCount - 2);
 });
 
-it ('migrate down for all files', async () => {
+it('migrate down for all files', async () => {
   await app.execute('db:migrate');
   expect(await Meta.findAll()).toHaveLength(migrationsCount);
 

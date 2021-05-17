@@ -28,7 +28,7 @@ import { Model } from './Model';
  * @see Instance
  */
 export type BelongsToManyGetAssociationsMixin<M extends Model> = (
-  options?: BelongsToManyGetAssociationsMixinOptions<M['_attributes']>
+  options?: BelongsToManyGetAssociationsMixinOptions<M['_attributes']>,
 ) => Promise<M[]>;
 
 /**
@@ -39,7 +39,7 @@ export interface BelongsToManyGetAssociationsMixinOptions<Attrs> extends FindOpt
   /**
    * A list of the attributes from the join table that you want to select.
    */
-  joinTableAttributes?: FindAttributeOptions<keyof Attrs>
+  joinTableAttributes?: FindAttributeOptions<keyof Attrs>;
   /**
    * Apply a scope on the related model, or remove its default scope by passing false.
    */

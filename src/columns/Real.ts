@@ -6,7 +6,9 @@ export interface RealOptions<T extends number | null> extends AbstractNumberOpti
 }
 
 // PostgreSQL only
-export class Real<Type extends number | null = number | null> extends AbstractNumber<RealOptions<Type>> {
+export class Real<Type extends number | null = number | null> extends AbstractNumber<
+  RealOptions<Type>
+> {
   protected numberOptions: RealDataTypeOptions = {};
 
   declare readonly primaryKey: () => Real<NonNullable<Type>>;

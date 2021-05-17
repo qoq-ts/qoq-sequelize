@@ -28,11 +28,13 @@ import { FindOptions } from './FindOptions';
  */
 export type HasManySetAssociationsMixin<TModel, TModelPrimaryKey> = (
   newAssociations?: (TModel | TModelPrimaryKey)[],
-  options?: HasManySetAssociationsMixinOptions
+  options?: HasManySetAssociationsMixinOptions,
 ) => Promise<void>;
 
 /**
  * The options for the setAssociations mixin of the hasMany association.
  * @see HasManySetAssociationsMixin
  */
-export interface HasManySetAssociationsMixinOptions extends FindOptions<any>, InstanceUpdateOptions<any> {}
+export interface HasManySetAssociationsMixinOptions
+  extends FindOptions<any>,
+    InstanceUpdateOptions<any> {}

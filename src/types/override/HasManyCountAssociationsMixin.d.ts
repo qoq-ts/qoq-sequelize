@@ -25,7 +25,9 @@ import { Filterable, Transactionable } from 'sequelize/types';
  * @see https://sequelize.org/master/class/lib/associations/has-many.js~HasMany.html
  * @see Instance
  */
-export type HasManyCountAssociationsMixin = (options?: HasManyCountAssociationsMixinOptions) => Promise<number>;
+export type HasManyCountAssociationsMixin = (
+  options?: HasManyCountAssociationsMixinOptions,
+) => Promise<number>;
 
 /**
  * The options for the countAssociations mixin of the hasMany association.

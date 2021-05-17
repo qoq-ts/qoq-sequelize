@@ -12,7 +12,7 @@ export class ColumnVirtual<T = unknown> extends BaseColumn<BaseColumnOptions<T>>
    */
   public returnType<Type extends AdvancedColumn>(
     columnType: Type,
-    dependentFields?: string[]
+    dependentFields?: string[],
   ): ColumnVirtual<RealColumnType<Type>> {
     this.type = columnType;
     this.fields = dependentFields;
@@ -29,7 +29,7 @@ export class ColumnVirtual<T = unknown> extends BaseColumn<BaseColumnOptions<T>>
     return DataTypes.VIRTUAL;
   }
 
-  public/*protected*/ collect(): ModelAttributeColumnOptions {
+  public /*protected*/ collect(): ModelAttributeColumnOptions {
     const config = super.collect();
 
     if (this.type) {

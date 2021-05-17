@@ -27,7 +27,7 @@ import { InstanceUpdateOptions } from 'sequelize/types';
  */
 export type HasManyAddAssociationMixin<TModel, TModelPrimaryKey> = (
   newAssociation?: TModel | TModelPrimaryKey,
-  options?: HasManyAddAssociationMixinOptions
+  options?: HasManyAddAssociationMixinOptions,
 ) => Promise<void>;
 
 /**

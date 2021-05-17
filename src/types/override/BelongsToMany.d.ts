@@ -4,11 +4,18 @@ import { BelongsToManyOptions } from './BelongsToManyOptions';
 import { Model } from './Model';
 import { ModelCtor } from './ModelCtor';
 
-export class BelongsToMany<S extends Model = Model, T extends Model = Model> extends Association<S, T> {
+export class BelongsToMany<S extends Model = Model, T extends Model = Model> extends Association<
+  S,
+  T
+> {
   private readonly _BelongsToMany_: 't-belongs-to-many';
   public otherKey: string;
   public sourceKey: string;
   public targetKey: string;
   public accessors: MultiAssociationAccessors;
-  constructor(source: ModelCtor<S>, target: ModelCtor<T>, options: BelongsToManyOptions<S, T, Model>);
+  constructor(
+    source: ModelCtor<S>,
+    target: ModelCtor<T>,
+    options: BelongsToManyOptions<S, T, Model>,
+  );
 }

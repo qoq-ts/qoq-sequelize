@@ -1,9 +1,7 @@
 import sanitize from 'sanitize-filename';
 
 const zeroFill = (time: number): string => {
-  return time < 10
-    ? '0' + time
-    : time.toString();
+  return time < 10 ? '0' + time : time.toString();
 };
 
 export const generateFileNameWithDateTime = (name: string): string => {

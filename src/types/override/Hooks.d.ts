@@ -7,7 +7,7 @@ import { SequelizeHooks } from './SequelizeHooks';
 export class Hooks<
   M extends Model<TModelAttributes, TCreationAttributes> = Model,
   TModelAttributes extends {} = any,
-  TCreationAttributes extends {} = TModelAttributes
+  TCreationAttributes extends {} = TModelAttributes,
 > {
   /**
    * A dummy variable that doesn't exist on the real object. This exists so
@@ -34,20 +34,20 @@ export class Hooks<
    */
   public static addHook<
     H extends Hooks,
-    K extends keyof SequelizeHooks<H['_model'], H['_attributes'], H['_creationAttributes']>
-    >(
-    this: HooksStatic<H>,
-    hookType: K,
-    name: string,
-    fn: SequelizeHooks<H['_model'], H['_attributes'], H['_creationAttributes']>[K]
-  ): HooksCtor<H>;
-  public static addHook<
-    H extends Hooks,
-    K extends keyof SequelizeHooks<H['_model'], H['_attributes'], H['_creationAttributes']>
+    K extends keyof SequelizeHooks<H['_model'], H['_attributes'], H['_creationAttributes']>,
   >(
     this: HooksStatic<H>,
     hookType: K,
-    fn: SequelizeHooks<H['_model'], H['_attributes'], H['_creationAttributes']>[K]
+    name: string,
+    fn: SequelizeHooks<H['_model'], H['_attributes'], H['_creationAttributes']>[K],
+  ): HooksCtor<H>;
+  public static addHook<
+    H extends Hooks,
+    K extends keyof SequelizeHooks<H['_model'], H['_attributes'], H['_creationAttributes']>,
+  >(
+    this: HooksStatic<H>,
+    hookType: K,
+    fn: SequelizeHooks<H['_model'], H['_attributes'], H['_creationAttributes']>[K],
   ): HooksCtor<H>;
 
   /**
@@ -80,25 +80,31 @@ export class Hooks<
   public addHook<K extends keyof SequelizeHooks<M, TModelAttributes, TCreationAttributes>>(
     hookType: K,
     name: string,
-    fn: SequelizeHooks<Model, TModelAttributes, TCreationAttributes>[K]
+    fn: SequelizeHooks<Model, TModelAttributes, TCreationAttributes>[K],
   ): this;
   public addHook<K extends keyof SequelizeHooks<M, TModelAttributes, TCreationAttributes>>(
-    hookType: K, fn: SequelizeHooks<M, TModelAttributes, TCreationAttributes>[K]): this;
+    hookType: K,
+    fn: SequelizeHooks<M, TModelAttributes, TCreationAttributes>[K],
+  ): this;
   /**
    * Remove hook from the model
    */
   public removeHook<K extends keyof SequelizeHooks<M, TModelAttributes, TCreationAttributes>>(
     hookType: K,
-    name: string
+    name: string,
   ): this;
 
   /**
    * Check whether the mode has any hooks of this type
    */
-  public hasHook<K extends keyof SequelizeHooks<M, TModelAttributes, TCreationAttributes>>(hookType: K): boolean;
-  public hasHooks<K extends keyof SequelizeHooks<M, TModelAttributes, TCreationAttributes>>(hookType: K): boolean;
+  public hasHook<K extends keyof SequelizeHooks<M, TModelAttributes, TCreationAttributes>>(
+    hookType: K,
+  ): boolean;
+  public hasHooks<K extends keyof SequelizeHooks<M, TModelAttributes, TCreationAttributes>>(
+    hookType: K,
+  ): boolean;
 }
 
-export type HooksCtor<H extends Hooks> = typeof Hooks & { new(): H };
+export type HooksCtor<H extends Hooks> = typeof Hooks & { new (): H };
 
-export type HooksStatic<H extends Hooks> = { new(): H };
+export type HooksStatic<H extends Hooks> = { new (): H };

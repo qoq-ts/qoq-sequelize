@@ -23,11 +23,13 @@ import { Model } from './Model';
  */
 export type HasOneCreateAssociationMixin<TModel extends Model> = (
   values?: { [attribute: string]: unknown },
-  options?: HasOneCreateAssociationMixinOptions
+  options?: HasOneCreateAssociationMixinOptions,
 ) => Promise<RealModel<TModel>>;
 
 /**
  * The options for the createAssociation mixin of the hasOne association.
  * @see HasOneCreateAssociationMixin
  */
-export interface HasOneCreateAssociationMixinOptions extends HasOneSetAssociationMixinOptions, CreateOptions<any> {}
+export interface HasOneCreateAssociationMixinOptions
+  extends HasOneSetAssociationMixinOptions,
+    CreateOptions<any> {}

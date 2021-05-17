@@ -17,7 +17,7 @@ export interface DefineModelOptions<
   Updated extends string | boolean | undefined,
   Deleted extends string | boolean | undefined,
   Paranoid extends boolean | undefined,
-  > {
+> {
   attributes: Attrs;
   options?: ModelOptions<Model<RealAttrs>, Timestamp, Created, Updated, Deleted, Paranoid>;
   associations?: Assocs;
@@ -36,15 +36,30 @@ export const defineModel = <
   Deleted extends string | boolean | undefined = undefined,
   Paranoid extends boolean | undefined = undefined,
 >(
-  options: DefineModelOptions<Attrs, Assocs, Scopes, RealAttrs, Timestamp, Created, Updated, Deleted, Paranoid>
+  options: DefineModelOptions<
+    Attrs,
+    Assocs,
+    Scopes,
+    RealAttrs,
+    Timestamp,
+    Created,
+    Updated,
+    Deleted,
+    Paranoid
+  >,
 ): ModelCtor<
-  Model<RealAttrs & TimestampType<Timestamp, Created, Updated, Deleted, Paranoid>, Partial<RealAttrs>, Scopes, Assocs>,
+  Model<
+    RealAttrs & TimestampType<Timestamp, Created, Updated, Deleted, Paranoid>,
+    Partial<RealAttrs>,
+    Scopes,
+    Assocs
+  >,
   Associate<Assocs>,
   OrderChain<Assocs, Attrs & TimestampType<Timestamp, Created, Updated, Deleted, Paranoid>>
 > => {
   const Custom = class extends TemporaryModel {
     static __INIT__ = options;
-  }
+  };
 
   // @ts-ignore
   return Custom;

@@ -4,7 +4,9 @@ import { BaseColumnOptions } from './BaseColumn';
 
 export interface UuidOptions<T extends boolean | null> extends BaseColumnOptions<T> {}
 
-export class Uuid<Type extends boolean | null = boolean | null> extends AdvancedColumn<UuidOptions<Type>> {
+export class Uuid<Type extends boolean | null = boolean | null> extends AdvancedColumn<
+  UuidOptions<Type>
+> {
   declare readonly primaryKey: () => Uuid<NonNullable<Type>>;
 
   declare readonly notNull: () => Uuid<NonNullable<Type>>;

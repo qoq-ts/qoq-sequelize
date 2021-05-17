@@ -16,7 +16,8 @@ import { Model } from './Model';
  *
  * @see Association class belongsTo method
  */
-export interface BelongsToOptions<S extends Model, T extends Model> extends Omit<AssociationOptions<S, T>, 'foreignKey'> {
+export interface BelongsToOptions<S extends Model, T extends Model>
+  extends Omit<AssociationOptions<S, T>, 'foreignKey'> {
   /**
    * The name of the field to use as the key for the association in the target table. Defaults to the primary
    * key of the target table

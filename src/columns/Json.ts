@@ -11,7 +11,9 @@ interface JsonOptions<T extends object | null> extends BaseColumnOptions<T> {}
  * @since sqlite 3.9.0
  * @since postgres 9.4.0
  */
-export class Json<Type extends object | null = object | null> extends AdvancedColumn<JsonOptions<Type>> {
+export class Json<Type extends object | null = object | null> extends AdvancedColumn<
+  JsonOptions<Type>
+> {
   declare readonly primaryKey: () => Json<NonNullable<Type>>;
 
   declare readonly notNull: () => Json<NonNullable<Type>>;

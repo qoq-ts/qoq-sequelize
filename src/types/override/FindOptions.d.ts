@@ -12,8 +12,11 @@ import { QueryOptions } from './QueryOptions';
  * A hash of options to describe the scope of the search
  */
 export interface FindOptions<TAttributes = any>
-  extends QueryOptions, Filterable<TAttributes>, Projectable<TAttributes>, Paranoid, IndexHintable
-{
+  extends QueryOptions,
+    Filterable<TAttributes>,
+    Projectable<TAttributes>,
+    Paranoid,
+    IndexHintable {
   /**
    * A list of associations to eagerly load using a left join (a single association is also supported). Supported is either
    * `{ include: Model1 }`, `{ include: [ Model1, Model2, ...]}`, `{ include: [{ model: Model1, as: 'Alias' }]}` or
@@ -51,10 +54,7 @@ export interface FindOptions<TAttributes = any>
    * Postgres also supports transaction.LOCK.KEY_SHARE, transaction.LOCK.NO_KEY_UPDATE and specific model
    * locks with joins. See [transaction.LOCK for an example](transaction#lock)
    */
-  lock?:
-  | LOCK
-  | { level: LOCK; of: ModelStatic<Model> }
-  | boolean;
+  lock?: LOCK | { level: LOCK; of: ModelStatic<Model> } | boolean;
   /**
    * Skip locked rows. Only supported in Postgres.
    */

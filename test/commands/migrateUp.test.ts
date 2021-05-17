@@ -4,7 +4,8 @@ import { ConsoleApplication } from 'qoq';
 import { Sequelize } from '../../src';
 import { createMeta } from '../../src/migration/createMeta';
 
-const migrationsCount = fs.readdirSync(path.join(__dirname, '..', 'fixture', 'migrations')).length - 1;
+const migrationsCount =
+  fs.readdirSync(path.join(__dirname, '..', 'fixture', 'migrations')).length - 1;
 const sequelize = new Sequelize({
   modelsDir: path.join(__dirname, '..', 'fixture', 'models'),
   migrationsDir: path.join(__dirname, '..', 'fixture', 'migrations'),
@@ -20,7 +21,7 @@ beforeEach(async () => {
   await sequelize.mountCommands(app);
 });
 
-it ('migrate up all files', async () => {
+it('migrate up all files', async () => {
   await app.execute('db:migrate');
   const meta = await Meta.findAll();
   const names = meta.map((item) => item.get('name'));
@@ -30,7 +31,7 @@ it ('migrate up all files', async () => {
   expect(names).toContain('002-createProject');
 });
 
-it ('migrate up with option to', async () => {
+it('migrate up with option to', async () => {
   await app.execute('db:migrate', '--to', '001-createUser');
   const meta = await Meta.findAll();
   const names = meta.map((item) => item.get('name'));

@@ -14,7 +14,7 @@ router
     step: validator.integer.min(1).optional(),
   })
   .action(async (ctx, payload) => {
-    const { step }  = payload.options;
+    const { step } = payload.options;
     const umzug = await createUmzugForMigration(ctx.sequelize);
 
     return umzug.down({

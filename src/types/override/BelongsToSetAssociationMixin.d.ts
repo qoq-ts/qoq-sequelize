@@ -20,7 +20,7 @@ import { SaveOptions } from 'sequelize/types';
  */
 export type BelongsToSetAssociationMixin<TModel, TPrimaryKey> = (
   newAssociation?: TModel | TPrimaryKey,
-  options?: BelongsToSetAssociationMixinOptions
+  options?: BelongsToSetAssociationMixinOptions,
 ) => Promise<void>;
 
 /**

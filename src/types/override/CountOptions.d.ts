@@ -6,8 +6,12 @@ import { Projectable } from './Projectable';
  * Options for Model.count method
  */
 export interface CountOptions<TAttributes = any>
-  extends Logging, Transactionable, Filterable<TAttributes>, Projectable<TAttributes>, Paranoid, Poolable
-{
+  extends Logging,
+    Transactionable,
+    Filterable<TAttributes>,
+    Projectable<TAttributes>,
+    Paranoid,
+    Poolable {
   /**
    * Include options. See `find` for details
    */

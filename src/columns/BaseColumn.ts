@@ -1,4 +1,8 @@
-import { ModelAttributeColumnOptions, AbstractDataTypeConstructor, AbstractDataType } from 'sequelize';
+import {
+  ModelAttributeColumnOptions,
+  AbstractDataTypeConstructor,
+  AbstractDataType,
+} from 'sequelize';
 
 export interface BaseColumnOptions<Type> extends ModelAttributeColumnOptions {
   readonly __for__type_definition: Type;
@@ -11,7 +15,7 @@ export abstract class BaseColumn<T extends BaseColumnOptions<any> = BaseColumnOp
     type: this.getType(),
   } as T;
 
-  public/*protected*/ collect(): ModelAttributeColumnOptions {
+  public /*protected*/ collect(): ModelAttributeColumnOptions {
     return Object.assign({}, this.config);
   }
 

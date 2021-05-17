@@ -23,7 +23,7 @@ import { Model } from './Model';
  */
 export type BelongsToCreateAssociationMixin<TModel extends Model> = (
   values?: { [attribute: string]: unknown },
-  options?: BelongsToCreateAssociationMixinOptions
+  options?: BelongsToCreateAssociationMixinOptions,
 ) => Promise<RealModel<TModel>>;
 
 /**
@@ -31,4 +31,5 @@ export type BelongsToCreateAssociationMixin<TModel extends Model> = (
  * @see BelongsToCreateAssociationMixin
  */
 export interface BelongsToCreateAssociationMixinOptions
-  extends CreateOptions<any>, BelongsToSetAssociationMixinOptions {}
+  extends CreateOptions<any>,
+    BelongsToSetAssociationMixinOptions {}

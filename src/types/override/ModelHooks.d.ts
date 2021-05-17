@@ -1,4 +1,12 @@
-import { DestroyOptions, InstanceDestroyOptions, InstanceRestoreOptions, InstanceUpdateOptions, RestoreOptions, SyncOptions, UpdateOptions } from 'sequelize';
+import {
+  DestroyOptions,
+  InstanceDestroyOptions,
+  InstanceRestoreOptions,
+  InstanceUpdateOptions,
+  RestoreOptions,
+  SyncOptions,
+  UpdateOptions,
+} from 'sequelize';
 import { HookReturn } from 'sequelize/types/lib/hooks';
 import { ValidationOptions } from 'sequelize/types/lib/instance-validator';
 import { BulkCreateOptions } from './BulkCreateOptions';
@@ -24,11 +32,11 @@ export interface ModelHooks<M extends Model = Model, TAttributes = any> {
   afterUpdate(instance: M, options: InstanceUpdateOptions<TAttributes>): HookReturn;
   beforeSave(
     instance: M,
-    options: InstanceUpdateOptions<TAttributes> | CreateOptions<TAttributes>
+    options: InstanceUpdateOptions<TAttributes> | CreateOptions<TAttributes>,
   ): HookReturn;
   afterSave(
     instance: M,
-    options: InstanceUpdateOptions<TAttributes> | CreateOptions<TAttributes>
+    options: InstanceUpdateOptions<TAttributes> | CreateOptions<TAttributes>,
   ): HookReturn;
   beforeBulkCreate(instances: M[], options: BulkCreateOptions<TAttributes>): HookReturn;
   afterBulkCreate(instances: readonly M[], options: BulkCreateOptions<TAttributes>): HookReturn;
@@ -42,7 +50,10 @@ export interface ModelHooks<M extends Model = Model, TAttributes = any> {
   beforeCount(options: CountOptions<TAttributes>): HookReturn;
   beforeFindAfterExpandIncludeAll(options: FindOptions<TAttributes>): HookReturn;
   beforeFindAfterOptions(options: FindOptions<TAttributes>): HookReturn;
-  afterFind(instancesOrInstance: readonly M[] | M | null, options: FindOptions<TAttributes>): HookReturn;
+  afterFind(
+    instancesOrInstance: readonly M[] | M | null,
+    options: FindOptions<TAttributes>,
+  ): HookReturn;
   beforeSync(options: SyncOptions): HookReturn;
   afterSync(options: SyncOptions): HookReturn;
   beforeBulkSync(options: SyncOptions): HookReturn;

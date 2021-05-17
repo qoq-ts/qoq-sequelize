@@ -9,5 +9,5 @@ export const User = defineModel({
 export const Project = defineModel({
   attributes: {
     id: column.int.primaryKey(),
-  }
+  },
 });

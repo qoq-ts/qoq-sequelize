@@ -5,10 +5,13 @@ import { OrderItem } from '../override/OrderItem';
 
 interface OrderType<Attrs extends object> {
   // TODO: For alias attribute, using col('') or consider { alias: string }
-  (column: (keyof Attrs) | Fn | Literal | Col): OrderItem;
+  (column: keyof Attrs | Fn | Literal | Col): OrderItem;
 }
 
-type OrderIncludeObject<T, M extends Model = T extends () => Association<any, infer R> ? R : never> = OrderChain<M['_type_assocs'], M['_attributes']>;
+type OrderIncludeObject<
+  T,
+  M extends Model = T extends () => Association<any, infer R> ? R : never,
+> = OrderChain<M['_type_assocs'], M['_attributes']>;
 
 export type OrderChain<T extends object, Attrs extends object> = {
   readonly [K in keyof T]: OrderIncludeObject<T[K]>;

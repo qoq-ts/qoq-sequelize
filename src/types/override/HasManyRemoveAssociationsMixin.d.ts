@@ -27,7 +27,7 @@ import { InstanceUpdateOptions } from 'sequelize/types';
  */
 export type HasManyRemoveAssociationsMixin<TModel, TModelPrimaryKey> = (
   oldAssociateds?: (TModel | TModelPrimaryKey)[],
-  options?: HasManyRemoveAssociationsMixinOptions
+  options?: HasManyRemoveAssociationsMixinOptions,
 ) => Promise<void>;
 
 /**

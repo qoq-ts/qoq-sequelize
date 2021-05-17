@@ -26,14 +26,16 @@ import { Filterable, Transactionable } from 'sequelize';
  * @see Instance
  */
 export type BelongsToManyCountAssociationsMixin = (
-  options?: BelongsToManyCountAssociationsMixinOptions
+  options?: BelongsToManyCountAssociationsMixinOptions,
 ) => Promise<number>;
 
 /**
  * The options for the countAssociations mixin of the belongsToMany association.
  * @see BelongsToManyCountAssociationsMixin
  */
-export interface BelongsToManyCountAssociationsMixinOptions extends Transactionable, Filterable<any> {
+export interface BelongsToManyCountAssociationsMixinOptions
+  extends Transactionable,
+    Filterable<any> {
   /**
    * Apply a scope on the related model, or remove its default scope by passing false.
    */

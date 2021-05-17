@@ -27,7 +27,7 @@ import { InstanceDestroyOptions } from 'sequelize/types';
  */
 export type BelongsToManyRemoveAssociationMixin<TModel, TModelPrimaryKey> = (
   oldAssociated?: TModel | TModelPrimaryKey,
-  options?: BelongsToManyRemoveAssociationMixinOptions
+  options?: BelongsToManyRemoveAssociationMixinOptions,
 ) => Promise<void>;
 
 /**

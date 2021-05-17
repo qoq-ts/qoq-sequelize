@@ -20,7 +20,9 @@ import { Model } from './Model';
  * @see https://sequelize.org/master/class/lib/associations/belongs-to.js~BelongsTo.html
  * @see Instance
  */
-export type BelongsToGetAssociationMixin<TModel extends Model> = (options?: BelongsToGetAssociationMixinOptions) => Promise<RealModel<TModel>>;
+export type BelongsToGetAssociationMixin<TModel extends Model> = (
+  options?: BelongsToGetAssociationMixinOptions,
+) => Promise<RealModel<TModel>>;
 
 /**
  * The options for the getAssociation mixin of the belongsTo association.

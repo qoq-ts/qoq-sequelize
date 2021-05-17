@@ -1,11 +1,18 @@
-import { DoubleDataType, DoubleDataTypeConstructor, DoubleDataTypeOptions, DataTypes } from 'sequelize';
+import {
+  DoubleDataType,
+  DoubleDataTypeConstructor,
+  DoubleDataTypeOptions,
+  DataTypes,
+} from 'sequelize';
 import { AbstractNumberOptions, AbstractNumber } from './AbstractNumber';
 
 export interface DoubleOptions<T extends number | null> extends AbstractNumberOptions<T> {
   type: DoubleDataTypeConstructor | DoubleDataType;
 }
 
-export class Double<Type extends number | null = number | null> extends AbstractNumber<DoubleOptions<Type>> {
+export class Double<Type extends number | null = number | null> extends AbstractNumber<
+  DoubleOptions<Type>
+> {
   protected numberOptions: DoubleDataTypeOptions = {};
 
   declare readonly primaryKey: () => Double<NonNullable<Type>>;
