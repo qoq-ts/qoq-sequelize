@@ -1,16 +1,7 @@
 import fs from 'fs';
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
-
-const dir =
-  __dirname ||
-  dirname(
-    fileURLToPath(
-      // FIXME: jest can't parse import.meta.
-      'import.meta.url',
-    ),
-  );
+import { join } from 'path';
+import { rootdir } from '../util/rootdir';
 
 export const getTemplateContent = (fileName: string) => {
-  return fs.readFileSync(join(dir, '..', 'template', fileName + '.tpl')).toString();
+  return fs.readFileSync(join(rootdir, 'template', fileName + '.tpl')).toString();
 };

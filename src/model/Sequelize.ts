@@ -1,5 +1,4 @@
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
 import {
   Model,
   ModelAttributes,
@@ -17,6 +16,7 @@ import { AdvancedColumn } from '../columns/AdvancedColumn';
 import { getFinalDataType } from '../util/getFinalDataType';
 import { QueryInterface } from '../types/override/QueryInterface';
 import { TemporaryModel } from './TemporaryModel';
+import { rootdir } from '../util/rootdir';
 
 export interface SequelizeOptions extends Options {
   modelsDir?: string;
@@ -94,17 +94,8 @@ export class Sequelize extends OriginSequelize {
   }
 
   async mountCommands(app: ConsoleApplication) {
-    const dir =
-      __dirname ||
-      dirname(
-        fileURLToPath(
-          // FIXME: jest can't parse import.meta.
-          'import.meta.url',
-        ),
-      );
-
     const token = topic.keep('sequelizeShared', true, this);
-    await app.mountCommandPath(join(dir, '..', 'commands'));
+    await app.mountCommandPath(join(rootdir, 'commands'));
     token.release();
   }
 

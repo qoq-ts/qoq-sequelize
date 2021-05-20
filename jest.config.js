@@ -8,9 +8,4 @@ module.exports = {
   collectCoverageFrom: ['src/**/*.ts'],
   verbose: true,
   testMatch: ['**/test/**/*.test.ts'],
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.test.json',
-    },
-  },
 };
