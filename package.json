@@ -2,11 +2,16 @@
   "name": "qoq-sequelize",
   "version": "0.0.20",
   "main": "lib/index.js",
-  "module": "es/index.js",
-  "typings": "types/index.d.ts",
   "repository": "git@github.com:qoq-ts/qoq-sequelize.git",
-  "author": "原罪 <531362022@qq.com>",
+  "author": "原罪",
   "license": "MIT",
+  "exports": {
+    ".": {
+      "require": "./lib/index.js",
+      "import": "./es/index.js"
+    },
+    "./": "./"
+  },
   "scripts": {
     "test": "jest --runInBand",
     "prepublishOnly": "sh scripts/prepublish.sh",
@@ -19,7 +24,6 @@
   "files": [
     "es",
     "lib",
-    "types",
     "package.json",
     "LICENSE",
     "README.md",
