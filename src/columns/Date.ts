@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import sequelize from 'sequelize';
 import { Literal, Fn } from 'sequelize/types/lib/utils';
 import { Sequelize } from '../model/Sequelize';
 import { AdvancedColumn } from './AdvancedColumn';
@@ -29,6 +29,6 @@ export class ColDate<Type extends Date | null = Date | null> extends AdvancedCol
   }
 
   protected getType() {
-    return DataTypes.DATEONLY;
+    return sequelize.DataTypes.DATEONLY;
   }
 }

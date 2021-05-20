@@ -1,9 +1,8 @@
-import {
+import sequelize, {
   ModelAttributeColumnOptions,
   TextDataTypeConstructor,
   TextDataType,
   TextDataTypeOptions,
-  DataTypes,
 } from 'sequelize';
 import { AdvancedColumn } from './AdvancedColumn';
 import { BaseColumnOptions } from './BaseColumn';
@@ -27,6 +26,6 @@ export abstract class AbstractText<T extends AbstractTextOptions<any>> extends A
   }
 
   protected getType() {
-    return DataTypes.TEXT;
+    return sequelize.DataTypes.TEXT;
   }
 }

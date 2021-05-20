@@ -1,8 +1,7 @@
-import {
+import sequelize, {
   FloatDataType,
   FloatDataTypeConstructor,
   FloatDataTypeOptions,
-  DataTypes,
 } from 'sequelize';
 import { AbstractNumberOptions, AbstractNumber } from './AbstractNumber';
 
@@ -27,6 +26,6 @@ export class Float<Type extends number | null = number | null> extends AbstractN
   }
 
   protected getType() {
-    return DataTypes.FLOAT;
+    return sequelize.DataTypes.FLOAT;
   }
 }

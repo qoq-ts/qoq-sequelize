@@ -1,8 +1,7 @@
-import {
+import sequelize, {
   DecimalDataType,
   DecimalDataTypeConstructor,
   DecimalDataTypeOptions,
-  DataTypes,
 } from 'sequelize';
 import { AbstractNumberOptions, AbstractNumber } from './AbstractNumber';
 
@@ -39,6 +38,6 @@ export class Decimal<Type extends number | null = number | null> extends Abstrac
   }
 
   protected getType() {
-    return DataTypes.DECIMAL;
+    return sequelize.DataTypes.DECIMAL;
   }
 }

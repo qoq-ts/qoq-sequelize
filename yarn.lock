@@ -3323,10 +3323,10 @@ node-releases@^1.1.71:
   resolved "https://registry.npmjs.org/node-releases/-/node-releases-1.1.71.tgz#cb1334b179896b1c89ecfdd4b725fb7bbdfc7dbb"
   integrity sha512-zR6HoT6LrLCRBwukmrVbHv0EpEQjksO6GmFcZQQuCAy139BEsoVKPYnf3jongYW83fAa1torLGYwxxky/p28sg==
 
-node-rootdir@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.npmjs.org/node-rootdir/-/node-rootdir-0.0.6.tgz#492ff61fa61463492145c93ac5339758100f5411"
-  integrity sha512-7dhi7E4aAONtdBXC/b+iOaWFwklYHzL6P1J/YS3msO0NyDDVCxFM1H6owEwQkhzNNMjZWlznM66oXKdLFwo5dg==
+node-rootdir@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.npmjs.org/node-rootdir/-/node-rootdir-0.0.7.tgz#dbef462dd21007cfc9464582648f9a331bfdc23b"
+  integrity sha512-Wqu3wl+l2ay4Y2OAILRxpbvoGbvYfMHbHf1w3pAOm/xtQ88ZdEYJPKcE0CcYt01wUCVYKXfDz+jb/Zhe/J3eqg==
 
 "nopt@2 || 3":
   version "3.0.6"

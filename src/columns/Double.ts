@@ -1,8 +1,7 @@
-import {
+import sequelize, {
   DoubleDataType,
   DoubleDataTypeConstructor,
   DoubleDataTypeOptions,
-  DataTypes,
 } from 'sequelize';
 import { AbstractNumberOptions, AbstractNumber } from './AbstractNumber';
 
@@ -27,6 +26,6 @@ export class Double<Type extends number | null = number | null> extends Abstract
   }
 
   protected getType() {
-    return DataTypes.DOUBLE;
+    return sequelize.DataTypes.DOUBLE;
   }
 }

@@ -1,5 +1,4 @@
-import {
-  DataTypes,
+import sequelize, {
   EnumDataTypeConstructor,
   EnumDataType,
   ModelAttributeColumnOptions,
@@ -37,6 +36,6 @@ export class Enum<Type extends string | null = null> extends AdvancedColumn<Enum
   }
 
   protected getType() {
-    return DataTypes.DATEONLY;
+    return sequelize.DataTypes.DATEONLY;
   }
 }

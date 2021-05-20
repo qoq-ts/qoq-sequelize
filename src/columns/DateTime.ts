@@ -1,5 +1,4 @@
-import {
-  DataTypes,
+import sequelize, {
   DateDataTypeConstructor,
   DateDataType,
   ModelAttributeColumnOptions,
@@ -64,6 +63,6 @@ export class DateTime<Type extends Date | null = Date | null> extends AdvancedCo
   }
 
   protected getType() {
-    return DataTypes.DATE;
+    return sequelize.DataTypes.DATE;
   }
 }
