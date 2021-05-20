@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import sequelize from 'sequelize';
 import { AdvancedColumn } from './AdvancedColumn';
 import { BaseColumnOptions } from './BaseColumn';
 
@@ -14,6 +14,6 @@ export class Boolean<Type extends boolean | null = boolean | null> extends Advan
   declare readonly default: (value: boolean) => Boolean<NonNullable<Type>>;
 
   protected getType() {
-    return DataTypes.BOOLEAN;
+    return sequelize.DataTypes.BOOLEAN;
   }
 }

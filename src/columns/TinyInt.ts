@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import sequelize from 'sequelize';
 import { AbstractNumber, AbstractNumberOptions } from './AbstractNumber';
 
 interface TinyIntOptions<T extends number | null> extends AbstractNumberOptions<T> {}
@@ -13,6 +13,6 @@ export class TinyInt<Type extends number | null = number | null> extends Abstrac
   declare readonly default: (value: number) => TinyInt<NonNullable<Type>>;
 
   protected getType() {
-    return DataTypes.TINYINT;
+    return sequelize.DataTypes.TINYINT;
   }
 }

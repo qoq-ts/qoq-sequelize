@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import sequelize from 'sequelize';
 import { AdvancedColumn } from './AdvancedColumn';
 import { BaseColumnOptions } from './BaseColumn';
 
@@ -17,6 +17,6 @@ export class Uuid<Type extends boolean | null = boolean | null> extends Advanced
   }
 
   protected getType() {
-    return DataTypes.UUID;
+    return sequelize.DataTypes.UUID;
   }
 }

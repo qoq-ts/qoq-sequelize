@@ -1,4 +1,4 @@
-import { DataTypes, ModelAttributeColumnOptions, VirtualDataTypeConstructor } from 'sequelize';
+import sequelize, { ModelAttributeColumnOptions, VirtualDataTypeConstructor } from 'sequelize';
 import { RealColumnType } from '../types/custom/ColumnType';
 import { AdvancedColumn } from './AdvancedColumn';
 import { BaseColumn, BaseColumnOptions } from './BaseColumn';
@@ -8,7 +8,7 @@ export class ColumnVirtual<T = unknown> extends BaseColumn<BaseColumnOptions<T>>
   protected fields?: string[];
 
   /**
-   * @see DataTypes.VIRTUAL
+   * @see sequelize.DataTypes.VIRTUAL
    */
   public returnType<Type extends AdvancedColumn>(
     columnType: Type,
@@ -26,7 +26,7 @@ export class ColumnVirtual<T = unknown> extends BaseColumn<BaseColumnOptions<T>>
   }
 
   protected getType() {
-    return DataTypes.VIRTUAL;
+    return sequelize.DataTypes.VIRTUAL;
   }
 
   public /*protected*/ collect(): ModelAttributeColumnOptions {

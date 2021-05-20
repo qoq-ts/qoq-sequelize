@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import sequelize from 'sequelize';
 import { AbstractNumber, AbstractNumberOptions } from './AbstractNumber';
 
 interface IntOptions<T extends number | null> extends AbstractNumberOptions<T> {}
@@ -13,6 +13,6 @@ export class Int<Type extends number | null = number | null> extends AbstractNum
   declare readonly default: (value: number) => Int<NonNullable<Type>>;
 
   protected getType() {
-    return DataTypes.INTEGER;
+    return sequelize.DataTypes.INTEGER;
   }
 }

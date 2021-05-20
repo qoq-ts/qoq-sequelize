@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import sequelize from 'sequelize';
 import { AdvancedColumn } from './AdvancedColumn';
 import { BaseColumnOptions } from './BaseColumn';
 
@@ -21,6 +21,6 @@ export class Json<Type extends object | null = object | null> extends AdvancedCo
   declare readonly default: (value: NonNullable<Type>) => Json<NonNullable<Type>>;
 
   protected getType() {
-    return DataTypes.JSON;
+    return sequelize.DataTypes.JSON;
   }
 }

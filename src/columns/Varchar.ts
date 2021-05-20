@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import sequelize from 'sequelize';
 import { AbstractString, AbstractStringOptions } from './AbstractString';
 
 interface VarcharOptions<T extends string | null> extends AbstractStringOptions<T> {}
@@ -13,6 +13,6 @@ export class Varchar<Type extends string | null = string | null> extends Abstrac
   declare readonly default: (value: string) => Varchar<NonNullable<Type>>;
 
   protected getType() {
-    return DataTypes.STRING;
+    return sequelize.DataTypes.STRING;
   }
 }

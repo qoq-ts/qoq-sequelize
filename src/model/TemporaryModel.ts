@@ -1,4 +1,4 @@
-import { AddScopeOptions, Model, ModelAttributes } from 'sequelize';
+import sequelize, { AddScopeOptions, ModelAttributes } from 'sequelize';
 import snake from 'lodash.snakecase';
 import chalk from 'chalk';
 import { BaseColumn } from '../columns/BaseColumn';
@@ -9,7 +9,7 @@ import type { DefineModelOptions } from './defineModel';
 import { topic } from '../util/topic';
 import { OrderHelper } from './OrderHelper';
 
-export abstract class TemporaryModel extends Model {
+export abstract class TemporaryModel extends sequelize.Model {
   static __currentKey?: string;
 
   static __INIT__?: DefineModelOptions<

@@ -1,4 +1,4 @@
-import { RealDataType, RealDataTypeConstructor, RealDataTypeOptions, DataTypes } from 'sequelize';
+import sequelize, { RealDataType, RealDataTypeConstructor, RealDataTypeOptions } from 'sequelize';
 import { AbstractNumberOptions, AbstractNumber } from './AbstractNumber';
 
 export interface RealOptions<T extends number | null> extends AbstractNumberOptions<T> {
@@ -23,6 +23,6 @@ export class Real<Type extends number | null = number | null> extends AbstractNu
   }
 
   protected getType() {
-    return DataTypes.REAL;
+    return sequelize.DataTypes.REAL;
   }
 }
