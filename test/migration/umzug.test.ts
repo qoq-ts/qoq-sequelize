@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { Umzug } from 'umzug';
+import * as umzug from 'umzug';
 import { Sequelize } from '../../src';
 import { createUmzugForMigration, createUmzugForSeeder } from '../../src/migration/createUmzug';
 
@@ -19,8 +19,8 @@ afterAll(async () => {
 });
 
 it('can instance umzug', async () => {
-  expect(await createUmzugForMigration(sequelize)).toBeInstanceOf(Umzug);
-  expect(await createUmzugForSeeder(sequelize)).toBeInstanceOf(Umzug);
+  expect(await createUmzugForMigration(sequelize)).toBeInstanceOf(umzug.Umzug);
+  expect(await createUmzugForSeeder(sequelize)).toBeInstanceOf(umzug.Umzug);
 });
 
 it('will log when migrating', async () => {

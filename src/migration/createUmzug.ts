@@ -1,13 +1,13 @@
 import path from 'path';
-import { Umzug, SequelizeStorage, RunnableMigration, memoryStorage } from 'umzug';
+import * as umzug from 'umzug';
 import { MigrationHelper } from './MigrationHelper';
 import { Sequelize } from '../model/Sequelize';
 import { QueryInterface } from '../types/override/QueryInterface';
 import { createMeta } from './createMeta';
 import { finder } from 'qoq';
 
-const parseMigrations = async (dir: string): Promise<RunnableMigration<QueryInterface>[]> => {
-  const migrationList: RunnableMigration<QueryInterface>[] = [];
+const parseMigrations = async (dir: string): Promise<umzug.RunnableMigration<QueryInterface>[]> => {
+  const migrationList: umzug.RunnableMigration<QueryInterface>[] = [];
   const matches = await finder(finder.normalize(dir));
 
   await Promise.all(
@@ -30,36 +30,36 @@ const parseMigrations = async (dir: string): Promise<RunnableMigration<QueryInte
 
 export const createUmzugForMigration = async (
   sequelize: Sequelize,
-): Promise<Umzug<QueryInterface>> => {
-  const umzug = new Umzug<QueryInterface>({
+): Promise<umzug.Umzug<QueryInterface>> => {
+  const instance = new umzug.Umzug<QueryInterface>({
     migrations: await parseMigrations(sequelize.migrationsPath),
     context: sequelize.getQueryInterface(),
-    storage: new SequelizeStorage({
+    storage: new umzug.SequelizeStorage({
       model: createMeta(sequelize),
       columnName: 'name',
     }),
     logger: undefined,
   });
 
-  registerEvents(umzug);
-  return umzug;
+  registerEvents(instance);
+  return instance;
 };
 
 export const createUmzugForSeeder = async (
   sequelize: Sequelize,
-): Promise<Umzug<QueryInterface>> => {
-  const umzug = new Umzug<QueryInterface>({
+): Promise<umzug.Umzug<QueryInterface>> => {
+  const instance = new umzug.Umzug<QueryInterface>({
     migrations: await parseMigrations(sequelize.seedersPath),
     context: sequelize.getQueryInterface(),
-    storage: memoryStorage(),
+    storage: umzug.memoryStorage(),
     logger: undefined,
   });
 
-  registerEvents(umzug);
-  return umzug;
+  registerEvents(instance);
+  return instance;
 };
 
-const registerEvents = (umzug: Umzug<QueryInterface>) => {
+const registerEvents = (umzug: umzug.Umzug<QueryInterface>) => {
   let time: number;
 
   umzug.on('migrating', (data) => {
