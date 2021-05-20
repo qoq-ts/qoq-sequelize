@@ -1,7 +1,8 @@
 {
   "name": "qoq-sequelize",
-  "version": "0.0.21",
-  "main": "lib/index.js",
+  "version": "0.0.22",
+  "main": "./lib/index.js",
+  "module": "./es/index.js",
   "repository": "git@github.com:qoq-ts/qoq-sequelize.git",
   "author": "原罪",
   "license": "MIT",
