@@ -1,6 +1,9 @@
 import sequelize from 'sequelize';
 
-export const { fn, literal, col, LOCK, Transaction, Op } = sequelize;
+export class Transaction extends sequelize.Transaction {}
+export const { fn, literal, col, Op } = sequelize;
+export type { Col, Literal, Fn } from 'sequelize/types/lib/utils';
+
 export type { ModelInstance, ModelObject } from './types/custom/TransformModel';
 export type { QueryInterface } from './types/override/QueryInterface';
 export { defineModel } from './model/defineModel';
