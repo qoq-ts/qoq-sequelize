@@ -1,6 +1,6 @@
 {
   "name": "qoq-sequelize",
-  "version": "0.0.22",
+  "version": "0.0.26",
   "main": "./lib/index.js",
   "module": "./es/index.js",
   "repository": "git@github.com:qoq-ts/qoq-sequelize.git",
