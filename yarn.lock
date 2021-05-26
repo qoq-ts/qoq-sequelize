@@ -3689,15 +3689,6 @@ psl@^1.1.28, psl@^1.1.33:
   resolved "https://registry.npmjs.org/psl/-/psl-1.8.0.tgz#9326f8bcfb013adcc005fdff056acce020e51c24"
   integrity sha512-RIdOzyoavK+hA18OGGWDqUTsCLhtA7IcZ/6NCs4fFJaHBDab+pDDmDIByWFRQJq2Cd7r1OoQxBGKOaztq+hjIQ==
 
-public-refactor@^0.8.1:
-  version "0.8.1"
-  resolved "https://registry.npmjs.org/public-refactor/-/public-refactor-0.8.1.tgz#e979a48c8fcb978b03d92067919fcd52f1901ca8"
-  integrity sha512-+2BkG4ClsVw+7Fjfkb7YEwT+UFX/5SPcilSb1S9GrG3TEVakyXYf+lvxw9PrMyH5rMjA09UfiJahq6v/+yAVwQ==
-  dependencies:
-    chalk "^4.1.1"
-    glob "^7.1.6"
-    minimist "^1.2.5"
-
 pump@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/pump/-/pump-3.0.0.tgz#b4a2116815bde2f4e1ea602354e8c75565107a64"
@@ -3711,10 +3702,10 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.npmjs.org/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-qoq@^0.0.51:
-  version "0.0.51"
-  resolved "https://registry.npmjs.org/qoq/-/qoq-0.0.51.tgz#2601ade093a8c4bc5ec0a988b59b746ff2844613"
-  integrity sha512-okM/X8Hv08pHh9BK0M+TZTP2JqykyONQcsyVbSE/yH8M+IJO6b94qUFEgS4u6vcqg4N35DRYXBEnlYeMjRflqA==
+qoq@^0.0.55:
+  version "0.0.55"
+  resolved "https://registry.npmjs.org/qoq/-/qoq-0.0.55.tgz#228ce80798031cd9e8fe4136d651571e116c53f9"
+  integrity sha512-oeK2UzKaOpp4ApvCknwdaTdYy9Zu/fqViC8X4tXdsLvR6uu0ltFMZwPVjF3Ypm3KK77qwTfOTJtCPH6egYKskw==
   dependencies:
     "@types/formidable" "^1.2.2"
     "@types/koa" "2.13.1"
@@ -3729,6 +3720,7 @@ qoq@^0.0.51:
     koa-qs "^3.0.0"
     lru-cache "^6.0.0"
     mkdirp "^1.0.4"
+    node-rootdir "^0.0.7"
     path-to-regexp "^6.2.0"
     read-pkg-up "^8.0.0"
     rimraf "^3.0.2"
@@ -4501,6 +4493,11 @@ topic@^2.1.2:
   version "2.1.2"
   resolved "https://registry.npmjs.org/topic/-/topic-2.1.2.tgz#4dfa8fd5755e700bd4095748d43ccc7c55635cbd"
   integrity sha512-61zPh4fqF3W7MXKFpYlaU1ejSt0yoQiUi63x0dPH4IBOfTf/WWhX6NzM4AdTWFAnVNockJoCct1acH7GLv4euQ==
+
+topic@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/topic/-/topic-3.0.0.tgz#f247173d27c8da121917c8f5f05efe8df60bce4b"
+  integrity sha512-H8WFUpCQwbtKAjnKvkQ7YT+/pcVVbGmehiOyw7ZwKtsCaOyHnz6o4CSQhFKqc+VODjpy8XmeWie0Hq7X+uMIag==
 
 toposort-class@^1.0.1:
   version "1.0.1"
