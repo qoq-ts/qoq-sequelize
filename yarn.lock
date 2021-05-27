@@ -4437,6 +4437,11 @@ test-exclude@^6.0.0:
     glob "^7.1.4"
     minimatch "^3.0.4"
 
+this-file@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/this-file/-/this-file-2.0.2.tgz#745a9ef09d12ff03565636eb5328df1ca25c3137"
+  integrity sha512-JUNkmS0so8PcKyDgzrUWUPllxqhJ3JcGpjgMRR4DW+z6qkvvQ1ce7xyTGkI7lBR+vemyH9pr8beDTkPyZQJFlg==
+
 throat@^5.0.0:
   version "5.0.0"
   resolved "https://registry.npmjs.org/throat/-/throat-5.0.0.tgz#c5199235803aad18754a667d659b5e72ce16764b"

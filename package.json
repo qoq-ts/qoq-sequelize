@@ -35,9 +35,9 @@
     "chalk": "^4.1.1",
     "lodash.snakecase": "^4.1.1",
     "mkdirp": "^1.0.4",
-    "node-rootdir": "^0.0.7",
     "sanitize-filename": "^1.6.3",
     "sequelize": "6.6.2",
+    "this-file": "^2.0.2",
     "topic": "^3.0.0",
     "tslib": "^2.2.0",
     "umzug": "3.0.0-beta.15"

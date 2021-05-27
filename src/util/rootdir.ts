@@ -1,8 +1,4 @@
-import { getRootDir } from 'node-rootdir';
+import { dirname } from 'path';
+import { createContext } from 'this-file';
 
-// TODO: import.meta.url
-export const rootdir = getRootDir('qoq-sequelize', {
-  esmodule: './es',
-  commonjs: './lib',
-  source: './src',
-});
+export const rootdir = dirname(createContext().dirname);
