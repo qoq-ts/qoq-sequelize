@@ -25,15 +25,12 @@ it('cannot operate the model before sequelize is initialized', async () => {
     storage,
   });
 
-  try {
-    await User.create({
+  await expect(
+    User.create({
       name: 'x',
       age: 10,
-    });
-    expect(true).toBeFalsy();
-  } catch {
-    expect(true).toBeTruthy();
-  }
+    }),
+  ).rejects.toThrowError();
 
   await sequelize.ready();
 

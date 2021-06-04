@@ -39,21 +39,20 @@
     "sequelize": "6.6.2",
     "this-file": "^2.0.2",
     "topic": "^3.0.0",
-    "tslib": "^2.2.0",
     "umzug": "3.0.0-beta.16"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "@types/lodash.snakecase": "^4.1.6",
     "@types/mkdirp": "^1.0.1",
-    "@types/node": "^15.0.2",
+    "@types/node": "^15.12.0",
     "@types/rimraf": "^3.0.0",
-    "jest": "^26.6.3",
+    "jest": "^27.0.4",
     "prettier": "^2.3.0",
     "qoq": "^0.0.55",
     "rimraf": "^3.0.2",
     "sqlite3": "^5.0.2",
-    "ts-jest": "^26.5.6",
-    "typescript": "^4.2.4"
+    "ts-jest": "^27.0.2",
+    "typescript": "4.2.4"
   }
 }

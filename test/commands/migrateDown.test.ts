@@ -25,17 +25,13 @@ it('migrate down with option --to', async () => {
   await app.execute('db:migrate');
   expect(await Meta.findAll()).toHaveLength(migrationsCount);
 
-  try {
-    await app.execute('db:migrate:undo:all', '--to', 'non-exists');
-  } catch {}
+  await app.execute('db:migrate:undo:all', '--to', 'non-exists');
   expect(await Meta.findAll()).toHaveLength(migrationsCount);
 
   await app.execute('db:migrate:undo:all', '--to', '002-createProject');
   expect(await Meta.findAll()).toHaveLength(1);
 
-  try {
-    await app.execute('db:migrate:undo:all', '--to', '001-createUser');
-  } catch {}
+  await app.execute('db:migrate:undo:all', '--to', '001-createUser');
   expect(await Meta.findAll()).toHaveLength(0);
 });
 

@@ -8,7 +8,7 @@
     "declaration": true,
     "outDir": "./build",
     "rootDir": ".",
-    "importHelpers": true,
+    "importHelpers": false,
 
     "strict": true,
     "noImplicitAny": true,
@@ -26,7 +26,6 @@
     "noUncheckedIndexedAccess": true,
 
     "moduleResolution": "node",
-    "typeRoots": ["./node_modules/@types/", "./typing/"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
 

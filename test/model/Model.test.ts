@@ -68,14 +68,11 @@ it('can find single record', async () => {
 });
 
 it('empty record will throw error', async () => {
-  try {
-    await User.findOne({
+  await expect(
+    User.findOne({
       rejectOnEmpty: true,
-    });
-    expect(true).toBeFalsy();
-  } catch {
-    return;
-  }
+    }),
+  ).rejects.toThrowError();
 
   await User.create({
     name: 'test3',
