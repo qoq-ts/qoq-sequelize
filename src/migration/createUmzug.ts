@@ -68,7 +68,7 @@ const registerEvents = (umzug: umzug.Umzug<QueryInterface>) => {
   });
 
   umzug.on('migrated', (data) => {
-    console.log('== ' + data.name + ': migrated (' + (Date.now() - time) / 1000 + 's)');
+    console.log('== ' + data.name + ': migrated (' + getUsedTime(time) + ')');
   });
 
   umzug.on('reverting', (data) => {
@@ -77,6 +77,8 @@ const registerEvents = (umzug: umzug.Umzug<QueryInterface>) => {
   });
 
   umzug.on('reverted', (data) => {
-    console.log('== ' + data.name + ': reverted (' + (Date.now() - time) / 1000 + 's)');
+    console.log('== ' + data.name + ': reverted (' + getUsedTime(time) + ')');
   });
 };
+
+const getUsedTime = (fromTime: number) => ((Date.now() - fromTime) / 1000).toFixed(3) + 's';
